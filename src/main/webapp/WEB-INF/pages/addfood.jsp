@@ -40,10 +40,41 @@
     </div>
   </div>
 
+  <script>
+    var prefix = '/getsubcategory';
+
+    var RestGet = function() {
+      $.ajax({
+        type: 'GET',
+        url:  prefix + '/' + ,
+        dataType: 'json',
+        async: true,
+        success: function(result) {
+          alert('Время: ' + result.time
+          + ', сообщение: ' + result.message);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert(jqXHR.status + ' ' + jqXHR.responseText);
+        }
+      });
+    }
+  </script>
+
   <div class="row">
     <form:form action="/addfood" method="POST" id="form" commandName="food" class="form-horizontal" enctype="multipart/form-data">
       <div class="col-lg-12">
         <!--   <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span></strong></div> -->
+        <div class="form-group">
+          <label for="namecategory"><spring:message text="Виберіть Категорію"/> </label>
+          <div class="input-group">
+            <select name="namecategory" id="namecategory">
+              <c:forEach items="${listCategory}" var="item">
+                <option> <c:out value="${item.name}"/> </option>
+              </c:forEach>
+            </select>
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="idFood"><spring:message text="Введіть ід продукту"/> </label>
           <div class="input-group">

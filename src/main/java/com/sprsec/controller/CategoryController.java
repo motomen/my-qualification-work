@@ -71,4 +71,10 @@ public class CategoryController {
         subcategoryService.addSubcategory(subcategory);
         return "redirect:/";
     }
+
+    @RequestMapping(value = "/getsubcategory", method = RequestMethod.GET)
+    public String getListSubcategory(){
+
+        String result;
+    }
 }
