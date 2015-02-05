@@ -6,18 +6,15 @@ import com.sprsec.service.category.CategoryService;
 import com.sprsec.service.category.SubcategoryService;
 import com.sprsec.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.codec.Base64;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.sql.rowset.serial.SerialException;
-import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
+import java.io.UnsupportedEncodingException;
+
 
 /**
  * Created by Yaroslav on 03.02.2015.
@@ -43,7 +40,6 @@ public class CategoryController {
                                  @RequestParam("description") String description,
                                  ModelMap model) {
         Category category = new Category();
-        Blob blob;
         category.setPhoto(Util.fileToString(file)); // convert file in String Base64
         category.setDescription(description);
         category.setName(name);
@@ -72,9 +68,12 @@ public class CategoryController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/getsubcategory", method = RequestMethod.GET)
-    public String getListSubcategory(){
-
-        String result;
+    @RequestMapping(value = "/getsubcategory/{namecategory}", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView allListSubcategory(@PathVariable("namecategory") String name){
+        ModelAndView mav = new ModelAndView("frames/subcategory");
+        Category category = categoryService.getCategoryByName(Util.Iso88591ToUtf8(name));
+        mav.addObject("listSubcategory", category.getSubCategories());
+        return mav;
     }
 }

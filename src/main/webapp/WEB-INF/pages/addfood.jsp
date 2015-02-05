@@ -20,6 +20,37 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.css">
   <!-- Latest compiled and minified JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script>
+
+
+    $(document).ready(function() {
+
+      $('#namecategory').change(function() {
+
+        var name = $('#namecategory').val();
+
+      //  var json = { "namecategory" : name};
+
+        $.ajax({
+          url: "${pageContext.request.contextPath}/getsubcategory/" + name,
+          dataType: 'json',
+          type: 'POST',
+          success: function(event) {
+            alert("Sucsess");
+          },
+          error: function(status, er) {
+            alert(" status: " + status + " er:" + er);
+          }
+        });
+
+        event.preventDefault();
+      });
+
+    });
+  </script>
+
 </head>
 <body>
 
@@ -40,25 +71,7 @@
     </div>
   </div>
 
-  <script>
-    var prefix = '/getsubcategory';
 
-    var RestGet = function() {
-      $.ajax({
-        type: 'GET',
-        url:  prefix + '/' + ,
-        dataType: 'json',
-        async: true,
-        success: function(result) {
-          alert('Время: ' + result.time
-          + ', сообщение: ' + result.message);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          alert(jqXHR.status + ' ' + jqXHR.responseText);
-        }
-      });
-    }
-  </script>
 
   <div class="row">
     <form:form action="/addfood" method="POST" id="form" commandName="food" class="form-horizontal" enctype="multipart/form-data">
@@ -74,6 +87,8 @@
             </select>
           </div>
         </div>
+
+        <jsp:include page="frames/subcategory.jsp"/>
 
         <div class="form-group">
           <label for="idFood"><spring:message text="Введіть ід продукту"/> </label>

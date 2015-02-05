@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.SQLException;
 
@@ -28,5 +29,21 @@ public class Util {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String Iso88591ToUtf8(String value) {
+        byte ptext[] = new byte[0];
+        try {
+            ptext = value.getBytes("ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String newValue = null;
+        try {
+            newValue = new String(ptext, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return newValue;
     }
 }

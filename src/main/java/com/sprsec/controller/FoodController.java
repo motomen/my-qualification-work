@@ -1,6 +1,7 @@
 package com.sprsec.controller;
 
 import com.sprsec.model.Food;
+import com.sprsec.service.category.CategoryService;
 import com.sprsec.service.food.FoodService;
 import com.sprsec.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,13 @@ public class FoodController {
     @Autowired
     private FoodService foodService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @RequestMapping(value = "/addfood", method = RequestMethod.GET)
     public String addFood(ModelMap model) {
         model.addAttribute("food", new Food());
+        model.addAttribute("listCategory", categoryService.allCategory());
         return "addfood";
     }
 
