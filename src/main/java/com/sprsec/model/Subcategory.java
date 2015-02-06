@@ -65,4 +65,12 @@ public class Subcategory implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public List<Food> getFood() {
+        return food;
+    }
+
+    public void setFood(List<Food> food) {
+        this.food = food;
+    }
 }

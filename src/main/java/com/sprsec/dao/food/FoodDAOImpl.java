@@ -1,6 +1,7 @@
 package com.sprsec.dao.food;
 
 import com.sprsec.model.Food;
+import com.sprsec.model.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,11 @@ public class FoodDAOImpl implements FoodDAO {
                                 "SELECT f FROM food f order by f.rating").setMaxResults(10).list()
                         );
         return new ArrayList<Food>(foodSet);
+    }
+
+    @Override
+    public Food getFoodById(String id) {
+        Food food = (Food) getCurrentSession().load(Food.class, id);
+        return food;
     }
 }

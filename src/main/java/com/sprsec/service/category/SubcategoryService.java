@@ -1,5 +1,6 @@
 package com.sprsec.service.category;
 
+import com.sprsec.model.Category;
 import com.sprsec.model.Subcategory;
 
 /**
@@ -7,4 +8,5 @@ import com.sprsec.model.Subcategory;
  */
 public interface SubcategoryService {
     public void addSubcategory(Subcategory subcategory);
+    public Subcategory getCategoryByName(String name);
 }

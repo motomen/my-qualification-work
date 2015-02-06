@@ -10,4 +10,5 @@ import java.util.List;
 public interface FoodService {
     public void addFood(Food food);
     public List<Food> getAllFood();
+    public Food getFoodById(String id);
 }

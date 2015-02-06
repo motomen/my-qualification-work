@@ -23,7 +23,7 @@ public class Food {
     private Double kcal;
     private String ingredients;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "food_to_category",
             joinColumns = {@JoinColumn(name="id_fk_food", referencedColumnName = "id_food_tc")},

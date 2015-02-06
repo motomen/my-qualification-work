@@ -27,4 +27,9 @@ public class FoodServiceImpl implements FoodService {
     public List<Food> getAllFood() {
         return foodDAO.getAllFood();
     }
+
+    @Override
+    public Food getFoodById(String id) {
+        return foodDAO.getFoodById(id);
+    }
 }

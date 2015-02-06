@@ -2,6 +2,7 @@ package com.sprsec.controller;
 
 import com.sprsec.model.Food;
 import com.sprsec.service.category.CategoryService;
+import com.sprsec.service.category.SubcategoryService;
 import com.sprsec.service.food.FoodService;
 import com.sprsec.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class FoodController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private SubcategoryService subcategoryService;
+
     @RequestMapping(value = "/addfood", method = RequestMethod.GET)
     public String addFood(ModelMap model) {
         model.addAttribute("food", new Food());
@@ -49,6 +53,7 @@ public class FoodController {
             @RequestParam("carbs") Double carbs,
             @RequestParam("kcal") Double kcal,
             @RequestParam("ingredients") String ingredients,
+            @RequestParam("subcategory") String subcategory,
             ModelMap model) {
         Food food = new Food();
         food.setIdFood(idFood);
@@ -61,6 +66,8 @@ public class FoodController {
         food.setIngredients(ingredients);
         food.setPhoto(Util.fileToString(file)); //convert file to string Base64
         foodService.addFood(food);
+        food = foodService.getFoodById(food.getIdFood());
+        food.getSubcategories().add(subcategoryService.getCategoryByName(subcategory));
         return "redirect:/";
     }
 }

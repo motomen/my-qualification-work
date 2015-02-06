@@ -104,10 +104,6 @@
           </div>
         </div>
 
-        <div id="subdiv">
-
-        </div>
-
         <div class="form-group">
           <label for="idFood"><spring:message text="Введіть ід продукту"/> </label>
           <div class="input-group">
@@ -133,7 +129,6 @@
           <label for="fats"><spring:message text="Жири"/></label>
           <div class="input-group">
             <form:input type="text" class="form-control" id="fats" path="fats" name="fats" placeholder="" />
-            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
           </div>
         </div>
 
@@ -141,7 +136,6 @@
           <label for="carbs"><spring:message text="Вуглеводи"/></label>
           <div class="input-group">
             <form:input type="text" class="form-control" id="carbs" path="carbs" name="carbs" placeholder="" />
-            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
           </div>
         </div>
 
@@ -149,13 +143,15 @@
           <label for="kcal"><spring:message text="Кіло калорій в 100 гр."/></label>
           <div class="input-group">
             <form:input type="text" class="form-control" id="kcal" path="kcal" name="kcal" placeholder="" />
-            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
           </div>
         </div>
 
         <div class="form-group">
           <div class="input-group">
             <input type="file" id="files" name="file" />
+            <div id="imgreplace">
+              <img id="photouser" class="img-thumbnail" heiht="140" width="140" src="${pageContext.request.contextPath}/resources/img/user.jpg" />
+            </div>
             <output id="list"></output>
             <script >
               function handleFileSelect(evt) {
@@ -175,10 +171,9 @@
                   reader.onload = (function(theFile) {
                     return function(e) {
                       // Render thumbnail.
-                      var span = document.createElement('span');
-                      span.innerHTML = ['<img class="img-thumbnail" height="140" width="140" + src="', e.target.result,
-                        '" title="', escape(theFile.name), '"/>'].join('');
-                      document.getElementById('list').insertBefore(span, null);
+                      var content;
+                      content = "<img class=\"img-thumbnail\" height=\"140\" width=\"140\" src=\""+ e.target.result+"\"/>";
+                      $("#imgreplace").html(content);
                     };
                   })(f);
 

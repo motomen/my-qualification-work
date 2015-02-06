@@ -82,7 +82,9 @@
         <div class="form-group">
           <div class="input-group">
             <form:input type="file" id="files" name="photo" path="photo" />
-            <img id="photouser" class="img-thumbnail" heiht="140" width="140" src="${pageContext.request.contextPath}/resources/img/user.jpg" />
+            <div id="imgreplace">
+              <img id="photouser" class="img-thumbnail" heiht="140" width="140" src="${pageContext.request.contextPath}/resources/img/user.jpg" />
+            </div>
             <script >
               function handleFileSelect(evt) {
                 function changeImage(a) {
@@ -103,9 +105,9 @@
                   reader.onload = (function(theFile) {
                     return function(e) {
                       // Render thumbnail.
-                      var span = document.createElement('span');
-                      span.innerHTML = ['<img id="photouser" class="img-thumbnail" height="140" width="140" + src="', e.target.result,
-                        '" title="', escape(theFile.name), '"/>'].join('');
+                      var content;
+                      content = "<img class=\"img-thumbnail\" height=\"140\" width=\"140\" src=\""+ e.target.result+"\"/>";
+                      $("#imgreplace").html(content);
                     };
                   })(f);
 

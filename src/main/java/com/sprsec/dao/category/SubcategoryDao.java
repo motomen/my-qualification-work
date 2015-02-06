@@ -1,5 +1,6 @@
 package com.sprsec.dao.category;
 
+import com.sprsec.model.Category;
 import com.sprsec.model.Subcategory;
 
 /**
@@ -11,4 +12,10 @@ public interface SubcategoryDao {
      * @param subcategory
      */
     public void addSubcategory(Subcategory subcategory);
+
+    /**
+     * Return Subcategory by name
+     * @param name
+     */
+    public Subcategory getSubcategoryByName(String name);
 }
