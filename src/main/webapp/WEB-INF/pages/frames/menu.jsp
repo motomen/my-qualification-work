@@ -29,7 +29,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>
-          <a href="/goods"><spring:message text="Перегляд товарів"/></a>
+          <a href="/foods"><spring:message text="Перегляд товарів"/></a>
         </li>
         <li>
           <a href="/login"><spring:message text="Увійти"/></a>

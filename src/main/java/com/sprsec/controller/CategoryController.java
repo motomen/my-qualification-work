@@ -76,9 +76,4 @@ public class CategoryController {
         List<Subcategory> list = category.getSubCategories();
         return list;
     }
-
-    @RequestMapping(value = "frames/subcategory", method = RequestMethod.GET)
-    public String getSubcategory() {
-        return "frames/subcategory";
-    }
 }

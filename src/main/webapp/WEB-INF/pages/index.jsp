@@ -44,7 +44,7 @@
     <c:forEach items="${foodList}" var="food">
       <div>
         <h2 class="title"><c:out value="${food.name}"/></h2>
-        <img class="img-thumbnail" name="myImg" src="data:image/jpg;base64,<c:out value='${food.photo}'/>" >
+        <img class="img-thumbnail" height="200" width="200" name="myImg" src="data:image/jpg;base64,<c:out value='${food.photo}'/>" >
       </div>
     </c:forEach>
   </div>
