@@ -23,8 +23,6 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
   <script>
-
-
     $(document).ready(function() {
 
       $('#namecategory').change(function() {
@@ -36,9 +34,19 @@
         $.ajax({
           url: "${pageContext.request.contextPath}/getsubcategory/" + name,
           dataType: 'json',
-          type: 'POST',
-          success: function(event) {
-            alert("Sucsess");
+          type: 'GET',
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+          },
+          success: function(list) {
+            var respContent =
+                    "<select name=" + "\"subcategory\" id=" + "\"subcategory\"" +">";
+            jQuery.each(list, function(index, value){
+              respContent += "<option>" + value.name + "</option>"
+            });
+            respContent += "</select>";
+            $("#listsubcategory").html(respContent);
           },
           error: function(status, er) {
             alert(" status: " + status + " er:" + er);
@@ -88,7 +96,17 @@
           </div>
         </div>
 
-        <jsp:include page="frames/subcategory.jsp"/>
+        <div class="form-group">
+          <div class="input-group">
+            <div id = "listsubcategory">
+
+            </div>
+          </div>
+        </div>
+
+        <div id="subdiv">
+
+        </div>
 
         <div class="form-group">
           <label for="idFood"><spring:message text="Введіть ід продукту"/> </label>

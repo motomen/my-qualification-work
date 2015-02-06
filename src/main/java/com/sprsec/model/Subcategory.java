@@ -1,5 +1,7 @@
 package com.sprsec.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +22,7 @@ public class Subcategory implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "fk_category")
+    @JsonBackReference
     private Category category;
 
     @OneToMany
@@ -28,6 +31,7 @@ public class Subcategory implements Serializable {
             joinColumns = {@JoinColumn(name="id_fk_fcategory", referencedColumnName = "id_sub_category")},
             inverseJoinColumns = {@JoinColumn(name="id_fk_food", referencedColumnName = "id_food_tc")}
     )
+
     private List<Food> food;
 
     public int getIdSubCategory() {

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 
 /**
@@ -68,12 +69,16 @@ public class CategoryController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/getsubcategory/{namecategory}", method = RequestMethod.POST)
+    @RequestMapping(value = "/getsubcategory/{namecategory}", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView allListSubcategory(@PathVariable("namecategory") String name){
-        ModelAndView mav = new ModelAndView("frames/subcategory");
+    public List<Subcategory> allListSubcategory(@PathVariable("namecategory") String name){
         Category category = categoryService.getCategoryByName(Util.Iso88591ToUtf8(name));
-        mav.addObject("listSubcategory", category.getSubCategories());
-        return mav;
+        List<Subcategory> list = category.getSubCategories();
+        return list;
+    }
+
+    @RequestMapping(value = "frames/subcategory", method = RequestMethod.GET)
+    public String getSubcategory() {
+        return "frames/subcategory";
     }
 }

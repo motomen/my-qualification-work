@@ -1,6 +1,8 @@
 package com.sprsec.model;
 
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -20,7 +22,8 @@ public class Category implements Serializable{
     private String description;
     private String photo;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Subcategory> subCategories;
 
     public int getIdCategory() {
