@@ -32,13 +32,13 @@
       //  var json = { "namecategory" : name};
 
         $.ajax({
+          type: 'GET',
           url: "${pageContext.request.contextPath}/getsubcategory/" + name,
           dataType: 'json',
-          type: 'GET',
-          beforeSend: function(xhr) {
-            xhr.setRequestHeader("Accept", "application/json");
-            xhr.setRequestHeader("Content-Type", "application/json");
-          },
+//          beforeSend: function(xhr) {
+//            xhr.setRequestHeader("Accept", "application/json");
+//            xhr.setRequestHeader("Content-Type", "application/json");
+//          },
           success: function(list) {
             var respContent =
                     "<select name=" + "\"subcategory\" id=" + "\"subcategory\"" +">";
@@ -48,12 +48,12 @@
             respContent += "</select>";
             $("#listsubcategory").html(respContent);
           },
-          error: function(status, er) {
-            alert(" status: " + status + " er:" + er);
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status + ' ' + jqXHR.responseText);
           }
         });
 
-        event.preventDefault();
+       // event.preventDefault();
       });
 
     });

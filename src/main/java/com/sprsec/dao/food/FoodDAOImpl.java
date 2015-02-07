@@ -35,7 +35,7 @@ public class FoodDAOImpl implements FoodDAO {
         Set<Food> foodSet =
                 new HashSet<Food>(
                         getCurrentSession().createQuery(
-                                "SELECT f FROM food f order by f.rating").setMaxResults(10).list()
+                                "select f FROM Food f order by f.rating").setMaxResults(10).list()
                         );
         return new ArrayList<Food>(foodSet);
     }

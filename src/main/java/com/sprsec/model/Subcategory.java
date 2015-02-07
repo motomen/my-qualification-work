@@ -1,6 +1,8 @@
 package com.sprsec.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,11 +20,13 @@ public class Subcategory implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idSubCategory;
     private String name;
+
     private String img;
 
     @ManyToOne
     @JoinColumn(name = "fk_category")
-    @JsonBackReference
+   // @JsonBackReference
+    @JsonIgnore
     private Category category;
 
     @OneToMany
@@ -30,8 +34,9 @@ public class Subcategory implements Serializable {
             name = "food_to_category",
             joinColumns = {@JoinColumn(name="id_fk_fcategory", referencedColumnName = "id_sub_category")},
             inverseJoinColumns = {@JoinColumn(name="id_fk_food", referencedColumnName = "id_food_tc")}
-    )
 
+    )
+    @JsonIgnore
     private List<Food> food;
 
     public int getIdSubCategory() {

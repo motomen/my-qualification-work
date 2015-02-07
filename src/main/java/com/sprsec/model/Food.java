@@ -1,6 +1,10 @@
 package com.sprsec.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.List;
 
@@ -8,8 +12,9 @@ import java.util.List;
  * Created by Yaroslav on 01.02.2015.
  */
 
-@Entity(name = "food")
-public class Food {
+@Entity
+@Table(name = "food")
+public class Food{
 
     @Id
     @Column(name = "id_food_tc")

@@ -62,9 +62,9 @@ public class Category implements Serializable{
         return subCategories;
     }
 
-//    public void setSubCategories(List<SubCategory> subCategories) {
-//        this.subCategories = subCategories;
-//    }
+    public void setSubCategories(List<Subcategory> subCategories) {
+        this.subCategories = subCategories;
+    }
 
 
 }
