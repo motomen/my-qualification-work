@@ -49,7 +49,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
-    public String addSubcategory(ModelMap model){
+    public String addSubcategory(ModelMap model) {
         model.addAttribute("listCategory", categoryService.allCategory());
         model.addAttribute("subcategory", new Subcategory());
         return "/addsubcategory";
@@ -71,9 +71,15 @@ public class CategoryController {
 
     @RequestMapping(value = "/getsubcategory/{namecategory}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Subcategory> allListSubcategory(@PathVariable("namecategory") String name){
+    public List<Subcategory> allListSubcategory(@PathVariable("namecategory") String name) {
         Category category = categoryService.getCategoryByName(Util.Iso88591ToUtf8(name));
         List<Subcategory> list = category.getSubCategories();
         return list;
+    }
+
+    @RequestMapping(value = "/foods", method = RequestMethod.GET)
+    public String initializeFoods(ModelMap model) {
+        model.addAttribute("listCategory", categoryService.allCategory());
+        return "/foods";
     }
 }
