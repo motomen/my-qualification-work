@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,9 +66,16 @@ public class FoodController {
         food.setRating(0.0);
         food.setIngredients(ingredients);
         food.setPhoto(Util.fileToString(file)); //convert file to string Base64
-        foodService.addFood(food);
-        food = foodService.getFoodById(food.getIdFood());
         food.getSubcategories().add(subcategoryService.getCategoryByName(subcategory));
+        foodService.addFood(food);
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/showfood/{id}", method = RequestMethod.GET)
+    public String showPageFood(@PathVariable("id") String idFood,
+            ModelMap model) {
+        Food food = foodService.getFoodById(idFood);
+        model.addAttribute("food", food);
+        return "showfood";
     }
 }

@@ -1,5 +1,3 @@
-<%@ page import="java.sql.Blob" %>
-<%@ page import="org.springframework.security.crypto.codec.Base64" %>
 <%--
   Created by IntelliJ IDEA.
   User: Yaroslav
@@ -22,41 +20,22 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
 </head>
 <body>
-<jsp:include page="frames/menu.jsp"/>
+
 <!-- Page Content -->
 <div class="container">
 
-    <!-- Page Header -->
+    <div class="page-header">
+        <jsp:include page="frames/menu.jsp"/>
+    </div>
+
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                </br>
-                <small><spring:message text="Їжа для вас! </br>Їжте найкраще, та будьте здорові."/>
-                </small>
-            </h1>
+
+        <div class="col-lg-4">
+            <h4> <c:out value="${food.name}"/> </h4>
+            <img class="img-thumbnail" height="200" width="200" name="myImg"
+                 src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
         </div>
     </div>
-    <!-- /.row -->
-
-    <!-- Slider -->
-
-    <div class="liquid-slider" id="slider-id">
-        <c:forEach items="${foodList}" var="food">
-            <div>
-                <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
-                    <h2 class="title"><c:out value="${food.name}"/></h2>
-                    <img class="img-thumbnail" height="200" width="200" name="myImg"
-                         src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
-                </a>
-            </div>
-        </c:forEach>
-    </div>
-    <script>
-        $('#slider-id').liquidSlider();
-    </script>
-    <!-- End Slider -->
-
-
     <!-- Footer -->
     <footer>
         <div class="row">

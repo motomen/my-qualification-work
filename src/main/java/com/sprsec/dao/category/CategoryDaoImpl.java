@@ -7,13 +7,17 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
  * Created by Yaroslav on 03.02.2015.
  */
 @Repository
+@Transactional
 public class CategoryDaoImpl implements CategoryDao {
 
     @Autowired
@@ -33,7 +37,8 @@ public class CategoryDaoImpl implements CategoryDao {
      */
     @Override
     public List<Category> allCategory() {
-        return getCurrentSession().createCriteria(Category.class).list();
+        HashSet<Category> setCategory = new HashSet<>(getCurrentSession().createCriteria(Category.class).list());
+        return new ArrayList<Category>(setCategory);
     }
 
     /**

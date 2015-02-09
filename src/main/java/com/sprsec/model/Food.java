@@ -2,6 +2,8 @@ package com.sprsec.model;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,12 +30,13 @@ public class Food{
     private Double kcal;
     private String ingredients;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     @JoinTable(
             name = "food_to_category",
             joinColumns = {@JoinColumn(name="id_fk_food", referencedColumnName = "id_food_tc")},
             inverseJoinColumns = {@JoinColumn(name="id_fk_fcategory", referencedColumnName = "id_sub_category")}
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Subcategory> subcategories;
 
     public String getIdFood() {
