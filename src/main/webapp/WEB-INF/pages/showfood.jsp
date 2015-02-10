@@ -51,6 +51,7 @@
         </div>
     </div>
 
+    <!-- Main information fbout food -->
     <div class="row">
         <div class="col-lg-4">
             <table border="1">
@@ -74,6 +75,36 @@
             </p>
         </div>
     </div>
+    <!-- End main information -->
+
+    <!-- Alternative product -->
+
+    <!-- End block alternative product -->
+
+    <!-- Start place comments -->
+    <div class="row" >
+        <div class="row col-lg-8">
+           ${count} Коментарів
+        </div>
+        <div class="row col-lg-8">
+            sdfsdf
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <h4>Додати коментар</h4>
+                <form:form id="add-c" method="post" action="/reviews/${post.slug}/newComment"  >     <!-- END -->
+                    <form:errors cssClass="label label-danger"/>
+                    <textarea id="comm-text"  class="form-control" rows="3"/>
+                    </br>
+                    <p align="right"><button type="submit" class="btn btn-primary">Коментувати</button></p>
+                </form:form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- end place comment -->
+
     <!-- Footer -->
     <footer>
         <div class="row">
