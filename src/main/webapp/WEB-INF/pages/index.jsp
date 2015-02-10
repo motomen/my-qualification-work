@@ -15,12 +15,21 @@
 <html>
 <head>
     <title>Їжа для вас</title>
+    <!-- jQuery -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/liquid-slider.css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.liquid-slider.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.touchSwipe.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+
+    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 </head>
+
 <body>
 <jsp:include page="frames/menu.jsp"/>
 <!-- Page Content -->
@@ -40,12 +49,12 @@
 
     <!-- Slider -->
 
-    <div class="liquid-slider" id="slider-id">
+    <div class="liquid-slider" id="slider-id" width="300" height="300">
         <c:forEach items="${foodList}" var="food">
-            <div>
+            <div width="300" height="300">
                 <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
                     <h2 class="title"><c:out value="${food.name}"/></h2>
-                    <img class="img-thumbnail" height="200" width="200" name="myImg"
+                    <img class="img-thumbnail resize" name="myImg"
                          src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
                 </a>
             </div>
@@ -70,10 +79,5 @@
 </div>
 <!-- /.container -->
 
-<!-- jQuery -->
-<script src="/resources/bootstrap/js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

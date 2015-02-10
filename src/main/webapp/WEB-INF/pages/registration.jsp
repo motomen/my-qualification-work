@@ -15,11 +15,13 @@
 <head>
   <title></title>
   <!-- Latest compiled and minified CSS -->
+  <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
   <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
   <!-- Optional theme -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.css">
   <!-- Latest compiled and minified JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
+  <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 </head>
 <body>
 

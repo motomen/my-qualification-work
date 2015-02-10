@@ -20,26 +20,28 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.2.js"></script>
 
+    <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
+
     <script type="text/javascript">
-        $(document).ready(function () {
-
-
-
-            $('#some_ajax_link').click(function(){
-                $.ajax({
-                    type: "POST",
-                    /* insert a valid url here */
-                    url: "",
-                    data: { name: "John", location: "Boston" },
-                    beforeSend: function (xhr) {
-                        alert('yyy');
-                    },
-                    success: function (xhr) {
-                        alert('xxx');
-                    }
-                });
-            });
-        });
+//        $(document).ready(function () {
+//
+//
+//
+//            $('#some_ajax_link').click(function(){
+//                $.ajax({
+//                    type: "POST",
+//                    /* insert a valid url here */
+//                    url: "",
+//                    data: { name: "John", location: "Boston" },
+//                    beforeSend: function (xhr) {
+//                        alert('yyy');
+//                    },
+//                    success: function (xhr) {
+//                        alert('xxx');
+//                    }
+//                });
+//            });
+//        });
 
         function clicklink (name) {
             //disable all other links
@@ -60,7 +62,7 @@
                         respContent += " <div class=\"col-lg-2 col-md-3\"> ";
                         respContent += " <h4 class=\"title\" align=\"center\">" + value.name + "</h4> ";
                         img = value.img;
-                        respContent += " <img class=\"img-thumbnail\" height=\"100\" width=\"100\" name=\"myImg\" src=\"data:image/jpg;base64,";
+                        respContent += " <img class=\"img-thumbnail subcategory\" height=\"100\" width=\"100\" name=\"myImg\" src=\"data:image/jpg;base64,";
                         respContent += value.img + "\">";
                         respContent += " </div> ";
                     });
@@ -89,10 +91,6 @@
         </div>
     </div>
 
-    <form action="/whatever" method="POST" id="blerg">
-        <a id="some_ajax_link" href="#">Some ajax link</a>
-    </form>
-
     <div class="row">
         <div class="col-lg-2 col-md-2">
             <h3 class="title" align="center">Категорії</h3>
@@ -101,7 +99,7 @@
                     <a onclick="clicklink('${item.name}')" href="#">
                         <c:out value="${item.name}"/>
                     </a>
-                    <img class="img-thumbnail" height="100" width="100" name="myImg"
+                    <img class="img-thumbnail category"  name="myImg"
                          src="data:image/jpg;base64,<c:out value='${item.photo}'/>">
                 </div>
 

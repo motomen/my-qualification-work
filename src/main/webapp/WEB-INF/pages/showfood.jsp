@@ -13,11 +13,20 @@
 <html>
 <head>
     <title>Їжа для вас</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/liquid-slider.css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.liquid-slider.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.touchSwipe.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/star-rating.min.css" media="all" rel="stylesheet"
+          type="text/css"/>
+    <script src="${pageContext.request.contextPath}/resources/js/star-rating.min.js">
+    </script>
+    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
+          rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
 </head>
 <body>
 
@@ -28,12 +37,41 @@
         <jsp:include page="frames/menu.jsp"/>
     </div>
 
+    <!-- place main food information -->
     <div class="row">
-
         <div class="col-lg-4">
-            <h4> <c:out value="${food.name}"/> </h4>
-            <img class="img-thumbnail" height="200" width="200" name="myImg"
+            <h4>Продукт</h4>
+            <img class="img-thumbnail resize" name="myImg"
                  src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+            <input id="input-6a" class="rating" data-size="xs">
+        </div>
+        <div class="col-lg-6">
+            <h4><c:out value="${food.name}"/></h4>
+            <h5>Калорії: ${food.kcal}</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <table border="1">
+                <caption>Харчова цінність</caption>
+                <tr>
+                    <th>Білки</th>
+                    <th>Жири</th>
+                    <th>Вуглеводи</th>
+                </tr>
+                <tr>
+                    <td>${food.protein}</td>
+                    <td>${food.fats}</td>
+                    <td>${food.carbs}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <h4>Інгредієнти</h4>
+            <p>
+                ${food.ingredients}
+            </p>
         </div>
     </div>
     <!-- Footer -->
@@ -48,11 +86,5 @@
 
 </div>
 <!-- /.container -->
-
-<!-- jQuery -->
-<script src="/resources/bootstrap/js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

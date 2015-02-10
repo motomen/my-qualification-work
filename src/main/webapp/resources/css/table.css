@@ -1,0 +1,14 @@
+img.resize {
+    width: 200px;
+    height: 200px;
+}
+
+img.category {
+    width: 200px;
+    height: 100px;
+}
+
+img.subcategory{
+    width: 200px;
+    height: 100px;
+}
