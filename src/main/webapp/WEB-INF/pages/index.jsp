@@ -12,7 +12,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Їжа для вас</title>
+    <title><spring:message code="page.header"></spring:message> </title>
     <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
 
