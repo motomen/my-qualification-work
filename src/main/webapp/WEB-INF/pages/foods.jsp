@@ -59,7 +59,7 @@
                     var respContent = "";
                     var img = "";
                     jQuery.each(list, function (index, value) {
-                        respContent += " <div class=\"col-lg-2 col-md-3\"> ";
+                        respContent += " <div class=\"col-lg-2 col-md-3 well colorsubcategory\"> ";
                         respContent += " <h4 class=\"title\" align=\"center\">" + value.name + "</h4> ";
                         img = value.img;
                         respContent += " <img class=\"img-thumbnail subcategory\" height=\"100\" width=\"100\" name=\"myImg\" src=\"data:image/jpg;base64,";
@@ -92,10 +92,10 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-2 col-md-2">
+        <div class="col-lg-2 col-md-2 well ">
             <h3 class="title" align="center">Категорії</h3>
             <c:forEach items="${listCategory}" var="item">
-                <div class="col-lg-8 col-md-4">
+                <div class="col-lg-8 col-md-4 category">
                     <a onclick="clicklink('${item.name}')" href="#">
                         <c:out value="${item.name}"/>
                     </a>
@@ -105,7 +105,7 @@
 
             </c:forEach>
         </div>
-        <div class="col-lg-9 col-md-7">
+        <div class="col-lg-9 col-md-7 well">
             <h3 class="title" align="center">Підкатегорії</h3>
 
             <div class="row" id="placesubcategory">

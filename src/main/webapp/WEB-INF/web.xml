@@ -4,6 +4,19 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
-	
+	<!-- Auth0 Configuration -->
+	<context-param>
+		<param-name>auth0.client_id</param-name>
+		<param-value>JNLNd5awKMCfUKK7RiFBMwxfVw0BLODA</param-value>
+	</context-param>
 
+	<context-param>
+		<param-name>auth0.client_secret</param-name>
+		<param-value>o3Oj_uOo-2Ru_10r1tuR4sl9FJF9nQX77Y33TA2bNpuWR21xkynwhZy6FaSi63Au</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>auth0.domain</param-name>
+		<param-value>yaroslav.auth0.com</param-value>
+	</context-param>
 </web-app>

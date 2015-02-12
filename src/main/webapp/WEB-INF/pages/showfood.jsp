@@ -10,6 +10,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>Їжа для вас</title>
@@ -39,13 +40,13 @@
 
     <!-- place main food information -->
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4 well">
             <h4>Продукт</h4>
             <img class="img-thumbnail resize" name="myImg"
                  src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
             <input id="input-6a" class="rating" data-size="xs">
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 well">
             <h4><c:out value="${food.name}"/></h4>
             <h5>Калорії: ${food.kcal}</h5>
         </div>
@@ -53,7 +54,7 @@
 
     <!-- Main information fbout food -->
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4 well">
             <table border="1">
                 <caption>Харчова цінність</caption>
                 <tr>
@@ -68,8 +69,9 @@
                 </tr>
             </table>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 well">
             <h4>Інгредієнти</h4>
+
             <p>
                 ${food.ingredients}
             </p>
@@ -82,25 +84,29 @@
     <!-- End block alternative product -->
 
     <!-- Start place comments -->
-    <div class="row" >
-        <div class="row col-lg-8">
-           ${count} Коментарів
+    <div class="row">
+        <div class="col-lg-8 well">
+            ${count} Коментарів
         </div>
-        <div class="row col-lg-8">
+        <div class="col-lg-8 well">
             sdfsdf
         </div>
-        <div class="row">
-            <div class="col-lg-8">
-                <h4>Додати коментар</h4>
-                <form:form id="add-c" method="post" action="/reviews/${post.slug}/newComment"  >     <!-- END -->
-                    <form:errors cssClass="label label-danger"/>
-                    <textarea id="comm-text"  class="form-control" rows="3"/>
-                    </br>
-                    <p align="right"><button type="submit" class="btn btn-primary">Коментувати</button></p>
-                </form:form>
+        <sec:authorize access="isAuthenticated()">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h4>Додати коментар</h4>
+                    <form:form id="add-c" method="post" action="/reviews/${post.slug}/newComment"> <!-- END -->
+                        <form:errors cssClass="label label-danger"/>
+                        <textarea id="comm-text" class="form-control" rows="3"/>
+                        </br>
+                        <p align="right">
+                            <button type="submit" class="btn btn-primary">Коментувати</button>
+                        </p>
+                    </form:form>
 
+                </div>
             </div>
-        </div>
+        </sec:authorize>
     </div>
 
     <!-- end place comment -->

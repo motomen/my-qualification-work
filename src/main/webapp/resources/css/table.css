@@ -12,3 +12,12 @@ img.subcategory{
     width: 200px;
     height: 100px;
 }
+
+div.colorsubcategory {
+    color: #7ab5d3;
+    margin-left: 50px;
+}
+
+div.category {
+    align-content: center;
+}

@@ -1,5 +1,3 @@
-<%@ page import="java.sql.Blob" %>
-<%@ page import="org.springframework.security.crypto.codec.Base64" %>
 <%--
   Created by IntelliJ IDEA.
   User: Yaroslav

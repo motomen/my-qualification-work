@@ -21,8 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService customUserDetailsService;
 
+	@Autowired
 	@Override
-	protected void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource);
 	}
 
@@ -38,13 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 				.formLogin()
 				.loginPage("/login")
-				.loginProcessingUrl("/login")
+				.loginProcessingUrl("/j_spring_security_check")
 				.defaultSuccessUrl("/")
 				.failureUrl("/login?err=1")
 				.usernameParameter("username")
 				.passwordParameter("password")
 				.and()
 			.logout()
+				.logoutUrl("/logout")
 			.logoutSuccessUrl("/")
 		.deleteCookies("JSESSIONID")
 		.invalidateHttpSession(true);

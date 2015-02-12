@@ -33,7 +33,14 @@ public class WebAppConfig  extends WebMvcConfigurerAdapter{
 		return resolver;
 	}
 
-	public void addResourceHandler(ResourceHandlerRegistry registry) {
+	/**
+	 * {@inheritDoc}
+	 * <p>This implementation is empty.
+	 *
+	 * @param registry
+	 */
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 

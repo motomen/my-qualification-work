@@ -43,7 +43,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String addNewUser(@RequestParam("file") MultipartFile file,
+    public String addNewUser(@RequestParam("photo") MultipartFile file,
                              @RequestParam("login") String login,
                              @RequestParam("nicname") String nicname,
                              @RequestParam("password") String password,
@@ -94,4 +94,11 @@ public class LoginController {
         user.setRole(role);
         userService.addUser(user);
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "login";
+    }
+
+
 }
