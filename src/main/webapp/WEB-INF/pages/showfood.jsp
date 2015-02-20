@@ -5,15 +5,15 @@
   Time: 13:31
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Їжа для вас</title>
+    <title><spring:message code="menu.main"/></title>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
@@ -24,19 +24,28 @@
           type="text/css"/>
     <script src="${pageContext.request.contextPath}/resources/js/star-rating.min.js">
     </script>
-    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/font-awesome/css/font-awesome.css"
+          rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
+          rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.min.css"
           rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
 </head>
 <body>
-
+<div class="container">
+    <sec:authorize access="isAnonymous()">
+        <jsp:include page="frames/menu.jsp"/>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated() and hasRole('ROLE_ADMIN')">
+        <jsp:include page="frames/adminmenu.jsp"/>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated() and hasRole('ROLE_USER')">
+        <jsp:include page="frames/usermenu.jsp"/>
+    </sec:authorize>
+</div>
 <!-- Page Content -->
 <div class="container">
-
-    <div class="page-header">
-        <jsp:include page="frames/menu.jsp"/>
-    </div>
 
     <!-- place main food information -->
     <div class="row">
@@ -89,26 +98,81 @@
             ${count} Коментарів
         </div>
         <div class="col-lg-8 well">
-            sdfsdf
+            <div class="tab-content">
+                <div class="tab-pane active" id="comments-logout">
+                    <ul class="media-list">
+                        <c:forEach items="${listComment}" var="com">
+                            <li class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object img-circle usercomment"
+                                         src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
+                                </a>
+
+                                <div class="media-body">
+                                    <h4 class="media-heading text-uppercase">
+                                            ${com.user.nicname}
+                                    </h4>
+                                    <ul class="media-date text-uppercase list-inline">
+                                        <li class="dd">
+                                            <small><fmt:formatDate value="${com.dateComment}"
+                                                                   pattern="dd/MM/yyyy HH:mm:ss"/></small>
+                                        </li>
+                                    </ul>
+
+                                    <p class="media-body">
+                                            ${com.textComment}
+                                    </p>
+
+                                    <!-- DELETE COMENT ONLY FOR ADMIN AND COMMENT OWNER-->
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                        <form id="del-f" method="post"
+                                              action="/comments/${id}/delete/${com.idComment}">
+                                            <a class="btn btn-danger btn-circle text-uppercase"
+                                               onclick="document.forms['del-f'].submit()"><spring:message
+                                                    code="function.delete"/></a>
+                                        </form>
+                                    </sec:authorize>
+
+                                    <sec:authorize access="hasRole('ROLE_USER')">
+                                        <c:if test="${com.user.login.toLowerCase() == pageContext.request.userPrincipal.name.toLowerCase()}">
+                                            <form id="df" method="post"
+                                                  action="/comments/${id}/delete/${com.idComment}">
+                                                <a class="btn btn-danger btn-circle text-uppercase"
+                                                   onclick="document.forms['df'].submit()"><spring:message
+                                                        code="function.delete"/></a>
+                                            </form>
+                                        </c:if>
+                                    </sec:authorize>
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <div class="row">
         <sec:authorize access="isAuthenticated()">
             <div class="row">
                 <div class="col-lg-8">
-                    <h4>Додати коментар</h4>
-                    <form:form id="add-c" method="post" action="/reviews/${post.slug}/newComment"> <!-- END -->
+                    <h4><spring:message code="showfood.comment.title"/></h4>
+                    <form:form id="add-c" method="post" action="/addcomment/${id}" modelAttribute="comment"
+                               commandName="comment"> <!-- END -->
                         <form:errors cssClass="label label-danger"/>
-                        <textarea id="comm-text" class="form-control" rows="3"/>
+                        <form:textarea id="comm-text" class="form-control" rows="3" name="textComment"
+                                       path="textComment"/>
+
                         </br>
                         <p align="right">
-                            <button type="submit" class="btn btn-primary">Коментувати</button>
+                            <button type="submit" class="btn btn-primary"><spring:message
+                                    code="showfood.button.comment"/></button>
                         </p>
                     </form:form>
-
                 </div>
             </div>
         </sec:authorize>
     </div>
-
     <!-- end place comment -->
 
     <!-- Footer -->
