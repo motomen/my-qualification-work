@@ -24,12 +24,27 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public List<Food> getAllFood() {
-        return foodDAO.getAllFood();
+    public List<Food> getTenFood() {
+        return foodDAO.getTenFood();
     }
 
     @Override
     public Food getFoodById(String id) {
         return foodDAO.getFoodById(id);
+    }
+
+    @Override
+    public List<Food> getAllFood() {
+        return foodDAO.getAllFood();
+    }
+
+    @Override
+    public Food getFoodByName(String name) {
+        return foodDAO.getFoodByName(name);
+    }
+
+    @Override
+    public void update(Food food) {
+        foodDAO.update(food);
     }
 }

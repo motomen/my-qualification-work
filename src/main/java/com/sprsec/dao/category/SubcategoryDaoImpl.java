@@ -9,6 +9,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by Yaroslav on 04.02.2015.
  */
@@ -40,8 +42,25 @@ public class SubcategoryDaoImpl implements SubcategoryDao {
      */
     @Override
     public Subcategory getSubcategoryByName(String name) {
-        Criteria criteria = getCurrentSession().createCriteria(Category.class);
+        Criteria criteria = getCurrentSession().createCriteria(Subcategory.class);
         criteria.add(Restrictions.eq("name", name));
+        return (Subcategory) criteria.uniqueResult();
+    }
+
+    /**
+     * Get all subcategory
+     *
+     * @return List subcategory
+     */
+    @Override
+    public List<Subcategory> getAllSubcategory() {
+        return getCurrentSession().createCriteria(Subcategory.class).list();
+    }
+
+    @Override
+    public Subcategory getCategoryById(int id) {
+        Criteria criteria = getCurrentSession().createCriteria(Subcategory.class);
+        criteria.add(Restrictions.eq("idSubCategory", id));
         return (Subcategory) criteria.uniqueResult();
     }
 }

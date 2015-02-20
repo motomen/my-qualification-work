@@ -9,6 +9,9 @@ import java.util.List;
  */
 public interface FoodDAO {
     public void addFood(Food food);
-    public List<Food> getAllFood();
+    public List<Food> getTenFood();
     public Food getFoodById(String id);
+    public List<Food> getAllFood();
+    public Food getFoodByName(String name);
+    public void update(Food food);
 }

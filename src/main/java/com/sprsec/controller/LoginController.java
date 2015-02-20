@@ -4,6 +4,7 @@ import com.sprsec.model.Role;
 import com.sprsec.model.User;
 import com.sprsec.service.user.RoleService;
 import com.sprsec.service.user.UserService;
+import com.sprsec.util.Util;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -13,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,28 +59,12 @@ public class LoginController {
         user.setMail(mail);
         Blob blob;
         if (file.getSize() != 0) {
-            try {
-                byte[] img = file.getBytes();
-                blob = new javax.sql.rowset.serial.SerialBlob(img);
-                user.setPhoto(blob);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SerialException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            user.setPhoto(Util.fileToString(file));
         } else {
             Resource resource = new ClassPathResource("../WEB-INF/user.jpg");
             try {
-                byte[] img = IOUtils.toByteArray(resource.getInputStream());
-                blob = new javax.sql.rowset.serial.SerialBlob(img);
-                user.setPhoto(blob);
+                user.setPhoto(Util.fileToString((MultipartFile) resource.getFile()));
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SerialException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -100,5 +86,14 @@ public class LoginController {
         return "login";
     }
 
-
+    @RequestMapping(value = "/apicheck", method = RequestMethod.POST)
+    @ResponseBody
+    public String apicheck(
+            @RequestParam("username") String name,
+            @RequestParam("password") String password
+    ){
+        String username = name;
+        String password2 = password;
+        return "0k";
+    }
 }

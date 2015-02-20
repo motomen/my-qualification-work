@@ -28,16 +28,7 @@ public class AccountController {
     public ModelAndView sowInformation() {
         User user = userService.getUser("vasil");
         Map<String, Object> model = new HashMap<String, Object>();
-        Blob blob = user.getPhoto();
-        try {
-            int length = (int) blob.length();
-            byte[] encodeBase64 = Base64.encode(blob.getBytes(1, length));
-            model.put("myImage", new String(encodeBase64, "UTF-8")); //MyImage (datatype 'byte[]') is the image retrieved from DB
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        model.put("myImage", user.getPhoto()); //MyImage (datatype 'byte[]') is the image retrieved from DB
         return new ModelAndView("account", model); //display is the name of jsp on which you want to display image
     }
 

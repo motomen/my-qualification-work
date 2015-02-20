@@ -3,7 +3,10 @@ package com.sprsec.init;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -23,6 +26,7 @@ public class WebAppConfig  extends WebMvcConfigurerAdapter{
 		resolver.setPrefix("/WEB-INF/pages/");
 		resolver.setSuffix(".jsp");
 		resolver.setViewClass(JstlView.class);
+		resolver.setOrder(1);
 		return resolver;
 	}
 
@@ -58,4 +62,15 @@ public class WebAppConfig  extends WebMvcConfigurerAdapter{
 		configurer.enable();
 	}
 
+	// Only needed if we are using @Value and ${...} when referencing properties
+	// Otherwise @PropertySource is enough by itself
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer properties() {
+		PropertySourcesPlaceholderConfigurer propertySources = new PropertySourcesPlaceholderConfigurer();
+		Resource[] resources = new ClassPathResource[] {
+				new ClassPathResource("application.properties") };
+		propertySources.setLocations(resources);
+		propertySources.setIgnoreUnresolvablePlaceholders(true);
+		return propertySources;
+	}
 }

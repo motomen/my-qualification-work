@@ -1,14 +1,13 @@
 package com.sprsec.model;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Blob;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Yaroslav on 01.02.2015.
@@ -30,14 +29,20 @@ public class Food{
     private Double kcal;
     private String ingredients;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "food_to_category",
             joinColumns = {@JoinColumn(name="id_fk_food", referencedColumnName = "id_food_tc")},
             inverseJoinColumns = {@JoinColumn(name="id_fk_fcategory", referencedColumnName = "id_sub_category")}
     )
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Subcategory> subcategories;
+//    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Subcategory> subcategories;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "comment_to_food",
+            joinColumns = {@JoinColumn(name="fk_food", referencedColumnName = "id_food_tc")},
+            inverseJoinColumns = {@JoinColumn(name="fk_idcomment", referencedColumnName = "id_comment")})
+    private List<Comments> commentsList;
 
     public String getIdFood() {
         return idFood;
@@ -111,11 +116,19 @@ public class Food{
         this.ingredients = ingredients;
     }
 
-    public List<Subcategory> getSubcategories() {
+    public Set<Subcategory> getSubcategories() {
         return subcategories;
     }
 
-    public void setSubcategories(List<Subcategory> subcategories) {
+    public void setSubcategories(Set<Subcategory> subcategories) {
         this.subcategories = subcategories;
+    }
+
+    public List<Comments> getCommentsList() {
+        return commentsList;
+    }
+
+    public void setCommentsList(List<Comments> commentsList) {
+        this.commentsList = commentsList;
     }
 }

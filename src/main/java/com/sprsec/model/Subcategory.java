@@ -7,6 +7,7 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Yaroslav on 04.02.2015.
@@ -29,7 +30,7 @@ public class Subcategory implements Serializable {
     @JsonIgnore
     private Category category;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "food_to_category",
             joinColumns = {@JoinColumn(name="id_fk_fcategory", referencedColumnName = "id_sub_category")},
@@ -37,7 +38,7 @@ public class Subcategory implements Serializable {
 
     )
     @JsonIgnore
-    private List<Food> food;
+    private Set<Food> food;
 
     public int getIdSubCategory() {
         return idSubCategory;
@@ -71,11 +72,11 @@ public class Subcategory implements Serializable {
         this.category = category;
     }
 
-    public List<Food> getFood() {
+    public Set<Food> getFood() {
         return food;
     }
 
-    public void setFood(List<Food> food) {
+    public void setFood(Set<Food> food) {
         this.food = food;
     }
 }

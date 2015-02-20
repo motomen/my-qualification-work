@@ -2,17 +2,16 @@ package com.sprsec.dao.food;
 
 import com.sprsec.model.Food;
 import com.sprsec.model.Role;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.annotations.LazyToOne;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Yaroslav on 01.02.2015.
@@ -34,7 +33,7 @@ public class FoodDAOImpl implements FoodDAO {
     }
 
     @Override
-    public List<Food> getAllFood() {
+    public List<Food> getTenFood() {
         Set<Food> foodSet =
                 new HashSet<Food>(
                         getCurrentSession().createQuery(
@@ -47,5 +46,22 @@ public class FoodDAOImpl implements FoodDAO {
     public Food getFoodById(String id) {
         Food food = (Food) getCurrentSession().get(Food.class, id);
         return food;
+    }
+
+    @Override
+    public List<Food> getAllFood() {
+        return new ArrayList<Food>(new HashSet <Food> (getCurrentSession().createCriteria(Food.class).list()));
+    }
+
+    @Override
+    public Food getFoodByName(String name) {
+        Criteria criteria = getCurrentSession().createCriteria(Food.class);
+        criteria.add(Restrictions.eq("name", name));
+        return (Food) criteria.uniqueResult();
+    }
+
+    @Override
+    public void update(Food food) {
+        getCurrentSession().merge(food);
     }
 }

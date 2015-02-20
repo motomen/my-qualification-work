@@ -1,24 +1,24 @@
 package com.sprsec.controller;
 
+import com.sprsec.model.Comments;
 import com.sprsec.model.Food;
+import com.sprsec.model.Subcategory;
 import com.sprsec.service.category.CategoryService;
 import com.sprsec.service.category.SubcategoryService;
+import com.sprsec.service.comments.CommentService;
 import com.sprsec.service.food.FoodService;
 import com.sprsec.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.sql.rowset.serial.SerialException;
-import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Yaroslav on 01.02.2015.
@@ -36,15 +36,18 @@ public class FoodController {
     @Autowired
     private SubcategoryService subcategoryService;
 
-    @RequestMapping(value = "/addfood", method = RequestMethod.GET)
+    @Autowired
+    private CommentService commentService;
+
+    @RequestMapping(value = "/control/addfood", method = RequestMethod.GET)
     public String addFood(ModelMap model) {
         model.addAttribute("food", new Food());
         model.addAttribute("listCategory", categoryService.allCategory());
-        return "addfood";
+        return "control/addfood";
     }
 
     // add main information about food
-    @RequestMapping(value = "/addfood", method = RequestMethod.POST)
+    @RequestMapping(value = "/control/addfood", method = RequestMethod.POST)
     public String addNewFood(
             @RequestParam("file") MultipartFile file,
             @RequestParam("idFood") String idFood,
@@ -66,16 +69,45 @@ public class FoodController {
         food.setRating(0.0);
         food.setIngredients(ingredients);
         food.setPhoto(Util.fileToString(file)); //convert file to string Base64
-        food.getSubcategories().add(subcategoryService.getCategoryByName(subcategory));
+        HashSet<Subcategory> hashSet = new HashSet<Subcategory>();
+        hashSet.add(subcategoryService.getCategoryByName(subcategory));
+        food.setSubcategories(hashSet);
         foodService.addFood(food);
-        return "redirect:/";
+//        ModelAndView modelAndView = new ModelAndView("/control/addfoodstep2");
+//        modelAndView.addObject("idFood", food.getIdFood());
+        return "/control/addfood";
     }
 
     @RequestMapping(value = "/showfood/{id}", method = RequestMethod.GET)
     public String showPageFood(@PathVariable("id") String idFood,
-            ModelMap model) {
+                               ModelMap model) {
         Food food = foodService.getFoodById(idFood);
+        List<Comments> commentsList = food.getCommentsList();
+        model.addAttribute("id", idFood);
+        model.addAttribute("comment", new Comments());
+        model.addAttribute("listComment", commentsList);
+        model.addAttribute("count", commentsList.size());
         model.addAttribute("food", food);
         return "showfood";
+    }
+
+    @RequestMapping(value = "/control/foodtocategory", method = RequestMethod.GET)
+    public String addFoodToCategory(ModelMap model) {
+        model.addAttribute("subcategory", subcategoryService.getAllSubcategory());
+        model.addAttribute("foods", foodService.getAllFood());
+        return "control/foodtocategory";
+    }
+
+    @RequestMapping(value = "/control/foodtocategory", method = RequestMethod.POST)
+    public String addFoodToCategory(@RequestParam("namecategory") String subcategory,
+                                    @RequestParam("food") String food,
+                                    ModelMap model) {
+        Food food1 = foodService.getFoodByName(food);
+        Set<Subcategory> subcategoryList = food1.getSubcategories();
+        Subcategory subcategory1 = subcategoryService.getCategoryByName(subcategory);
+        subcategoryList.add(subcategory1);
+        food1.setSubcategories(subcategoryList);
+        foodService.update(food1);
+        return "redirect:/control/foodtocategory";
     }
 }

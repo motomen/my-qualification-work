@@ -1,6 +1,7 @@
 package com.sprsec.controller;
 
 import com.sprsec.model.Category;
+import com.sprsec.model.Food;
 import com.sprsec.model.Subcategory;
 import com.sprsec.service.category.CategoryService;
 import com.sprsec.service.category.SubcategoryService;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,13 +31,13 @@ public class CategoryController {
     @Autowired
     private SubcategoryService subcategoryService;
 
-    @RequestMapping(value = "/addcategory", method = RequestMethod.GET)
+    @RequestMapping(value = "/control/addcategory", method = RequestMethod.GET)
     public String addCategory(ModelMap model) {
         model.addAttribute("category", new Category());
-        return "/addcategory";
+        return "/control/addcategory";
     }
 
-    @RequestMapping(value = "/addcategory", method = RequestMethod.POST)
+    @RequestMapping(value = "/control/addcategory", method = RequestMethod.POST)
     public String addNewCategory(@RequestParam("file") MultipartFile file,
                                  @RequestParam("name") String name,
                                  @RequestParam("description") String description,
@@ -45,17 +47,17 @@ public class CategoryController {
         category.setDescription(description);
         category.setName(name);
         categoryService.addCategory(category);
-        return "redirect:/";
+        return "redirect:/control/addcategory";
     }
 
-    @RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
+    @RequestMapping(value = "/control/addsubcategory", method = RequestMethod.GET)
     public String addSubcategory(ModelMap model) {
         model.addAttribute("listCategory", categoryService.allCategory());
         model.addAttribute("subcategory", new Subcategory());
-        return "/addsubcategory";
+        return "/control/addsubcategory";
     }
 
-    @RequestMapping(value = "/addsubcategory", method = RequestMethod.POST)
+    @RequestMapping(value = "/control/addsubcategory", method = RequestMethod.POST)
     public String addNewSubcategory(
             @RequestParam("file") MultipartFile file,
             @RequestParam("name") String name,
@@ -66,7 +68,7 @@ public class CategoryController {
         subcategory.setImg(Util.fileToString(file));
         subcategory.setCategory(categoryService.getCategoryByName(nameCategory));
         subcategoryService.addSubcategory(subcategory);
-        return "redirect:/";
+        return "redirect:/control/addsubcategory";
     }
 
     @RequestMapping(value = "/getsubcategory/{namecategory}", method = RequestMethod.GET)
@@ -81,5 +83,14 @@ public class CategoryController {
     public String initializeFoods(ModelMap model) {
         model.addAttribute("listCategory", categoryService.allCategory());
         return "/foods";
+    }
+
+    @RequestMapping(value = "/foodsubcategory/{idsubcategory}", method = RequestMethod.GET)
+    public String getListFood(
+            @PathVariable("idsubcategory") int id,
+            ModelMap model) {
+        List<Food> foodList = new ArrayList<Food>(subcategoryService.getCategoryById(id).getFood());
+        model.addAttribute("foodList", foodList);
+        return "/foodsubcategory";
     }
 }

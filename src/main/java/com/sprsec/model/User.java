@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class User {
@@ -23,10 +24,19 @@ public class User {
 	private Timestamp dateReg;
 	private Date birthday;
 	@Lob
-	private Blob photo;
+	private String photo;
 	private String nicname;
 	private String name;
 	private String surname;
+
+	@Column(name = "provider_name")
+	private String providerName;
+
+	@Column(name = "id_user_Str")
+	private String idUserStr;
+
+	@Column(name = "sex")
+	private String Sex;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinTable(name="user_role",
@@ -34,6 +44,24 @@ public class User {
 			inverseJoinColumns = {@JoinColumn(name = "id_fk_role", referencedColumnName = "id_role")})
 	private Role role;
 
+	@OneToMany(mappedBy = "user")
+	private List<Comments> commentsList;
+
+	public String getSex() {
+		return Sex;
+	}
+
+	public void setSex(String sex) {
+		Sex = sex;
+	}
+
+	public String getProviderName() {
+		return providerName;
+	}
+
+	public void setProviderName(String providerName) {
+		this.providerName = providerName;
+	}
 
 	public int getIdUser() {
 		return idUser;
@@ -83,11 +111,11 @@ public class User {
 		this.birthday = birthday;
 	}
 
-	public Blob getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(Blob photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 
@@ -123,5 +151,19 @@ public class User {
 		this.role = role;
 	}
 
+	public String getIdUserStr() {
+		return idUserStr;
+	}
 
+	public void setIdUserStr(String idUserStr) {
+		this.idUserStr = idUserStr;
+	}
+
+	public List<Comments> getCommentsList() {
+		return commentsList;
+	}
+
+	public void setCommentsList(List<Comments> commentsList) {
+		this.commentsList = commentsList;
+	}
 }
