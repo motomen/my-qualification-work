@@ -4,19 +4,24 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
-	<!-- Auth0 Configuration -->
-	<context-param>
-		<param-name>auth0.client_id</param-name>
-		<param-value>JNLNd5awKMCfUKK7RiFBMwxfVw0BLODA</param-value>
-	</context-param>
+	<!-- add this filter for use utf-8 encoding in my app -->
+	<filter>
+		<filter-name>charsetFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
 
-	<context-param>
-		<param-name>auth0.client_secret</param-name>
-		<param-value>o3Oj_uOo-2Ru_10r1tuR4sl9FJF9nQX77Y33TA2bNpuWR21xkynwhZy6FaSi63Au</param-value>
-	</context-param>
+	<filter-mapping>
+		<filter-name>charsetFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- end filter -->
 
-	<context-param>
-		<param-name>auth0.domain</param-name>
-		<param-value>yaroslav.auth0.com</param-value>
-	</context-param>
 </web-app>

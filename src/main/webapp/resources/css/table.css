@@ -13,6 +13,10 @@ img.subcategory{
     height: 100px;
 }
 
+img.usercomment{
+    width: 64px;
+    height: 64px;
+}
 div.colorsubcategory {
     color: #7ab5d3;
     margin-left: 50px;
@@ -20,4 +24,8 @@ div.colorsubcategory {
 
 div.category {
     align-content: center;
+}
+
+h3.color {
+    color: red;
 }

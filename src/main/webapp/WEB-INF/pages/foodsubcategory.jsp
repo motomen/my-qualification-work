@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Yaroslav
-  Date: 26.01.2015
-  Time: 13:31
+  Date: 20.02.2015
+  Time: 4:26
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,7 +13,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title><spring:message code="page.header"></spring:message> </title>
+    <title><spring:message code="page.header"></spring:message></title>
     <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
 
@@ -26,12 +26,12 @@
 
     <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
+          rel="stylesheet">
 </head>
-
 <body>
 <div class="container">
-    <sec:authorize access="isAnonymous()" >
+    <sec:authorize access="isAnonymous()">
         <jsp:include page="frames/menu.jsp"/>
     </sec:authorize>
     <sec:authorize access="isAuthenticated() and hasRole('ROLE_ADMIN')">
@@ -42,52 +42,46 @@
     </sec:authorize>
 </div>
 
-<!-- Page Content -->
 <div class="container">
-
     <!-- Page Header -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
                 </br>
-                <small><spring:message code="index.mainmessage"/>
+                <small><spring:message text="show food"/>
                 </small>
             </h1>
         </div>
     </div>
     <!-- /.row -->
-
-    <!-- Slider -->
-
-    <div class="liquid-slider" id="slider-id" width="300" height="300">
-        <c:forEach items="${foodList}" var="food">
-            <div width="300" height="300">
-                <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
-                    <h2 class="title"><c:out value="${food.name}"/></h2>
-                    <img class="img-thumbnail resize" name="myImg"
-                         src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+    <div class="row">
+        <div class="col-lg-8 offset1">
+            <c:forEach items="${foodList}" var="food">
+                <a href="/showfood/${food.idFood}">
+                    <div class="media">
+                        <img class="media-object pull-left img-thumbnail resize"
+                             src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+                        <div class="media-body">
+                            <h4 class="media-heading">${food.name}</h4>
+                            <table border="1">
+                                <caption>Харчова цінність</caption>
+                                <tr>
+                                    <th>Білки</th>
+                                    <th>Жири</th>
+                                    <th>Вуглеводи</th>
+                                </tr>
+                                <tr>
+                                    <td>${food.protein}</td>
+                                    <td>${food.fats}</td>
+                                    <td>${food.carbs}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </a>
-            </div>
-        </c:forEach>
-    </div>
-    <script>
-        $('#slider-id').liquidSlider();
-    </script>
-    <!-- End Slider -->
-
-
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
+            </c:forEach>
         </div>
-        <!-- /.row -->
-    </footer>
-
+    </div>
 </div>
-<!-- /.container -->
-
 </body>
 </html>

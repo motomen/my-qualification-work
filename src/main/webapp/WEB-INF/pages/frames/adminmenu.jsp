@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Вова
-  Date: 31.12.2014
-  Time: 1:24
+  User: Yaroslav
+  Date: 14.02.2015
+  Time: 20:38
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,31 +18,29 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <a class="navbar-brand" href="/"><spring:message code="menu.main"/> </a>
         </div>
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="/foods"><spring:message code="menu.food"/></a>
-                </li>
-                <li>
-                    <a href="/login"><spring:message code="menu.login"/></a>
-                </li>
-                <li>
-                    <a href="/registration"><spring:message code="menu.registration"/></a>
-                </li>
-                <li>
-                    <a href="/about"><spring:message code="menu.about"/></a>
-                </li>
-                <li>
-                    <a href="/feedback"><spring:message code="menu.fedback"/></a>
-                </li>
+                <li><a href="/foods"><spring:message code="admin.menu.food"/> </a></li>
+                <li><a href="/control/addfood"><spring:message code="admin.menu.addfood"/> </a></li>
+                <li><a href="/control/foodtocategory"><spring:message code="admin.menu.foodtocategory"/> </a></li>
+                <li><a href="/control/addcategory"><spring:message code="admin.menu.addcategory"/> </a></li>
+                <li><a href="/control/addsubcategory"><spring:message code="admin.menu.addsubcategory"/> </a></li>
+                <li><a href="/j_spring_security_logout"><spring:message code="admin.menu.logout"/> </a> </li>
             </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
@@ -53,7 +51,7 @@
         </div>
         <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
+    <!-- /.container-fluid -->
 </nav>
 </body>
 </html>

@@ -9,6 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title></title>
@@ -59,12 +60,14 @@
                     var respContent = "";
                     var img = "";
                     jQuery.each(list, function (index, value) {
+                        respContent += "<a href = \"foodsubcategory/" + value.idSubCategory + "\" >";
                         respContent += " <div class=\"col-lg-2 col-md-3 well colorsubcategory\"> ";
                         respContent += " <h4 class=\"title\" align=\"center\">" + value.name + "</h4> ";
                         img = value.img;
                         respContent += " <img class=\"img-thumbnail subcategory\" height=\"100\" width=\"100\" name=\"myImg\" src=\"data:image/jpg;base64,";
                         respContent += value.img + "\">";
                         respContent += " </div> ";
+                        respContent += "</a>";
                     });
                     $("#placesubcategory").html(respContent);
                 },
@@ -77,7 +80,18 @@
     </script>
 </head>
 <body>
-<jsp:include page="frames/menu.jsp"/>
+
+<div class="container">
+    <sec:authorize access="isAnonymous()" >
+        <jsp:include page="frames/menu.jsp"/>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated() and hasRole('ROLE_ADMIN')">
+        <jsp:include page="frames/adminmenu.jsp"/>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated() and hasRole('ROLE_USER')">
+        <jsp:include page="frames/usermenu.jsp"/>
+    </sec:authorize>
+</div>
 
 <div class="container">
     <!-- Page Header -->

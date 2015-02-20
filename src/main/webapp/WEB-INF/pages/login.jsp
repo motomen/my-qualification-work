@@ -24,6 +24,14 @@
     <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
           rel="stylesheet">
+
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.auth0.com/js/lock-6.js"></script>
+    <script src="//use.typekit.net/iws6ohy.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+    <script src="${pageContext.request.contextPath}/resources/js/auth0-variables.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/app.js"> </script>
+
 </head>
 <body>
 <jsp:include page="frames/menu.jsp"/>
@@ -33,14 +41,14 @@
     <!-- Page Header -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">
+            <h1 class="page-header" align="center">
                 </br>
                 <small>Увійти</small>
             </h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 well">
+        <div class="col-lg-6 offset2 well">
             <form class="form-signin" id="form" action="/j_spring_security_check" method="POST" onsubmit="function checkForm() {
     var u_login = document.forms['form']['us_name'].value; var pass = document.forms['form']['us_pass'].value;
       if (u_login == null || u_login == '') {document.forms['form']['us_name'].focus(); return false;}
@@ -60,6 +68,9 @@
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Увійти</button>
             </form>
+            <h2 align="center">OR</h2>
+            <!-- Auth0 login -->
+            <input type="submit" class="btn-login btn btn-lg btn-primary btn-block" value="<spring:message code="login.btn.social"/> "/>
         </div>
     </div>
     <hr>
