@@ -13,7 +13,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title><spring:message code="page.header"></spring:message> </title>
+    <title><spring:message code="page.header"></spring:message></title>
     <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
 
@@ -26,12 +26,13 @@
 
     <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
+          rel="stylesheet">
 </head>
 
 <body>
 <div class="container">
-    <sec:authorize access="isAnonymous()" >
+    <sec:authorize access="isAnonymous()">
         <jsp:include page="frames/menu.jsp"/>
     </sec:authorize>
     <sec:authorize access="isAuthenticated() and hasRole('ROLE_ADMIN')">
@@ -58,22 +59,81 @@
     <!-- /.row -->
 
     <!-- Slider -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset1 well">
+                <div class="carousel sizecarusel" id="myCarousel">
+                    <div class="carousel-inner">
+                        <% int i = 1; %>
+                        <c:forEach items="${foodList}" var="food">
+                            <% if (i == 1) {
+                                i++;%>
+                            <div class="item active media">
+                                <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
+                                    <div class="pull-left resize">
+                                        <h3 class="title"><c:out value="${food.name}"/></h3>
+                                        <img class="img-thumbnail resize" name="myImg"
+                                             src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+                                    </div>
 
-    <div class="liquid-slider" id="slider-id" width="300" height="300">
-        <c:forEach items="${foodList}" var="food">
-            <div width="300" height="300">
-                <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
-                    <h2 class="title"><c:out value="${food.name}"/></h2>
-                    <img class="img-thumbnail resize" name="myImg"
-                         src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
-                </a>
+                                    <div class="media-body">
+                                        <table border="1">
+                                            <caption>Харчова цінність</caption>
+                                            <tr>
+                                                <th>Білки</th>
+                                                <th>Жири</th>
+                                                <th>Вуглеводи</th>
+                                            </tr>
+                                            <tr>
+                                                <td>${food.protein}</td>
+                                                <td>${food.fats}</td>
+                                                <td>${food.carbs}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </a>
+                            </div>
+                            <% } else {%>
+                            <div class="item media">
+                                <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
+                                    <div class="pull-left resize">
+                                        <h3 class="title"><c:out value="${food.name}"/></h3>
+                                        <img class="img-thumbnail resize" name="myImg"
+                                             src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+                                    </div>
+
+                                    <div class="media-body">
+                                        <table border="1">
+                                            <caption>Харчова цінність</caption>
+                                            <tr>
+                                                <th>Білки</th>
+                                                <th>Жири</th>
+                                                <th>Вуглеводи</th>
+                                            </tr>
+                                            <tr>
+                                                <td>${food.protein}</td>
+                                                <td>${food.fats}</td>
+                                                <td>${food.carbs}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </a>
+                            </div>
+                            <%}%>
+                        </c:forEach>
+                    </div>
+                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                </div>
+                <script>
+                    $('.carousel').carousel({
+                        interval: 5000
+                    })
+                </script>
+                <!-- End Slider -->
             </div>
-        </c:forEach>
+        </div>
     </div>
-    <script>
-        $('#slider-id').liquidSlider();
-    </script>
-    <!-- End Slider -->
 
 
     <!-- Footer -->

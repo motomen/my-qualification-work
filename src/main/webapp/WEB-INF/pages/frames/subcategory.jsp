@@ -1,7 +1,7 @@
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
   Created by IntelliJ IDEA.
@@ -19,19 +19,27 @@
 <html>
 <head>
     <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.2.js"></script>
+
+    <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
 </head>
 <body>
 <form>
-  <div class="form-group">
-    <label for="subcategory"><spring:message text="Виберіть підкатегорію"/></label>
-    <div class="input-group">
-      <select name="subcategory" id="subcategory">
-        <c:forEach items="${listSubcategory}" var="item">
-          <option> <c:out value="${item.name}"/> </option>
-        </c:forEach>
-      </select>
-    </div>
-  </div>
+    <c:forEach items="${listSubcategory}" var="item">
+        <a href="foodsubcategory/${item.idSubCategory}">
+            <div class="col-lg-2 col-md-3 well colorsubcategory">
+                <h4 class="title" align="center">${item.name}</h4>
+                <img class="img-thumbnail subcategory" height="100" width="100" name="myImg"
+                     src="data:image/jpg;base64,<c:out value='${item.img}'/>">
+            </div>
+        </a>
+    </c:forEach>
 </form>
 </body>
 </html>

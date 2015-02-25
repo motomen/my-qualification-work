@@ -82,6 +82,7 @@ public class CategoryController {
     @RequestMapping(value = "/foods", method = RequestMethod.GET)
     public String initializeFoods(ModelMap model) {
         model.addAttribute("listCategory", categoryService.allCategory());
+        model.addAttribute("listSubcategory", subcategoryService.getAllSubcategory());
         return "/foods";
     }
 
@@ -90,6 +91,7 @@ public class CategoryController {
             @PathVariable("idsubcategory") int id,
             ModelMap model) {
         List<Food> foodList = new ArrayList<Food>(subcategoryService.getCategoryById(id).getFood());
+        model.addAttribute("idSubcategory", id);
         model.addAttribute("foodList", foodList);
         return "/foodsubcategory";
     }

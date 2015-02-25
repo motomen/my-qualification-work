@@ -73,9 +73,9 @@ public class LoginController {
     }
 
     private void addUser(User user) {
-        //role id 2 = User
         java.util.Date date = new java.util.Date();
         user.setDateReg(new Timestamp(date.getTime()));
+        //role id 2 = User
         Role role = roleService.getRole(2);
         user.setRole(role);
         userService.addUser(user);

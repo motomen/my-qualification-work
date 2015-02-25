@@ -19,11 +19,9 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
     <!-- Latest compiled and minified CSS -->
+    <script src="${pageContext.request.contextPath}/resources/js/jRate.js"></script>
+
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/star-rating.min.css" media="all" rel="stylesheet"
-          type="text/css"/>
-    <script src="${pageContext.request.contextPath}/resources/js/star-rating.min.js">
-    </script>
     <link href="${pageContext.request.contextPath}/resources/bootstrap/font-awesome/css/font-awesome.css"
           rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
@@ -31,6 +29,29 @@
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.min.css"
           rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/jquery.rating.css" rel="stylesheet" type="text/css"/>
+
+    <script>
+
+        function ratingclick(rating) {
+            $.ajax({
+                type: 'GET',
+                url: "${pageContext.request.contextPath}/rating/" + rating +"/${id}",
+                dataType: 'json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                },
+                success: function () {
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.status + ' ' + jqXHR.responseText);
+                }
+
+            });
+        }
+
+    </script>
 </head>
 <body>
 <div class="container">
@@ -47,23 +68,53 @@
 <!-- Page Content -->
 <div class="container">
 
-    <!-- place main food information -->
+    <!-- Page Header -->
     <div class="row">
-        <div class="col-lg-4 well">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                </br>
+                <small><c:out value="${food.name}"/>
+                </small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- place main food information -->
+    <div class="row well">
+        <div class="col-lg-3">
             <h4>Продукт</h4>
             <img class="img-thumbnail resize" name="myImg"
                  src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
-            <input id="input-6a" class="rating" data-size="xs">
+            <sec:authorize access="isAuthenticated()">
+                <div id="jRate"></div>
+                <div id="demo-onchange-value"></div>
+                <script>
+                    $("#jRate").jRate({
+                        rating: ${food.rating},
+                        width: 40,
+                        height: 40,
+                        onSet: function(rating) {
+                            ratingclick(rating);
+                        },
+                        onChange: function(rating) {
+                            $('#demo-onchange-value').text("Your Rating: "+rating);
+                        },
+                        shape: 'FOOD',
+                        precision: 0
+                    });
+                </script>
+            </sec:authorize>
         </div>
-        <div class="col-lg-6 well">
-            <h4><c:out value="${food.name}"/></h4>
+        <div class="col-lg-7">
             <h5>Калорії: ${food.kcal}</h5>
+            <h4>rating: ${ratginFood}</h4>
         </div>
     </div>
 
     <!-- Main information fbout food -->
-    <div class="row">
-        <div class="col-lg-4 well">
+    <div class="row  well">
+        <div class="col-lg-4">
             <table border="1">
                 <caption>Харчова цінність</caption>
                 <tr>
@@ -78,7 +129,7 @@
                 </tr>
             </table>
         </div>
-        <div class="col-lg-6 well">
+        <div class="col-lg-6">
             <h4>Інгредієнти</h4>
 
             <p>

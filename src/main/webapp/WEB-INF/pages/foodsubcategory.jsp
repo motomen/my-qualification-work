@@ -61,6 +61,7 @@
                     <div class="media">
                         <img class="media-object pull-left img-thumbnail resize"
                              src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+
                         <div class="media-body">
                             <h4 class="media-heading">${food.name}</h4>
                             <table border="1">
@@ -82,6 +83,26 @@
             </c:forEach>
         </div>
     </div>
+
+    <!-- main
+    <div class="column col-sm-13" id="main">
+        <div class="padding">
+            <div class="full col-sm-13">
+                <div class="col-md-6 col-xs-6 follow line" align="center"><h3> ${page.list.size()} <br/>
+                    <span><fmt:message key="foodsubcategory.count"/></span></h3></div>
+                <c:if test="${page.list.size() > 0}">
+                    <jsp:include page="frames/pagination.jsp"/>
+                </c:if>
+
+                <c:if test="${page.list.size() > 0}">
+                    <jsp:include page="frames/pagination.jsp"/>
+                </c:if>
+            </div>
+        </div>
+        <hr>
+    </div>
+     /col-9 -->
+
 </div>
 </body>
 </html>

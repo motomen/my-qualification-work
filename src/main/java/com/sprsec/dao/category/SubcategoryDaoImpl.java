@@ -9,6 +9,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -54,7 +56,7 @@ public class SubcategoryDaoImpl implements SubcategoryDao {
      */
     @Override
     public List<Subcategory> getAllSubcategory() {
-        return getCurrentSession().createCriteria(Subcategory.class).list();
+        return new ArrayList<Subcategory>(new HashSet<Subcategory>(getCurrentSession().createCriteria(Subcategory.class).list()));
     }
 
     @Override

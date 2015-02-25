@@ -24,8 +24,20 @@ div.colorsubcategory {
 
 div.category {
     align-content: center;
+    margin-top: 20px;
+    color: #768ea5;
 }
 
+div.sizecarusel {
+    width: 540px;
+    height: 350px;
+    color: #bce8f1;
+}
+
+div.resize {
+    width: 200px;
+    height: 320px;
+}
 h3.color {
     color: red;
 }

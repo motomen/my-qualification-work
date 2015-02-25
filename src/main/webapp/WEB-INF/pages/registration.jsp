@@ -35,7 +35,7 @@
 
     <!-- Page Header -->
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6 offset2">
             <h1 class="page-header">
                 </br>
                 <small><spring:message text="Зареєструватись в системі"/></small>
@@ -46,7 +46,7 @@
     <div class="row">
         <form:form action="/registration" method="POST" id="form" commandName="user" class="form-horizontal"
                    enctype="multipart/form-data">
-            <div class="col-lg-12">
+            <div class="col-lg-6 offset2">
                 <!--   <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span></strong></div> -->
                 <div class="form-group">
                     <label for="login"><spring:message text="Введіть логін"/> </label>
@@ -78,9 +78,9 @@
                     <div class="input-group">
                         <form:input type="password" class="form-control" id="password" path="password" name="password"
                                     placeholder=""/>
-          <span id="er_pass" class="input-group-addon" style="visibility: hidden"><span
-                  class="glyphicon glyphicon-asterisk"><spring:message
-                  text="Пароль не повинен бути порожнім"/> </span></span>
+                <span id="er_pass" class="input-group-addon" style="visibility: hidden"><span
+                        class="glyphicon glyphicon-asterisk"><spring:message
+                        text="Пароль не повинен бути порожнім"/> </span></span>
                     </div>
                 </div>
 
@@ -90,7 +90,6 @@
                     <div class="input-group">
                         <form:input type="text" class="form-control" id="email" path="mail" name="email"
                                     placeholder=""/>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
 

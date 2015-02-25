@@ -24,27 +24,27 @@
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
 
     <script type="text/javascript">
-//        $(document).ready(function () {
-//
-//
-//
-//            $('#some_ajax_link').click(function(){
-//                $.ajax({
-//                    type: "POST",
-//                    /* insert a valid url here */
-//                    url: "",
-//                    data: { name: "John", location: "Boston" },
-//                    beforeSend: function (xhr) {
-//                        alert('yyy');
-//                    },
-//                    success: function (xhr) {
-//                        alert('xxx');
-//                    }
-//                });
-//            });
-//        });
+        //        $(document).ready(function () {
+        //
+        //
+        //
+        //            $('#some_ajax_link').click(function(){
+        //                $.ajax({
+        //                    type: "POST",
+        //                    /* insert a valid url here */
+        //                    url: "",
+        //                    data: { name: "John", location: "Boston" },
+        //                    beforeSend: function (xhr) {
+        //                        alert('yyy');
+        //                    },
+        //                    success: function (xhr) {
+        //                        alert('xxx');
+        //                    }
+        //                });
+        //            });
+        //        });
 
-        function clicklink (name) {
+        function clicklink(name) {
             //disable all other links
 
             //  var json = { "namecategory" : name};
@@ -82,7 +82,7 @@
 <body>
 
 <div class="container">
-    <sec:authorize access="isAnonymous()" >
+    <sec:authorize access="isAnonymous()">
         <jsp:include page="frames/menu.jsp"/>
     </sec:authorize>
     <sec:authorize access="isAuthenticated() and hasRole('ROLE_ADMIN')">
@@ -109,21 +109,22 @@
         <div class="col-lg-2 col-md-2 well ">
             <h3 class="title" align="center">Категорії</h3>
             <c:forEach items="${listCategory}" var="item">
-                <div class="col-lg-8 col-md-4 category">
-                    <a onclick="clicklink('${item.name}')" href="#">
-                        <c:out value="${item.name}"/>
-                    </a>
-                    <img class="img-thumbnail category"  name="myImg"
-                         src="data:image/jpg;base64,<c:out value='${item.photo}'/>">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 category">
+                        <a onclick="clicklink('${item.name}')" href="#">
+                           <h4> <c:out value="${item.name}"/> </h4>
+                            <img class="img-thumbnail category" name="myImg"
+                                 src="data:image/jpg;base64,<c:out value='${item.photo}'/>">
+                        </a>
+                    </div>
                 </div>
-
             </c:forEach>
         </div>
-        <div class="col-lg-9 col-md-7 well">
+        <div class="col-lg-9 col-lg-offset-1 well">
             <h3 class="title" align="center">Підкатегорії</h3>
 
             <div class="row" id="placesubcategory">
-
+                <jsp:include page="frames/subcategory.jsp"/>
             </div>
         </div>
     </div>
