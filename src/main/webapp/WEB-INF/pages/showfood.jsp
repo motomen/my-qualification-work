@@ -42,7 +42,9 @@
                     xhr.setRequestHeader("Accept", "application/json");
                     xhr.setRequestHeader("Content-Type", "application/json");
                 },
-                success: function () {
+                success: function (value) {
+                    var respContent="<h4>rating:"+value+ "</h4>";
+                    $("#rating").html(respContent);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.status + ' ' + jqXHR.responseText);
@@ -91,7 +93,7 @@
                 <div id="demo-onchange-value"></div>
                 <script>
                     $("#jRate").jRate({
-                        rating: ${food.rating},
+                        rating: ${ratingUser},
                         width: 40,
                         height: 40,
                         onSet: function(rating) {
@@ -108,7 +110,9 @@
         </div>
         <div class="col-lg-7">
             <h5>Калорії: ${food.kcal}</h5>
-            <h4>rating: ${ratginFood}</h4>
+            <div id="rating">
+                <h4>rating: ${ratginFood}</h4>
+            </div>
         </div>
     </div>
 

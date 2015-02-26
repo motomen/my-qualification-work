@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,13 +31,13 @@ public class RatingDaoImpl implements RatingDao {
     }
 
     @Override
-    public Set<Rating> getRatingByIdFood(String id) {
+    public List<Rating> getRatingByIdFood(String id) {
         // you have get all rating by id and display on page
         String sql = "Select r.* from rating r where r.fk_food_tc = :id";
         SQLQuery query = getCurrentSession().createSQLQuery(sql);
         query.setParameter("id", id);
-        // query.addEntity(Comments.class);
-        return new HashSet<Rating>(query.list());
+        query.addEntity(Rating.class);
+        return query.list();
     }
 
     @Override
@@ -45,6 +46,7 @@ public class RatingDaoImpl implements RatingDao {
         SQLQuery query = getCurrentSession().createSQLQuery(sql);
         query.setParameter("idFood", idFood);
         query.setParameter("idUser", idUser);
+        query.addEntity(Rating.class);
         return (Rating) query.uniqueResult();
     }
 }

@@ -1,14 +1,13 @@
 package com.sprsec.controller;
 
-import com.sprsec.model.Comments;
-import com.sprsec.model.Food;
-import com.sprsec.model.Rating;
-import com.sprsec.model.Subcategory;
+import com.sprsec.auth.IAuthenticationFacade;
+import com.sprsec.model.*;
 import com.sprsec.service.category.CategoryService;
 import com.sprsec.service.category.SubcategoryService;
 import com.sprsec.service.comments.CommentService;
 import com.sprsec.service.food.FoodService;
 import com.sprsec.service.rating.RatingService;
+import com.sprsec.service.user.UserService;
 import com.sprsec.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,6 +40,12 @@ public class FoodController {
 
     @Autowired
     private RatingService ratingService;
+
+    @Autowired
+    private IAuthenticationFacade authentication;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/control/addfood", method = RequestMethod.GET)
     public String addFood(ModelMap model) {
@@ -85,15 +90,24 @@ public class FoodController {
     @RequestMapping(value = "/showfood/{id}", method = RequestMethod.GET)
     public String showPageFood(@PathVariable("id") String idFood,
                                ModelMap model) {
-
+        String userName = authentication.getUserName();
+        User user = userService.getUser(userName);
         Food food = foodService.getFoodById(idFood);
         List<Comments> commentsList = food.getCommentsList();
+        if (user != null) {
+            Rating rating = ratingService.getRatingByIdUserFood(idFood, user.getIdUser());
+            if (rating != null) {
+                model.addAttribute("ratingUser", rating.getValue());
+            } else {
+                model.addAttribute("ratingUser", 0);
+            }
+        }
         model.addAttribute("id", idFood);
         model.addAttribute("comment", new Comments());
         model.addAttribute("listComment", commentsList);
         model.addAttribute("count", commentsList.size());
         model.addAttribute("food", food);
-        ArrayList<Rating> ratingSet = new ArrayList<>(ratingService.getRatingByIdFood(idFood));
+        List<Rating> ratingSet = ratingService.getRatingByIdFood(idFood);
         double val=0.0;
         if (ratingSet.size() > 0) {
             for (Rating rSet : ratingSet) {

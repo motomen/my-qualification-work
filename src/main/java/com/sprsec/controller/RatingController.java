@@ -13,12 +13,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Yaroslav on 22.02.2015.
@@ -42,7 +40,8 @@ public class RatingController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/rating/{value}/{idFood}", method = RequestMethod.GET)
-    public ModelAndView rating(
+    @ResponseBody
+    public double rating(
             @PathVariable("value") double value,
             @PathVariable("idFood") String id,
             ModelMap model) {
@@ -59,17 +58,15 @@ public class RatingController {
             rating = new Rating();
             rating.setUser(user);
             rating.setFood(foodService.getFoodById(id));
-            rating.setValue(value);
         }
+        rating.setValue(value);
         ratingService.saveOrUpdate(rating);
-        Set<Rating> ratingSet = ratingService.getRatingByIdFood(id);
+        List<Rating> ratingSet = ratingService.getRatingByIdFood(id);
         double val=0.0;
         for (Rating rSet: ratingSet) {
             val += rSet.getValue();
         }
         val /= ratingSet.size();
-        model.addAttribute("ratginFood", val);
-        // -- you have end it
-        return new ModelAndView("showfood", model);
+        return val;
     }
 }

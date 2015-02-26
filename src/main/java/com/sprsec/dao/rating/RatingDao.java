@@ -2,6 +2,7 @@ package com.sprsec.dao.rating;
 
 import com.sprsec.model.Rating;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -9,6 +10,6 @@ import java.util.Set;
  */
 public interface RatingDao {
     public void saveOrUpdate(Rating rating);
-    public Set<Rating> getRatingByIdFood(String id);
+    public List<Rating> getRatingByIdFood(String id);
     public Rating getRatingByIdUserFood(String idFood, int idUser);
 }
