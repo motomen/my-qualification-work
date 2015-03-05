@@ -61,7 +61,7 @@
     <!-- Slider -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 offset1 well">
+            <div class="col-lg-6 offset3 well">
                 <div class="carousel sizecarusel" id="myCarousel">
                     <div class="carousel-inner">
                         <% int i = 1; %>
@@ -135,6 +135,34 @@
         </div>
     </div>
 
+    <div class="container">
+        <ul class="media-list">
+            <c:forEach items="${commentList}" var="com">
+                <li class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object img-circle usercomment"
+                             src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
+                    </a>
+
+                    <div class="media-body">
+                        <h4 class="media-heading text-uppercase">
+                                ${com.user.nicname}
+                        </h4>
+                        <ul class="media-date text-uppercase list-inline">
+                            <li class="dd">
+                                <small><fmt:formatDate value="${com.dateComment}"
+                                                       pattern="dd/MM/yyyy HH:mm:ss"/></small>
+                            </li>
+                        </ul>
+
+                        <p class="media-body">
+                                ${com.textComment}
+                        </p>
+                    </div>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
 
     <!-- Footer -->
     <footer>

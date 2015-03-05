@@ -60,5 +60,15 @@ public class CommentServiceImpl implements CommentService {
         return commentDao.getCommentById(id);
     }
 
+    /**
+     * get ten comment by last date
+     *
+     * @return
+     */
+    @Override
+    public List<Comments> getLastTenComment() {
+        return commentDao.getLastTenComment();
+    }
+
 
 }

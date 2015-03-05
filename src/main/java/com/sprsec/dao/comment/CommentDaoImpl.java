@@ -44,7 +44,7 @@ public class CommentDaoImpl implements CommentsDao {
         String sql = "Select co.* from comment_to_food f, comments co where co.id_comment = f.fk_idcomment and f.fk_food = :id";
         SQLQuery query = getCurrentSession().createSQLQuery(sql);
         query.setParameter("id", id);
-       // query.addEntity(Comments.class);
+        query.addEntity(Comments.class);
         commentsList = query.list();
         return commentsList;
     }
@@ -69,6 +69,20 @@ public class CommentDaoImpl implements CommentsDao {
     public Comments getCommentById(int id) {
         Comments comment = (Comments) getCurrentSession().get(Comments.class, id);
         return comment;
+    }
+
+    /**
+     * get ten comment by last date
+     *
+     * @return
+     */
+    @Override
+    public List<Comments> getLastTenComment() {
+        String sql = "Select co.* from comments co ORDER BY co.date_comment";
+        SQLQuery query = getCurrentSession().createSQLQuery(sql);
+        query.setMaxResults(10);
+        query.addEntity(Comments.class);
+        return query.list();
     }
 
 

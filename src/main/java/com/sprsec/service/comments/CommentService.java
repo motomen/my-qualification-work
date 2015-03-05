@@ -33,4 +33,10 @@ public interface CommentService {
      * @return Comment
      */
     public Comments getCommentById(int id);
+
+    /**
+     * get ten comment by last date
+     * @return
+     */
+    public List<Comments> getLastTenComment();
 }
