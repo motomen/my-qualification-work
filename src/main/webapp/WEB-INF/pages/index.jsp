@@ -58,8 +58,8 @@
     <!-- Slider -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 offset3 well">
-                <div class="carousel sizecarusel" id="myCarousel">
+            <div class="col-lg-6 col-lg-offset-2">
+                <div class="carousel" id="myCarousel">
                     <div class="carousel-inner">
                         <% int i = 1; %>
                         <c:forEach items="${foodList}" var="food">
@@ -122,49 +122,86 @@
                     <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
                     <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
                 </div>
-                <script>
-                    $('.carousel').carousel({
-                        interval: 5000
-                    })
-                </script>
-                <!-- End Slider -->
             </div>
         </div>
+        <script>
+            $('.carousel').carousel({
+                interval: 5000
+            })
+        </script>
+        <!-- End Slider -->
     </div>
 
     <div class="container">
-        <ul class="media-list">
-            <c:forEach items="${commentList}" var="com">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-1 well">
-                        <a href="${pageContext.request.contextPath}/showfood/${com.food.idFood}">
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object img-circle usercomment"
+        <h3>Останні коментарі</h3>
+
+        <div class="carousel" id="myCarousel2">
+            <div class="carousel-inner">
+                <% i = 1; %>
+                <c:forEach items="${commentList}" var="com">
+                    <% if (i == 1) {
+                        i++;%>
+                    <div class="row item active media">
+                        <div class="col-lg-8 col-lg-offset-1 well">
+                            <a href="${pageContext.request.contextPath}/showfood/${com.food.idFood}">
+                                <li class="media">
+                                    <img class="media-object usercomment pull-left img-circle "
                                          src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
-                                </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading text-uppercase">
+                                                ${com.user.nicname}
+                                        </h4>
+                                        <ul class="media-date text-uppercase list-inline">
+                                            <li class="dd">
+                                                <small><fmt:formatDate value="${com.dateComment}"
+                                                                       pattern="dd/MM/yyyy HH:mm:ss"/></small>
+                                            </li>
+                                        </ul>
 
-                                <div class="media-body">
-                                    <h4 class="media-heading text-uppercase">
-                                            ${com.user.nicname}
-                                    </h4>
-                                    <ul class="media-date text-uppercase list-inline">
-                                        <li class="dd">
-                                            <small><fmt:formatDate value="${com.dateComment}"
-                                                                   pattern="dd/MM/yyyy HH:mm:ss"/></small>
-                                        </li>
-                                    </ul>
-
-                                    <p class="media-body">
-                                            ${com.textComment}
-                                    </p>
-                                </div>
-                            </li>
-                        </a>
+                                        <p class="media-body">
+                                                ${com.textComment}
+                                        </p>
+                                    </div>
+                                </li>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </c:forEach>
-        </ul>
+                    <% } else {%>
+                    <div class="row item media">
+                        <div class="col-lg-8 col-lg-offset-1 well">
+                            <a href="${pageContext.request.contextPath}/showfood/${com.food.idFood}">
+                                <li class="media">
+                                    <img class="media-object usercomment pull-left img-circle "
+                                         src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
+
+                                    <div class="media-body">
+                                        <h4 class="media-heading text-uppercase">
+                                                ${com.user.nicname}
+                                        </h4>
+                                        <ul class="media-date text-uppercase list-inline">
+                                            <li class="dd">
+                                                <small><fmt:formatDate value="${com.dateComment}"
+                                                                       pattern="dd/MM/yyyy HH:mm:ss"/></small>
+                                            </li>
+                                        </ul>
+
+                                        <p class="media-body">
+                                                ${com.textComment}
+                                        </p>
+                                    </div>
+                                </li>
+                            </a>
+                        </div>
+                    </div>
+                    <%}%>
+                </c:forEach>
+            </div>
+        </div>
+        <script>
+            $('#myCarousel2').carousel({
+                interval: 3000
+            })
+        </script>
     </div>
 
     <!-- Footer -->
