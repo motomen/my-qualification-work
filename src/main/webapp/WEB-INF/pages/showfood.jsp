@@ -36,14 +36,14 @@
         function ratingclick(rating) {
             $.ajax({
                 type: 'GET',
-                url: "${pageContext.request.contextPath}/rating/" + rating +"/${id}",
+                url: "${pageContext.request.contextPath}/rating/" + rating + "/${id}",
                 dataType: 'json',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("Accept", "application/json");
                     xhr.setRequestHeader("Content-Type", "application/json");
                 },
                 success: function (value) {
-                    var respContent="<h4>rating:"+value+ "</h4>";
+                    var respContent = "<h4>rating:" + value + "</h4>";
                     $("#rating").html(respContent);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -53,6 +53,26 @@
             });
         }
 
+        function addcalcvalue() {
+            var calcvalue = $('#calcvalue').val();
+            $.ajax({
+                url: "/calc/save/${food.idFood}/" + calcvalue,
+                type: "POST",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                },
+                success: function (suc) {
+                    if (suc) {
+                        var resp = '<p style="color: #398439">Ви успішно зїли товар</p>';
+                        $("#calcinformation").html(resp);
+                    } else {
+                        var resp = '<p style="color: red">Сталася помилка</p>';
+                        $("#calcinformation").html(resp);
+                    }
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -96,11 +116,11 @@
                         rating: ${ratingUser},
                         width: 40,
                         height: 40,
-                        onSet: function(rating) {
+                        onSet: function (rating) {
                             ratingclick(rating);
                         },
-                        onChange: function(rating) {
-                            $('#demo-onchange-value').text("Your Rating: "+rating);
+                        onChange: function (rating) {
+                            $('#demo-onchange-value').text("Your Rating: " + rating);
                         },
                         shape: 'FOOD',
                         precision: 0
@@ -110,9 +130,53 @@
         </div>
         <div class="col-lg-7">
             <h5>Калорії: ${food.kcal}</h5>
+
             <div id="rating">
                 <h4>rating: ${ratginFood}</h4>
             </div>
+            <sec:authorize access="isAuthenticated()">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    <spring:message code="showfood.popup.eat"/>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">${food.name}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <!-- ---------------------------------------------------------------------------->
+                                <form:form action="/calc/save/${food.idFood}" method="POST" id="form"
+                                           commandName="calcFood"
+                                           class="form-horizontal"
+                                           enctype="multipart/form-data"
+                                           modelAttribute="calcFood">
+                                    <div class="input-group">
+                                        <label for="value"><spring:message code="showfood.popup.count"/> </label>
+                                        <form:input id="calcvalue" path="value" type="text" class="form-control"/>
+                                        <!-- /btn-group -->
+                                    </div>
+                                    <div id="calcinformation">
+
+                                    </div>
+                                    <input type="button" onclick="addcalcvalue()"
+                                           value="<spring:message code="button.save" />"
+                                           class="btn btn-info pull-right">
+                                </form:form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message
+                                        code="button.close"/></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </sec:authorize>
         </div>
     </div>
 

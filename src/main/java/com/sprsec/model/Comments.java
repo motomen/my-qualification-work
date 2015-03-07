@@ -27,10 +27,12 @@ public class Comments {
     @JoinColumn(name = "fk_user")
     private User user;
 
-    @OneToOne
+    // Exception
+    // Why don't work this relations?
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "comment_to_food",
-    joinColumns = {@JoinColumn(name="fk_idcomment", referencedColumnName = "id_comment")},
-            inverseJoinColumns = {@JoinColumn(name="fk_food", referencedColumnName = "id_food_tc")})
+            joinColumns = {@JoinColumn(name = "fk_idcomment", referencedColumnName = "id_comment")},
+            inverseJoinColumns = {@JoinColumn(name = "fk_food", referencedColumnName = "id_food_tc")})
     private Food food;
 
     public int getIdComment() {

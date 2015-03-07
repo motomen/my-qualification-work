@@ -22,7 +22,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
+        <div class="navbar-header" id="header-color">
             <a class="navbar-brand" href="/"><spring:message code="menu.main"/> </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -44,12 +44,14 @@
                     <a href="/feedback"><spring:message code="menu.fedback"/></a>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
+            <div class="col-lg-3">
+                <div class="input-group">
                     <input type="text" class="form-control" placeholder="<spring:message code="menu.search"/>">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                  </span>
+                </div><!-- /input-group -->
+            </div>
         </div>
         <!-- /.navbar-collapse -->
     </div>

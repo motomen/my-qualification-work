@@ -1,8 +1,10 @@
 img.resize {
     width: 200px;
-    height: 200px;
 }
 
+img.smalls {
+    width: 200px;
+}
 img.category {
     width: 200px;
     height: 100px;

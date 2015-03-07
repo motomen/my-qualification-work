@@ -20,14 +20,11 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/liquid-slider.css"/>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.liquid-slider.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.touchSwipe.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
 
-    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
-          rel="stylesheet">
 </head>
 
 <body>
@@ -138,28 +135,34 @@
     <div class="container">
         <ul class="media-list">
             <c:forEach items="${commentList}" var="com">
-                <li class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object img-circle usercomment"
-                             src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
-                    </a>
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-1 well">
+                        <a href="${pageContext.request.contextPath}/showfood/${com.food.idFood}">
+                            <li class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object img-circle usercomment"
+                                         src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
+                                </a>
 
-                    <div class="media-body">
-                        <h4 class="media-heading text-uppercase">
-                                ${com.user.nicname}
-                        </h4>
-                        <ul class="media-date text-uppercase list-inline">
-                            <li class="dd">
-                                <small><fmt:formatDate value="${com.dateComment}"
-                                                       pattern="dd/MM/yyyy HH:mm:ss"/></small>
+                                <div class="media-body">
+                                    <h4 class="media-heading text-uppercase">
+                                            ${com.user.nicname}
+                                    </h4>
+                                    <ul class="media-date text-uppercase list-inline">
+                                        <li class="dd">
+                                            <small><fmt:formatDate value="${com.dateComment}"
+                                                                   pattern="dd/MM/yyyy HH:mm:ss"/></small>
+                                        </li>
+                                    </ul>
+
+                                    <p class="media-body">
+                                            ${com.textComment}
+                                    </p>
+                                </div>
                             </li>
-                        </ul>
-
-                        <p class="media-body">
-                                ${com.textComment}
-                        </p>
+                        </a>
                     </div>
-                </li>
+                </div>
             </c:forEach>
         </ul>
     </div>

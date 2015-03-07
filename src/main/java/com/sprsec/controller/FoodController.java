@@ -107,6 +107,7 @@ public class FoodController {
         model.addAttribute("listComment", commentsList);
         model.addAttribute("count", commentsList.size());
         model.addAttribute("food", food);
+        model.addAttribute("calcFood", new CalcFood());
         List<Rating> ratingSet = ratingService.getRatingByIdFood(idFood);
         double val=0.0;
         if (ratingSet.size() > 0) {

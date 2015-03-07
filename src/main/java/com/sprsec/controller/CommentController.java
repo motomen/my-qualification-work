@@ -2,6 +2,7 @@ package com.sprsec.controller;
 
 import com.sprsec.auth.IAuthenticationFacade;
 import com.sprsec.model.Comments;
+import com.sprsec.model.Food;
 import com.sprsec.model.User;
 import com.sprsec.service.comments.CommentService;
 import com.sprsec.service.food.FoodService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Yaroslav on 19.02.2015.
@@ -46,7 +48,8 @@ public class CommentController {
         comments.setTextComment(text);
         Date date = new Date();
         comments.setDateComment(new Timestamp(date.getTime()));
-        comments.setFood(foodService.getFoodById(idFood));
+        Food food = foodService.getFoodById(idFood);
+        comments.setFood(food);
         commentService.save(comments);
         return "redirect:/showfood/" + idFood;
     }

@@ -37,13 +37,16 @@
       <ul class="nav navbar-nav">
         <li><a href="/foods"><spring:message code="admin.menu.food"/> </a></li>
         <li><a href="/j_spring_security_logout"><spring:message code="admin.menu.logout"/> </a> </li>
+        <li><a href="/calc"><spring:message code="menu.calc"/></a> </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
+      <div class="col-lg-3">
+        <div class="input-group">
           <input type="text" class="form-control" placeholder="<spring:message code="menu.search"/>">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                  </span>
+        </div><!-- /input-group -->
+      </div>
     </div>
     <!-- /.navbar-collapse -->
   </div>

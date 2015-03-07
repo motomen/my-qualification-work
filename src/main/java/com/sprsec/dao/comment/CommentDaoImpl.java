@@ -2,6 +2,7 @@ package com.sprsec.dao.comment;
 
 import com.sprsec.model.Comments;
 import org.hibernate.*;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -78,11 +79,9 @@ public class CommentDaoImpl implements CommentsDao {
      */
     @Override
     public List<Comments> getLastTenComment() {
-        String sql = "Select co.* from comments co ORDER BY co.date_comment";
-        SQLQuery query = getCurrentSession().createSQLQuery(sql);
-        query.setMaxResults(10);
-        query.addEntity(Comments.class);
-        return query.list();
+        Criteria criteria = getCurrentSession().createCriteria(Comments.class)
+        .addOrder(Order.desc("dateComment")).setMaxResults(10);
+        return criteria.list();
     }
 
 
