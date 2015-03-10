@@ -65,54 +65,22 @@
                         <c:forEach items="${foodList}" var="food">
                             <% if (i == 1) {
                                 i++;%>
-                            <div class="item active media">
+                            <div class="item active">
                                 <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
                                     <div class="pull-left resize">
                                         <h3 class="title"><c:out value="${food.name}"/></h3>
                                         <img class="img-thumbnail resize" name="myImg"
                                              src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
-                                    </div>
-
-                                    <div class="media-body">
-                                        <table border="1">
-                                            <caption>Харчова цінність</caption>
-                                            <tr>
-                                                <th>Білки</th>
-                                                <th>Жири</th>
-                                                <th>Вуглеводи</th>
-                                            </tr>
-                                            <tr>
-                                                <td>${food.protein}</td>
-                                                <td>${food.fats}</td>
-                                                <td>${food.carbs}</td>
-                                            </tr>
-                                        </table>
                                     </div>
                                 </a>
                             </div>
                             <% } else {%>
-                            <div class="item media">
+                            <div class="item">
                                 <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
                                     <div class="pull-left resize">
                                         <h3 class="title"><c:out value="${food.name}"/></h3>
                                         <img class="img-thumbnail resize" name="myImg"
                                              src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
-                                    </div>
-
-                                    <div class="media-body">
-                                        <table border="1">
-                                            <caption>Харчова цінність</caption>
-                                            <tr>
-                                                <th>Білки</th>
-                                                <th>Жири</th>
-                                                <th>Вуглеводи</th>
-                                            </tr>
-                                            <tr>
-                                                <td>${food.protein}</td>
-                                                <td>${food.fats}</td>
-                                                <td>${food.carbs}</td>
-                                            </tr>
-                                        </table>
                                     </div>
                                 </a>
                             </div>

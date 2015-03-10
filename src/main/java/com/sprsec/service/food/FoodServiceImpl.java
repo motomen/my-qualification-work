@@ -2,6 +2,7 @@ package com.sprsec.service.food;
 
 import com.sprsec.dao.food.FoodDAO;
 import com.sprsec.model.Food;
+import com.sprsec.model.Subcategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,5 +47,15 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public void update(Food food) {
         foodDAO.update(food);
+    }
+
+    @Override
+    public List<Food> getAllFoodBySubcategory(int page, int maxResults, Subcategory subcategory) {
+        return foodDAO.getAllFoodBySubcategory(page, maxResults, subcategory);
+    }
+
+    @Override
+    public List<Food> getAllFoodBySubcategory(Subcategory subcategory) {
+        return foodDAO.getAllFoodBySubcategory(subcategory);
     }
 }

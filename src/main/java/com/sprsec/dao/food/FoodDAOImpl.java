@@ -2,6 +2,7 @@ package com.sprsec.dao.food;
 
 import com.sprsec.model.Food;
 import com.sprsec.model.Role;
+import com.sprsec.model.Subcategory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -63,5 +64,30 @@ public class FoodDAOImpl implements FoodDAO {
     @Override
     public void update(Food food) {
         getCurrentSession().merge(food);
+    }
+
+    @Override
+    public List<Food> getAllFoodBySubcategory(int page, int maxResults, Subcategory subcategory) {
+        page = page * maxResults - maxResults;
+        String sql = "SELECT f.* FROM food f, sub_category sc, food_to_category fc WHERE f.id_food_tc = fc.id_fk_food " +
+                "AND sc.id_sub_category = fc.id_fk_fcategory AND sc.id_sub_category = :id ORDER BY f.rating DESC ";
+        return getCurrentSession()
+                .createSQLQuery(sql)
+                .addEntity(Food.class)
+                .setParameter("id", subcategory.getIdSubCategory())
+                .setFirstResult(page)
+                .setMaxResults(maxResults)
+                .list();
+    }
+
+    @Override
+    public List<Food> getAllFoodBySubcategory(Subcategory subcategory) {
+        String sql = "SELECT f.* FROM food f, sub_category sc, food_to_category fc WHERE f.id_food_tc = fc.id_fk_food " +
+                "AND sc.id_sub_category = fc.id_fk_fcategory AND sc.id_sub_category = :id ORDER BY f.rating DESC ";
+        return getCurrentSession()
+                .createSQLQuery(sql)
+                .addEntity(Food.class)
+                .setParameter("id", subcategory.getIdSubCategory())
+                .list();
     }
 }

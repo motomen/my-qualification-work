@@ -13,14 +13,19 @@
 <html>
 <head>
     <title></title>
-    <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link href="${pageContext.request.contextPath}/resources/scripts/wookmark/css/style.css" rel="stylesheet">
 
 </head>
 <body>
-
+<div>
+    <c:forEach items="${page.list}" var="food">
+        <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
+            <div class="pull-left resize">
+                <h3 class="title"><c:out value="${food.name}"/></h3>
+                <img class="img-thumbnail resize" name="myImg"
+                     src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+            </div>
+        </a>
+    </c:forEach>
+</div>
 </body>
 </html>

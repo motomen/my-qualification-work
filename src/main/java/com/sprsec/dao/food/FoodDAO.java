@@ -1,6 +1,7 @@
 package com.sprsec.dao.food;
 
 import com.sprsec.model.Food;
+import com.sprsec.model.Subcategory;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface FoodDAO {
     public List<Food> getAllFood();
     public Food getFoodByName(String name);
     public void update(Food food);
+    public List<Food> getAllFoodBySubcategory(int page, int maxResults, Subcategory subcategory);
+    public List<Food> getAllFoodBySubcategory(Subcategory subcategory);
 }

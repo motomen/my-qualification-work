@@ -60,7 +60,7 @@
                     var respContent = "";
                     var img = "";
                     jQuery.each(list, function (index, value) {
-                        respContent += "<a href = \"foodsubcategory/" + value.idSubCategory + "\" >";
+                        respContent += "<a href = \"foodsubcategory/" + value.idSubCategory + "?p=1\" >";
                         respContent += " <div class=\"col-lg-2 col-md-3 well colorsubcategory\"> ";
                         respContent += " <h4 class=\"title\" align=\"center\">" + value.name + "</h4> ";
                         img = value.img;

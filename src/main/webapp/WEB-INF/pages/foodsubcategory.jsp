@@ -27,6 +27,7 @@
     <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
+
           rel="stylesheet">
 </head>
 <body>
@@ -53,55 +54,23 @@
             </h1>
         </div>
     </div>
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-lg-8 offset1">
-            <c:forEach items="${foodList}" var="food">
-                <a href="/showfood/${food.idFood}">
-                    <div class="media">
-                        <img class="media-object pull-left img-thumbnail resize"
-                             src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
-
-                        <div class="media-body">
-                            <h4 class="media-heading">${food.name}</h4>
-                            <table border="1">
-                                <caption>Харчова цінність</caption>
-                                <tr>
-                                    <th>Білки</th>
-                                    <th>Жири</th>
-                                    <th>Вуглеводи</th>
-                                </tr>
-                                <tr>
-                                    <td>${food.protein}</td>
-                                    <td>${food.fats}</td>
-                                    <td>${food.carbs}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </a>
-            </c:forEach>
-        </div>
-    </div>
-
-    <!-- main
-    <div class="column col-sm-13" id="main">
-        <div class="padding">
-            <div class="full col-sm-13">
-                <div class="col-md-6 col-xs-6 follow line" align="center"><h3> ${page.list.size()} <br/>
-                    <span><fmt:message key="foodsubcategory.count"/></span></h3></div>
+    <div class="row" id="main">
+        <div class="full col-lg-12">
+            <div class="row">
                 <c:if test="${page.list.size() > 0}">
                     <jsp:include page="frames/pagination.jsp"/>
                 </c:if>
-
+            </div>
+            <div class="row">
+                <jsp:include page="frames/foods.jsp"/>
+            </div>
+            <div class="row">
                 <c:if test="${page.list.size() > 0}">
                     <jsp:include page="frames/pagination.jsp"/>
                 </c:if>
             </div>
         </div>
-        <hr>
     </div>
-     /col-9 -->
 
 </div>
 </body>

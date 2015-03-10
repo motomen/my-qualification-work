@@ -5,6 +5,8 @@ import com.sprsec.model.Food;
 import com.sprsec.model.Subcategory;
 import com.sprsec.service.category.CategoryService;
 import com.sprsec.service.category.SubcategoryService;
+import com.sprsec.service.food.FoodService;
+import com.sprsec.util.Page;
 import com.sprsec.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,6 +32,9 @@ public class CategoryController {
 
     @Autowired
     private SubcategoryService subcategoryService;
+
+    @Autowired
+    private FoodService foodService;
 
     @RequestMapping(value = "/control/addcategory", method = RequestMethod.GET)
     public String addCategory(ModelMap model) {
@@ -89,10 +94,20 @@ public class CategoryController {
     @RequestMapping(value = "/foodsubcategory/{idsubcategory}", method = RequestMethod.GET)
     public String getListFood(
             @PathVariable("idsubcategory") int id,
+            @RequestParam(value = "p",required = false ,defaultValue = "1") int page,
+            @RequestParam(value = "results",defaultValue = "5",required = false) Integer recPerPage,
             ModelMap model) {
-        List<Food> foodList = new ArrayList<Food>(subcategoryService.getCategoryById(id).getFood());
+        Subcategory subcategory = subcategoryService.getCategoryById(id);
+        int size = foodService.getAllFoodBySubcategory(subcategory).size();
+        int maxPages = (size % recPerPage == 0)? (size / recPerPage) : (size / recPerPage)+1;
+        page = (page > maxPages)?   maxPages : page;
+        List<Food> foodList = foodService.getAllFoodBySubcategory(page, recPerPage, subcategory);
+        int current = page;
+        int begin = Math.max(1, current - recPerPage);
+        int end = maxPages;
+        Page<Food> foodPage = new Page<>(foodList, begin, current, size, maxPages, recPerPage, end);
+        model.addAttribute("page", foodPage);
         model.addAttribute("idSubcategory", id);
-        model.addAttribute("foodList", foodList);
         return "/foodsubcategory";
     }
 }
