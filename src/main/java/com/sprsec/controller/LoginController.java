@@ -2,10 +2,9 @@ package com.sprsec.controller;
 
 import com.sprsec.model.Role;
 import com.sprsec.model.User;
-import com.sprsec.service.user.RoleService;
-import com.sprsec.service.user.UserService;
+import com.sprsec.service.RoleService;
+import com.sprsec.service.UserService;
 import com.sprsec.util.Util;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -18,11 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.rowset.serial.SerialException;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Blob;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 
 /**

@@ -40,6 +40,7 @@
     </sec:authorize>
 </div>
 
+
 <!-- Page Content -->
 <div class="container">
 
@@ -58,119 +59,92 @@
     <!-- Slider -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-lg-offset-2">
-                <div class="carousel" id="myCarousel">
-                    <div class="carousel-inner">
-                        <% int i = 1; %>
-                        <c:forEach items="${foodList}" var="food">
-                            <% if (i == 1) {
-                                i++;%>
-                            <div class="item active">
-                                <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
-                                    <div class="pull-left resize">
-                                        <h3 class="title"><c:out value="${food.name}"/></h3>
-                                        <img class="img-thumbnail resize" name="myImg"
-                                             src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
-                                    </div>
-                                </a>
+            <%--<div class="col-lg-6 col-lg-offset-2">--%>
+            <div class="carousel slide" id="myCarousel" data-ride="carousel" style="margin: 0 auto;">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="4" class=""></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <!-- Block items -->
+
+                    <div class="item active">
+                        <div class="container"
+                             style="background: url(${pageContext.request.contextPath}/resources/images/carousel/slider1.jpg) center no-repeat; background-size: cover; width: 100%; height: 100%">
+                            <div class="carousel-caption op">
+                                <h1 style="color: #ffffff">Вітаю вас на сайті "Їжа для вас"</h1>
                             </div>
-                            <% } else {%>
-                            <div class="item">
-                                <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
-                                    <div class="pull-left resize">
-                                        <h3 class="title"><c:out value="${food.name}"/></h3>
-                                        <img class="img-thumbnail resize" name="myImg"
-                                             src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
-                                    </div>
-                                </a>
-                            </div>
-                            <%}%>
-                        </c:forEach>
+                        </div>
                     </div>
-                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+
+                    <div class="item">
+                        <div class="container"
+                             style="background: url(${pageContext.request.contextPath}/resources/images/carousel/slider2.jpg) center no-repeat; background-size: cover; width: 100%; height: 100%">
+                            <div class="carousel-caption op">
+                                <h1 style="color:#ffffff ">"Їжа для вас"</h1>
+
+                                <p>Це сайт в якому ви можете знайти інформацію про будь-який товар в магазині</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="container"
+                             style="background: url(${pageContext.request.contextPath}/resources/images/carousel/slider3.jpg) center no-repeat; background-size: cover; width: 100%; height: 100%">
+                            <div class="carousel-caption op">
+                                <h2 style="color:#ffffff ">"Їжа для вас"</h2>
+
+                                <p>Всю інформацію про товари ми дбайливо перевіряємо, та заносимо в нашу базу даних</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="container"
+                             style="background: url(${pageContext.request.contextPath}/resources/images/carousel/slider4.jpg) center no-repeat; background-size: cover; width: 100%; height: 100%">
+                            <div class="carousel-caption op">
+                                <h2 style="color:blue ">"Їжа для вас"</h2>
+
+                                <p>Ви легко зможете уникати товарів шкідливих для вашого здоров’я</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="container"
+                             style="background: url(${pageContext.request.contextPath}/resources/images/carousel/slider5.jpg) center no-repeat; background-size: cover; width: 100%; height: 100%">
+                            <div class="carousel-caption op">
+                                <h2 style="color:inherit ">"Їжа для вас"</h2>
+
+                                <p>Здорова їжа завжди триматиме вас в гарному настрої</p>
+
+                                <p><a class="btn btn-lg btn-primary" href="/foods" role="button">Завітайте до нашої
+                                    галереї товарів</a></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <a class="left carousel-control" href="http://getbootstrap.com/examples/carousel/#myCarousel"
+                   role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="http://getbootstrap.com/examples/carousel/#myCarousel"
+                   role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
+            <%--</div>--%>
         </div>
-        <script>
-            $('.carousel').carousel({
-                interval: 5000
-            })
-        </script>
+
         <!-- End Slider -->
     </div>
 
-    <div class="container">
-        <h3>Останні коментарі</h3>
-
-        <div class="carousel" id="myCarousel2">
-            <div class="carousel-inner">
-                <% i = 1; %>
-                <c:forEach items="${commentList}" var="com">
-                    <% if (i == 1) {
-                        i++;%>
-                    <div class="row item active media">
-                        <div class="col-lg-8 col-lg-offset-1 well">
-                            <a href="${pageContext.request.contextPath}/showfood/${com.food.idFood}">
-                                <li class="media">
-                                    <img class="media-object usercomment pull-left img-circle "
-                                         src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
-                                    <div class="media-body">
-                                        <h4 class="media-heading text-uppercase">
-                                                ${com.user.nicname}
-                                        </h4>
-                                        <ul class="media-date text-uppercase list-inline">
-                                            <li class="dd">
-                                                <small><fmt:formatDate value="${com.dateComment}"
-                                                                       pattern="dd/MM/yyyy HH:mm:ss"/></small>
-                                            </li>
-                                        </ul>
-
-                                        <p class="media-body">
-                                                ${com.textComment}
-                                        </p>
-                                    </div>
-                                </li>
-                            </a>
-                        </div>
-                    </div>
-                    <% } else {%>
-                    <div class="row item media">
-                        <div class="col-lg-8 col-lg-offset-1 well">
-                            <a href="${pageContext.request.contextPath}/showfood/${com.food.idFood}">
-                                <li class="media">
-                                    <img class="media-object usercomment pull-left img-circle "
-                                         src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
-
-                                    <div class="media-body">
-                                        <h4 class="media-heading text-uppercase">
-                                                ${com.user.nicname}
-                                        </h4>
-                                        <ul class="media-date text-uppercase list-inline">
-                                            <li class="dd">
-                                                <small><fmt:formatDate value="${com.dateComment}"
-                                                                       pattern="dd/MM/yyyy HH:mm:ss"/></small>
-                                            </li>
-                                        </ul>
-
-                                        <p class="media-body">
-                                                ${com.textComment}
-                                        </p>
-                                    </div>
-                                </li>
-                            </a>
-                        </div>
-                    </div>
-                    <%}%>
-                </c:forEach>
-            </div>
-        </div>
-        <script>
-            $('#myCarousel2').carousel({
-                interval: 3000
-            })
-        </script>
-    </div>
 
     <!-- Footer -->
     <footer>

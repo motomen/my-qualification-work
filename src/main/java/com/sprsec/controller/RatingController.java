@@ -3,9 +3,9 @@ package com.sprsec.controller;
 import com.sprsec.auth.IAuthenticationFacade;
 import com.sprsec.model.Rating;
 import com.sprsec.model.User;
-import com.sprsec.service.food.FoodService;
-import com.sprsec.service.rating.RatingService;
-import com.sprsec.service.user.UserService;
+import com.sprsec.service.FoodService;
+import com.sprsec.service.RatingService;
+import com.sprsec.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 

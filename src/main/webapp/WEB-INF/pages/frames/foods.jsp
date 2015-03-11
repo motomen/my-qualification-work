@@ -21,8 +21,11 @@
         <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
             <div class="pull-left resize">
                 <h3 class="title"><c:out value="${food.name}"/></h3>
-                <img class="img-thumbnail resize" name="myImg"
-                     src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+                <div class="con">
+                    <img class="img-thumbnail resize" name="myImg"
+                         src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+                    <img src="${pageContext.request.contextPath}/resources/images/<c:out value="${food.rating}"/>.jpg" class="tops">
+                </div>
             </div>
         </a>
     </c:forEach>

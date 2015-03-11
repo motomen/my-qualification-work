@@ -4,9 +4,9 @@ import com.sprsec.auth.IAuthenticationFacade;
 import com.sprsec.model.Comments;
 import com.sprsec.model.Food;
 import com.sprsec.model.User;
-import com.sprsec.service.comments.CommentService;
-import com.sprsec.service.food.FoodService;
-import com.sprsec.service.user.UserService;
+import com.sprsec.service.CommentService;
+import com.sprsec.service.FoodService;
+import com.sprsec.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Yaroslav on 19.02.2015.

@@ -3,21 +3,17 @@ package com.sprsec.controller;
 import com.sprsec.model.Category;
 import com.sprsec.model.Food;
 import com.sprsec.model.Subcategory;
-import com.sprsec.service.category.CategoryService;
-import com.sprsec.service.category.SubcategoryService;
-import com.sprsec.service.food.FoodService;
+import com.sprsec.service.CategoryService;
+import com.sprsec.service.SubcategoryService;
+import com.sprsec.service.FoodService;
 import com.sprsec.util.Page;
 import com.sprsec.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 

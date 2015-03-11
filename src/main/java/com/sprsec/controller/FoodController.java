@@ -2,12 +2,11 @@ package com.sprsec.controller;
 
 import com.sprsec.auth.IAuthenticationFacade;
 import com.sprsec.model.*;
-import com.sprsec.service.category.CategoryService;
-import com.sprsec.service.category.SubcategoryService;
-import com.sprsec.service.comments.CommentService;
-import com.sprsec.service.food.FoodService;
-import com.sprsec.service.rating.RatingService;
-import com.sprsec.service.user.UserService;
+import com.sprsec.service.CategoryService;
+import com.sprsec.service.SubcategoryService;
+import com.sprsec.service.FoodService;
+import com.sprsec.service.RatingService;
+import com.sprsec.service.UserService;
 import com.sprsec.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,9 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

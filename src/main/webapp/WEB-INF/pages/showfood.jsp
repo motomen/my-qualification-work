@@ -106,8 +106,11 @@
     <div class="row well">
         <div class="col-lg-3">
             <h4>Продукт</h4>
-            <img class="img-thumbnail resize" name="myImg"
-                 src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+            <div class="con">
+                <img class="img-thumbnail resize" name="myImg"
+                     src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+                <img src="${pageContext.request.contextPath}/resources/images/<c:out value="${food.rating}"/>.jpg" class="tops">
+            </div>
             <sec:authorize access="isAuthenticated()">
                 <div id="jRate"></div>
                 <div id="demo-onchange-value"></div>
