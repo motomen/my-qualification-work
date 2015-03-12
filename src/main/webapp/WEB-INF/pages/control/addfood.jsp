@@ -131,7 +131,7 @@
                     <input type="file" id="files" name="file"/>
 
                     <div id="imgreplace">
-                        <img id="photouser" class="img-thumbnail" heiht="140" width="140"
+                        <img id="photouser" class="img-thumbnail" height="140" width="140"
                              src="${pageContext.request.contextPath}/resources/img/food.jpg"/>
                     </div>
                     <output id="list"></output>

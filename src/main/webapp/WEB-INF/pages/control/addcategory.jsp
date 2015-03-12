@@ -42,69 +42,71 @@
     </div>
 
     <div class="row">
-        <form:form action="/addcategory" method="POST" id="form" commandName="category" class="form-horizontal"
-                   enctype="multipart/form-data">
-            <div class="col-lg-6 col-lg-offset-3">
-                <!--   <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span></strong></div> -->
-                <div class="form-group">
-                    <label for="name"><spring:message text="Введіть назву категорії"/> </label>
+        <div class="col-lg-6 col-lg-offset-3 well">
+            <form:form action="/control/addcategory" method="POST" id="form" commandName="category" class="form-horizontal"
+                       enctype="multipart/form-data">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <!--   <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span></strong></div> -->
+                    <div class="form-group">
+                        <label for="name"><spring:message text="Введіть назву категорії"/> </label>
 
-                    <div class="input-group">
-                        <form:input type="text" class="form-control" id="name" path="name" name="name" placeholder=""/>
+                        <div class="input-group">
+                            <form:input type="text" class="form-control" id="name" path="name" name="name" placeholder=""/>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="description"><spring:message text="Введіть короткий опис категорії"/> </label>
+                    <div class="form-group">
+                        <label for="description"><spring:message text="Введіть короткий опис категорії"/> </label>
 
-                    <div class="input-group">
-                        <form:input type="text" class="form-control" id="description" path="description"
-                                    name="description" placeholder=""/>
+                        <div class="input-group">
+                            <form:input type="text" class="form-control" id="description" path="description"
+                                        name="description" placeholder=""/>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="file" id="files" name="file"/>
-                        <output id="list"></output>
-                        <script>
-                            function handleFileSelect(evt) {
-                                var files = evt.target.files; // FileList object
+                    <div class="form-group">
+                        <div class="input-group">
+                            <form:input path="" type="file" id="files" name="file"/>
+                            <output id="list"></output>
+                            <script>
+                                function handleFileSelect(evt) {
+                                    var files = evt.target.files; // FileList object
 
-                                // Loop through the FileList and render image files as thumbnails.
-                                for (var i = 0, f; f = files[i]; i++) {
+                                    // Loop through the FileList and render image files as thumbnails.
+                                    for (var i = 0, f; f = files[i]; i++) {
 
-                                    // Only process image files.
-                                    if (!f.type.match('image.*')) {
-                                        continue;
+                                        // Only process image files.
+                                        if (!f.type.match('image.*')) {
+                                            continue;
+                                        }
+
+                                        var reader = new FileReader();
+
+                                        // Closure to capture the file information.
+                                        reader.onload = (function (theFile) {
+                                            return function (e) {
+                                                // Render thumbnail.
+                                                var span = document.createElement('span');
+                                                span.innerHTML = ['<img class="img-thumbnail" height="140" width="140" + src="', e.target.result,
+                                                    '" title="', escape(theFile.name), '"/>'].join('');
+                                                document.getElementById('list').insertBefore(span, null);
+                                            };
+                                        })(f);
+
+                                        // Read in the image file as a data URL.
+                                        reader.readAsDataURL(f);
                                     }
-
-                                    var reader = new FileReader();
-
-                                    // Closure to capture the file information.
-                                    reader.onload = (function (theFile) {
-                                        return function (e) {
-                                            // Render thumbnail.
-                                            var span = document.createElement('span');
-                                            span.innerHTML = ['<img class="img-thumbnail" height="140" width="140" + src="', e.target.result,
-                                                '" title="', escape(theFile.name), '"/>'].join('');
-                                            document.getElementById('list').insertBefore(span, null);
-                                        };
-                                    })(f);
-
-                                    // Read in the image file as a data URL.
-                                    reader.readAsDataURL(f);
                                 }
-                            }
 
-                            document.getElementById('files').addEventListener('change', handleFileSelect, false);
-                        </script>
+                                document.getElementById('files').addEventListener('change', handleFileSelect, false);
+                            </script>
+                        </div>
                     </div>
-                </div>
 
-                <input type="submit" name="submit" id="submit" value="Створити" class="btn btn-info pull-right">
-            </div>
-        </form:form>
+                    <input type="submit" name="submit" id="submit" value="Створити" class="btn btn-info pull-right">
+                </div>
+            </form:form>
+        </div>
     </div>
 
     <!-- Footer -->
