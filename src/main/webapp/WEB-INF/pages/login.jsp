@@ -28,9 +28,12 @@
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdn.auth0.com/js/lock-6.js"></script>
     <script src="//use.typekit.net/iws6ohy.js"></script>
-    <script>try{Typekit.load();}catch(e){}</script>
+    <script>try {
+        Typekit.load();
+    } catch (e) {
+    }</script>
     <script src="${pageContext.request.contextPath}/resources/js/auth0-variables.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/app.js"> </script>
+    <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
 
 </head>
 <body>
@@ -48,7 +51,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 offset2 well">
+        <div class="col-lg-6 col-lg-offset-3 well">
             <form class="form-signin" id="form" action="/j_spring_security_check" method="POST" onsubmit="function checkForm() {
     var u_login = document.forms['form']['us_name'].value; var pass = document.forms['form']['us_pass'].value;
       if (u_login == null || u_login == '') {document.forms['form']['us_name'].focus(); return false;}
@@ -70,7 +73,8 @@
             </form>
             <h2 align="center">OR</h2>
             <!-- Auth0 login -->
-            <input type="submit" class="btn-login btn btn-lg btn-primary btn-block" value="<spring:message code="login.btn.social"/> "/>
+            <input type="submit" class="btn-login btn btn-lg btn-primary btn-block"
+                   value="<spring:message code="login.btn.social"/> "/>
         </div>
     </div>
     <hr>

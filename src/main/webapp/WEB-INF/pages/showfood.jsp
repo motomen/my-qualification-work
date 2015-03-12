@@ -10,6 +10,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -185,8 +186,8 @@
 
     <!-- Main information fbout food -->
     <div class="row  well">
-        <div class="col-lg-4">
-            <table border="1">
+        <div class="col-lg-4 block-table">
+            <table class="table table-hover">
                 <caption>Харчова цінність</caption>
                 <tr>
                     <th>Білки</th>
@@ -224,7 +225,7 @@
                 <div class="tab-pane active" id="comments-logout">
                     <ul class="media-list">
                         <c:forEach items="${listComment}" var="com">
-                            <li class="media">
+                            <li class="media block-comment">
                                 <a class="pull-left" href="#">
                                     <img class="media-object img-circle usercomment"
                                          src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">

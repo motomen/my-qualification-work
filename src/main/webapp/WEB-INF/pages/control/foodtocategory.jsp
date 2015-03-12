@@ -46,7 +46,7 @@
     <div class="row">
         <form:form action="/control/foodtocategory" method="POST" id="form" commandName="food" class="form-horizontal"
                    enctype="multipart/form-data">
-            <div class="col-lg-6 col-lg-offset-3">
+            <div class="col-lg-6 col-lg-offset-3 well">
                 <!--   <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span></strong></div> -->
                 <div class="form-group">
                     <label for="namecategory"><spring:message text="Виберіть підкатегорію"/> </label>
@@ -61,14 +61,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="food"><spring:message text="Виберіть Їжу"/> </label>
+                    <label for="food"><spring:message text="Id Їжі"/> </label>
 
                     <div class="input-group">
-                        <select name="food" id="food">
-                            <c:forEach items="${foods}" var="item">
-                                <option><c:out value="${item.name}"/></option>
-                            </c:forEach>
-                        </select>
+                        <input name="food" id="food" type="text">
                     </div>
                 </div>
 

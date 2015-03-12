@@ -19,7 +19,7 @@
 <div>
     <c:forEach items="${page.list}" var="food">
         <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
-            <div class="pull-left resize">
+            <div class="resize block-foods">
                 <h3 class="title"><c:out value="${food.name}"/></h3>
                 <div class="con">
                     <img class="img-thumbnail resize" name="myImg"

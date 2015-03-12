@@ -24,26 +24,6 @@
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
 
     <script type="text/javascript">
-        //        $(document).ready(function () {
-        //
-        //
-        //
-        //            $('#some_ajax_link').click(function(){
-        //                $.ajax({
-        //                    type: "POST",
-        //                    /* insert a valid url here */
-        //                    url: "",
-        //                    data: { name: "John", location: "Boston" },
-        //                    beforeSend: function (xhr) {
-        //                        alert('yyy');
-        //                    },
-        //                    success: function (xhr) {
-        //                        alert('xxx');
-        //                    }
-        //                });
-        //            });
-        //        });
-
         function clicklink(name) {
             //disable all other links
 
@@ -106,7 +86,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-2 col-md-2 well ">
+        <div class="col-lg-2 col-md-2 well block-category">
             <h3 class="title" align="center">Категорії</h3>
             <c:forEach items="${listCategory}" var="item">
                 <div class="row">
@@ -120,7 +100,7 @@
                 </div>
             </c:forEach>
         </div>
-        <div class="col-lg-9 col-lg-offset-1 well">
+        <div class="col-lg-9 well block-subcategory">
             <h3 class="title" align="center">Підкатегорії</h3>
 
             <div class="row" id="placesubcategory">
