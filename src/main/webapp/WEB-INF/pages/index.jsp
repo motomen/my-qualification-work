@@ -18,7 +18,7 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/liquid-slider.css"/>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.touchSwipe.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
@@ -145,19 +145,51 @@
         <!-- End Slider -->
     </div>
 
+    <!-- recent product -->
+    <div class="row">
+        <div class="col-lg-3">
+            <h1>Останні продукти</h1>
 
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
+            <p>Перегляньте нашу базу даних, щоб знайти здорову їжу, йогурт або перекусити</p>
+            <a href="/foods" class="btn btn-primary btn-success">Перегляд</a>
         </div>
-        <!-- /.row -->
-    </footer>
+        <div class="row">
+            <c:forEach items="${foods}" var="food">
+                <div class="col-lg-2 block-foods">
+                    <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
+                        <h3 class="title"><c:out value="${food.name}"/></h3>
+
+                        <div class="con">
+                            <img class="img-thumbnail resize" name="myImg"
+                                 src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
+                            <img src="${pageContext.request.contextPath}/resources/images/<c:out value="${food.rating}"/>.jpg"
+                                 class="tops">
+                        </div>
+                    </a>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+    <!-- /recent product -->
+
+    <!-- about Grading System -->
+    <div class="row">
+        <div class="col-lg-12 well">
+            <h1 style="align-content: center">Класифікація їжі</h1>
+
+            <p>
+                Всі продукти оцінюються за шкалою від 1 до 10. На основі панелі харчування, факти про продукт та список
+                інгредієнтів. Мінімально оброблені, реальні продукти з власних поживних речовин матимуть кращу оцінку,
+                ніж оброблені харчові продукти, які є бідними на поживні речовини.
+            </p>
+            <img src="${pageContext.request.contextPath}/resources/images/scorebar_large.png" class="img-rounded">
+        </div>
+    </div>
+    <!-- end about Grading System -->
+    <jsp:include page="frames/foter.jsp"/>
 
 </div>
 <!-- /.container -->
-
+<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

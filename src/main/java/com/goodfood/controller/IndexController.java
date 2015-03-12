@@ -26,6 +26,7 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
+        model.addAttribute("foods", foodService.getTenFood());
         logger.info("index page");
         return "index";
     }

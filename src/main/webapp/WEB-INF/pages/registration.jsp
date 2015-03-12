@@ -87,40 +87,6 @@
                         <img id="photouser" class="img-thumbnail" heiht="140" width="140"
                              src="${pageContext.request.contextPath}/resources/img/user.jpg"/>
                     </div>
-                    <script>
-                        function handleFileSelect(evt) {
-                            function changeImage(a) {
-                                document.getElementById("photouser").src = a.src;
-                            }
-
-                            var files = evt.target.files; // FileList object
-                            // Loop through the FileList and render image files as thumbnails.
-                            for (var i = 0, f; f = files[i]; i++) {
-
-                                // Only process image files.
-                                if (!f.type.match('image.*')) {
-                                    continue;
-                                }
-
-                                var reader = new FileReader();
-
-                                // Closure to capture the file information.
-                                reader.onload = (function (theFile) {
-                                    return function (e) {
-                                        // Render thumbnail.
-                                        var content;
-                                        content = "<img class=\"img-thumbnail\" height=\"140\" width=\"140\" src=\"" + e.target.result + "\"/>";
-                                        $("#imgreplace").html(content);
-                                    };
-                                })(f);
-
-                                // Read in the image file as a data URL.
-                                reader.readAsDataURL(f);
-                            }
-                        }
-
-                        document.getElementById('files').addEventListener('change', handleFileSelect, false);
-                    </script>
                 </div>
                 <input type="submit" name="submit" id="submit" value="Створити" class="btn-login btn btn-lg btn-primary btn-block">
             </form:form>
@@ -128,17 +94,10 @@
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
-        </div>
-        <!-- /.row -->
-    </footer>
+    <jsp:include page="frames/foter.jsp"/>
 
 </div>
 
-
+<script src="${pageContext.request.contextPath}/resources/js/page_js/replacepicture.js"></script>
 </body>
 </html>

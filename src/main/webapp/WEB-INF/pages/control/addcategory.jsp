@@ -16,6 +16,7 @@
     <title></title>
     <!-- Latest compiled and minified CSS -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
     <!-- Optional theme -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.css">
     <!-- Latest compiled and minified JavaScript -->
@@ -67,39 +68,10 @@
                     <div class="form-group">
                         <div class="input-group">
                             <form:input path="" type="file" id="files" name="file"/>
-                            <output id="list"></output>
-                            <script>
-                                function handleFileSelect(evt) {
-                                    var files = evt.target.files; // FileList object
-
-                                    // Loop through the FileList and render image files as thumbnails.
-                                    for (var i = 0, f; f = files[i]; i++) {
-
-                                        // Only process image files.
-                                        if (!f.type.match('image.*')) {
-                                            continue;
-                                        }
-
-                                        var reader = new FileReader();
-
-                                        // Closure to capture the file information.
-                                        reader.onload = (function (theFile) {
-                                            return function (e) {
-                                                // Render thumbnail.
-                                                var span = document.createElement('span');
-                                                span.innerHTML = ['<img class="img-thumbnail" height="140" width="140" + src="', e.target.result,
-                                                    '" title="', escape(theFile.name), '"/>'].join('');
-                                                document.getElementById('list').insertBefore(span, null);
-                                            };
-                                        })(f);
-
-                                        // Read in the image file as a data URL.
-                                        reader.readAsDataURL(f);
-                                    }
-                                }
-
-                                document.getElementById('files').addEventListener('change', handleFileSelect, false);
-                            </script>
+                            <div id="imgreplace">
+                                <img id="photouser" class="img-thumbnail" height="140" width="140"
+                                     src="${pageContext.request.contextPath}/resources/img/user.jpg"/>
+                            </div>
                         </div>
                     </div>
 
@@ -110,15 +82,9 @@
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
-        </div>
-        <!-- /.row -->
-    </footer>
+    <jsp:include page="../frames/foter.jsp"/>
 
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/page_js/replacepicture.js"></script>
 </body>
 </html>

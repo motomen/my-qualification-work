@@ -32,48 +32,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/jquery.rating.css" rel="stylesheet" type="text/css"/>
 
-    <script>
-
-        function ratingclick(rating) {
-            $.ajax({
-                type: 'GET',
-                url: "${pageContext.request.contextPath}/rating/" + rating + "/${id}",
-                dataType: 'json',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Accept", "application/json");
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                },
-                success: function (value) {
-                    var respContent = "<h4>rating:" + value + "</h4>";
-                    $("#rating").html(respContent);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.status + ' ' + jqXHR.responseText);
-                }
-
-            });
-        }
-
-        function addcalcvalue() {
-            var calcvalue = $('#calcvalue').val();
-            $.ajax({
-                url: "/calc/save/${food.idFood}/" + calcvalue,
-                type: "POST",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Accept", "application/json");
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                },
-                success: function (suc) {
-                    if (suc) {
-                        var resp = '<p style="color: #398439">Ви успішно зїли товар</p>';
-                        $("#calcinformation").html(resp);
-                    } else {
-                        var resp = '<p style="color: red">Сталася помилка</p>';
-                        $("#calcinformation").html(resp);
-                    }
-                }
-            });
-        }
+    <script src="${pageContext.request.contextPath}/resources/js/page_js/showfood.js">
     </script>
 </head>
 <body>
@@ -299,14 +258,7 @@
     <!-- end place comment -->
 
     <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
-        </div>
-        <!-- /.row -->
-    </footer>
+    <jsp:include page="frames/foter.jsp"/>
 
 </div>
 <!-- /.container -->

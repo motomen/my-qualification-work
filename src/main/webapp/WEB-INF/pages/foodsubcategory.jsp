@@ -43,7 +43,7 @@
         <div class="col-lg-12">
             <h1 class="page-header">
                 </br>
-                <small><spring:message text="show food"/>
+                <small><spring:message text="category>subcategory"/>
                 </small>
             </h1>
         </div>
@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-
+    <jsp:include page="frames/foter.jsp"/>
 </div>
 </body>
 </html>
