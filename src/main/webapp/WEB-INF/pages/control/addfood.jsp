@@ -132,7 +132,7 @@
 
                     <div id="imgreplace">
                         <img id="photouser" class="img-thumbnail" heiht="140" width="140"
-                             src="${pageContext.request.contextPath}/resources/img/user.jpg"/>
+                             src="${pageContext.request.contextPath}/resources/img/food.jpg"/>
                     </div>
                     <output id="list"></output>
                     <script>

@@ -20,15 +20,9 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/liquid-slider.css"/>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.liquid-slider.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.touchSwipe.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
-
-    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
-
-          rel="stylesheet">
 </head>
 <body>
 <div class="container">

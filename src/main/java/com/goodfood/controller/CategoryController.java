@@ -14,6 +14,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -76,7 +78,7 @@ public class CategoryController {
     @ResponseBody
     public List<Subcategory> allListSubcategory(@PathVariable("namecategory") String name) {
         Category category = categoryService.getCategoryByName(Util.Iso88591ToUtf8(name));
-        List<Subcategory> list = category.getSubCategories();
+        List<Subcategory> list = new ArrayList<>(new HashSet<>(category.getSubCategories()));
         return list;
     }
 

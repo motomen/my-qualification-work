@@ -18,16 +18,18 @@
 <body>
 <div>
     <c:forEach items="${page.list}" var="food">
-        <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
-            <div class="resize block-foods">
+        <div class="col-lg-2 block-foods">
+            <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
                 <h3 class="title"><c:out value="${food.name}"/></h3>
+
                 <div class="con">
                     <img class="img-thumbnail resize" name="myImg"
                          src="data:image/jpg;base64,<c:out value='${food.photo}'/>">
-                    <img src="${pageContext.request.contextPath}/resources/images/<c:out value="${food.rating}"/>.jpg" class="tops">
+                    <img src="${pageContext.request.contextPath}/resources/images/<c:out value="${food.rating}"/>.jpg"
+                         class="tops">
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </c:forEach>
 </div>
 </body>

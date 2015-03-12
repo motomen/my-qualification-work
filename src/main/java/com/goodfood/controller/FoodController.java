@@ -15,6 +15,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +46,9 @@ public class FoodController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ServletContext servletContext;
+
     @RequestMapping(value = "/control/addfood", method = RequestMethod.GET)
     public String addFood(ModelMap model) {
         model.addAttribute("food", new Food());
@@ -71,16 +76,27 @@ public class FoodController {
         food.setFats(fats);
         food.setCarbs(carbs);
         food.setKcal(kcal);
-        food.setRating(0.0);
+        food.setRating(1.0);
         food.setIngredients(ingredients);
-        food.setPhoto(Util.fileToString(file)); //convert file to string Base64
         HashSet<Subcategory> hashSet = new HashSet<Subcategory>();
         hashSet.add(subcategoryService.getCategoryByName(subcategory));
         food.setSubcategories(hashSet);
+        if (file.getSize() != 0) {
+            food.setPhoto(Util.fileToString(file)); //convert file to string Base64
+        } else {
+            File resource = new File(servletContext.getRealPath("/") + "/resources/img/food.jpg");
+            if (resource.exists()){
+                try {
+                    food.setPhoto(Util.fileToString(resource));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         foodService.addFood(food);
 //        ModelAndView modelAndView = new ModelAndView("/control/addfoodstep2");
 //        modelAndView.addObject("idFood", food.getIdFood());
-        return "/control/addfood";
+        return "redirect:/control/addfood";
     }
 
     @PreAuthorize("isAuthenticated()")
