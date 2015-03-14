@@ -33,6 +33,7 @@ public class IndexController {
 
     @RequestMapping("about")
     public String about() {
+        logger.info("about page");
         return "about";
     }
 }

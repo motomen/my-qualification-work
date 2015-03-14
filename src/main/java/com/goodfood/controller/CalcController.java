@@ -8,6 +8,8 @@ import com.goodfood.service.CalcService;
 import com.goodfood.service.FoodService;
 import com.goodfood.service.UserService;
 import com.goodfood.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ import java.util.List;
 
 @Controller
 public class CalcController {
+
+    final Logger logger = LoggerFactory.getLogger(CalcController.class);
 
     @Autowired
     private CalcService calcService;
@@ -54,6 +58,7 @@ public class CalcController {
         User user = userService.getUser(userName);
         calcFood.setUser(user);
         calcService.save(calcFood);
+        logger.info("save calculate food user = " + userName + " food = " + food.getName());
         return true;
     }
 
@@ -61,6 +66,7 @@ public class CalcController {
     @RequestMapping(value = "/calc", method = RequestMethod.GET)
     public String showcalc(ModelMap modelMap) {
         String userName = authentication.getUserName();
+        logger.info("User (" + userName + ") show own calculate food");
         User user = userService.getUser(userName);
         List<CalcFood> calcFoodList = calcService.getCalcByIdUser(user, Util.getDate(1), Util.getDate(0));
         Double calories = 0.0;
@@ -68,6 +74,8 @@ public class CalcController {
             for (CalcFood calcs : calcFoodList) {
                 calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
             }
+        } else {
+            logger.error("calculate food list is empty");
         }
         modelMap.addAttribute("calories", calories);
         modelMap.addAttribute("calc", calcFoodList);
@@ -80,6 +88,7 @@ public class CalcController {
         String userName = authentication.getUserName();
         User user = userService.getUser(userName);
         CalcFood calcFood = calcService.getCalcById(id);
+        logger.info("user = (" + userName + ") delete calculate food with id = " + String.valueOf(id));
         if (calcFood.getUser().getIdUser() == user.getIdUser()) {
             calcService.delete(calcFood);
         }
@@ -98,8 +107,12 @@ public class CalcController {
         ModelAndView modelAndView = new ModelAndView("/frames/foodtable");
         List<CalcFood> calcFoods = calcService.getCalcByIdUser(user, beginDate, endDate);
         Double calories = 0.0;
-        for (CalcFood calcs: calcFoods) {
-            calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
+        if (calcFoods != null) {
+            for (CalcFood calcs : calcFoods) {
+                calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
+            }
+        } else {
+            logger.error("calculate food is empty for user = (" + userName + ") in date beetwen" + beginDate.toString() + " and " + endDate.toString());
         }
         modelAndView.addObject("calories", calories);
         modelAndView.addObject("calc", calcFoods);

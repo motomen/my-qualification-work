@@ -8,6 +8,8 @@ import com.goodfood.service.FoodService;
 import com.goodfood.service.RatingService;
 import com.goodfood.service.UserService;
 import com.goodfood.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,8 @@ import java.util.Set;
 
 @Controller
 public class FoodController {
+
+    final Logger logger = LoggerFactory.getLogger(FoodController.class);
 
     @Autowired
     private FoodService foodService;
@@ -52,6 +56,7 @@ public class FoodController {
 
     @RequestMapping(value = "/control/addfood", method = RequestMethod.GET)
     public String addFood(ModelMap model) {
+        logger.info("show add food page");
         model.addAttribute("food", new Food());
         model.addAttribute("listCategory", categoryService.allCategory());
         return "control/addfood";
@@ -70,6 +75,7 @@ public class FoodController {
             @RequestParam("ingredients") String ingredients,
             @RequestParam("subcategory") String subcategory,
             ModelMap model) {
+        logger.info("add new food");
         Food food = new Food();
         food.setIdFood(idFood);
         food.setName(name);
@@ -90,6 +96,7 @@ public class FoodController {
                 try {
                     food.setPhoto(Util.fileToString(resource));
                 } catch (Exception e) {
+                    logger.error("error convert photo for food");
                     e.printStackTrace();
                 }
             }
@@ -130,12 +137,14 @@ public class FoodController {
             }
             val /= ratingSet.size();
         }
+        logger.info("show food information with id = (" + food.getIdFood() + ") for user = " + userName);
         model.addAttribute("ratginFood", val);
         return "showfood";
     }
 
     @RequestMapping(value = "/control/foodtocategory", method = RequestMethod.GET)
     public String addFoodToCategory(ModelMap model) {
+        logger.info("show add food to category page");
         model.addAttribute("subcategory", subcategoryService.getAllSubcategory());
         return "control/foodtocategory";
     }
@@ -144,6 +153,7 @@ public class FoodController {
     public String addFoodToCategory(@RequestParam("namecategory") String subcategory,
                                     @RequestParam("food") String food,
                                     ModelMap model) {
+        logger.info("add food with id = (" + food + ") to subcategory with name = " + subcategory);
         Food food1 = foodService.getFoodById(food);
         Set<Subcategory> subcategoryList = food1.getSubcategories();
         Subcategory subcategory1 = subcategoryService.getCategoryByName(subcategory);
@@ -158,6 +168,7 @@ public class FoodController {
     public List<String> searchFood(
             @RequestParam("input") String input) {
         String nameUtf8 = Util.Iso88591ToUtf8(input);
+        logger.info("search on site query = " + nameUtf8);
         List<String> nameList = foodService.getNameFoodForSearch(nameUtf8);
         return nameList;
     }
@@ -168,8 +179,10 @@ public class FoodController {
             ModelMap modelMap) {
         List<Food> foodList = foodService.getFoodForSearch(name);
         if (foodList.size() == 1) {
+            logger.info("show result for one food with query = " + name);
             return "redirect:/showfood/" + foodList.get(0).getIdFood();
         } else {
+            logger.info("show result for more one food with query = " + name);
             modelMap.addAttribute("foodList", foodList);
             return "/showfoods";
         }

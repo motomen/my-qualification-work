@@ -7,6 +7,8 @@ import com.goodfood.model.User;
 import com.goodfood.service.CommentService;
 import com.goodfood.service.FoodService;
 import com.goodfood.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import java.util.Date;
 
 @Controller
 public class CommentController {
+
+    final Logger logger = LoggerFactory.getLogger(CommentController.class);
 
     @Autowired
     private CommentService commentService;
@@ -48,6 +52,7 @@ public class CommentController {
         Food food = foodService.getFoodById(idFood);
         comments.setFood(food);
         commentService.save(comments);
+        logger.info("user = (" + userName + ") add new comment to fod with id = (" + food.getIdFood() + ")");
         return "redirect:/showfood/" + idFood;
     }
 
@@ -55,8 +60,9 @@ public class CommentController {
     @RequestMapping(value = "/comments/{idFood}/delete/{idComment}", method = RequestMethod.POST)
     public String deleteComment(
             @PathVariable("idComment") int id,
-            @PathVariable("idFood") String idFood
-    ) {
+            @PathVariable("idFood") String idFood) {
+        String userName = authentication.getUserName();
+        logger.info("user with name = " + userName + " delete comment with id = (" + String.valueOf(id) + ")");
         commentService.delete(commentService.getCommentById(id));
         return "redirect:/showfood/" + idFood;
     }

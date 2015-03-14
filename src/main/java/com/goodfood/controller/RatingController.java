@@ -6,6 +6,8 @@ import com.goodfood.model.User;
 import com.goodfood.service.FoodService;
 import com.goodfood.service.RatingService;
 import com.goodfood.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import java.util.*;
 @Controller
 public class RatingController {
 
+    final Logger logger = LoggerFactory.getLogger(RatingController.class);
 
     @Autowired
     private RatingService ratingService;
@@ -66,6 +69,7 @@ public class RatingController {
             val += rSet.getValue();
         }
         val /= ratingSet.size();
+        logger.info("set rating = " + String.valueOf(rating.getValue()) + " for food id = (" + id + ") user = (" + userName + ")");
         return val;
     }
 }

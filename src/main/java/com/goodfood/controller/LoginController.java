@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Yaroslav on 31.01.2015.
@@ -32,7 +33,7 @@ import java.sql.Timestamp;
 @Controller
 public class LoginController {
 
-    final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
     private UserService userService;
@@ -46,6 +47,7 @@ public class LoginController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String register(HttpServletRequest request, ModelMap model) {
         model.addAttribute("user", new User());
+        logger.info("show page registration user");
         return "registration";
     }
 
@@ -55,7 +57,6 @@ public class LoginController {
                              @RequestParam("nicname") String nicname,
                              @RequestParam("password") String password,
                              @RequestParam("mail") String mail) {
-
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);
@@ -65,21 +66,22 @@ public class LoginController {
             user.setPhoto(Util.fileToString(file));
         } else {
             File resource = new File(servletContext.getRealPath("/") + "/resources/img/user.jpg");
-            if (resource.exists()){
+            if (resource.exists()) {
                 try {
                     user.setPhoto(Util.fileToString(resource));
                 } catch (Exception e) {
+                    logger.info("error convert user photo");
                     e.printStackTrace();
                 }
             }
         }
         addUser(user);
+        logger.info("add new user with nicname " + user.getNicname());
         return "redirect:/";
     }
 
     private void addUser(User user) {
-        java.util.Date date = new java.util.Date();
-        user.setDateReg(new Timestamp(date.getTime()));
+        user.setDateReg(new Date());
         //role id 2 = User
         Role role = roleService.getRole(2);
         user.setRole(role);
@@ -96,8 +98,7 @@ public class LoginController {
     @ResponseBody
     public String apicheck(
             @RequestParam("username") String name,
-            @RequestParam("password") String password
-    ){
+            @RequestParam("password") String password) {
         String username = name;
         String password2 = password;
         return "0k";

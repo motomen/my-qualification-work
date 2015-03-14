@@ -1,8 +1,7 @@
 package com.goodfood.model;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,7 +19,7 @@ public class User {
 	private String mail;
 
 	@Column(name = "date_reg", nullable = false)
-	private Timestamp dateReg;
+	private Date dateReg;
 	private Date birthday;
 	@Lob
 	private String photo;
@@ -94,11 +93,11 @@ public class User {
 		this.mail = mail;
 	}
 
-	public Timestamp getDateReg() {
+	public Date getDateReg() {
 		return dateReg;
 	}
 
-	public void setDateReg(Timestamp dateReg) {
+	public void setDateReg(Date dateReg) {
 		this.dateReg = dateReg;
 	}
 
