@@ -1,3 +1,6 @@
+*, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+body, html { font-size: 100%; padding: 0; margin: 0;}
+
 img.resize {
     width: 200px;
 }
@@ -99,4 +102,12 @@ li.block-comment {
 
 div.block-table {
     background: rgba(154, 172, 200, 0.30);
+}
+
+.hiddens{
+    opacity: 0;
+}
+
+.visibles{
+    opacity: 1;
 }

@@ -99,4 +99,24 @@ public class FoodDAOImpl implements FoodDAO {
                 .addEntity(Food.class)
                 .list();
     }
+
+    @Override
+    public List<String> getNameFoodForSearch(String name) {
+        String sql = "SELECT f.name FROM food f " +
+                "WHERE  f.name LIKE '%"+name+"%' ";
+        return getCurrentSession()
+                .createSQLQuery(sql)
+                .list();
+    }
+
+    @Override
+    public List<Food> getFoodForSearch(String name) {
+        String sql = "SELECT f.* FROM food f " +
+                "WHERE  f.name LIKE '%"+name+"%' ";
+        List<Food> foodList = getCurrentSession()
+                .createSQLQuery(sql)
+                .addEntity(Food.class)
+                .list();
+        return new ArrayList<>(new HashSet(foodList));
+    }
 }

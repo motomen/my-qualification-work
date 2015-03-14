@@ -18,4 +18,6 @@ public interface FoodDAO {
     public List<Food> getAllFoodBySubcategory(int page, int maxResults, Subcategory subcategory);
     public List<Food> getAllFoodBySubcategory(Subcategory subcategory);
     public List<Food> getAllFoodWithoutSubcategory();
+    public List<String> getNameFoodForSearch(String name);
+    public List<Food> getFoodForSearch(String name);
 }

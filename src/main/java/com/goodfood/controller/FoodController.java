@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -85,7 +86,7 @@ public class FoodController {
             food.setPhoto(Util.fileToString(file)); //convert file to string Base64
         } else {
             File resource = new File(servletContext.getRealPath("/") + "/resources/img/food.jpg");
-            if (resource.exists()){
+            if (resource.exists()) {
                 try {
                     food.setPhoto(Util.fileToString(resource));
                 } catch (Exception e) {
@@ -122,7 +123,7 @@ public class FoodController {
         model.addAttribute("food", food);
         model.addAttribute("calcFood", new CalcFood());
         List<Rating> ratingSet = ratingService.getRatingByIdFood(idFood);
-        double val=0.0;
+        double val = 0.0;
         if (ratingSet.size() > 0) {
             for (Rating rSet : ratingSet) {
                 val += rSet.getValue();
@@ -150,5 +151,27 @@ public class FoodController {
         food1.setSubcategories(subcategoryList);
         foodService.update(food1);
         return "redirect:/control/foodtocategory";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> searchFood(
+            @RequestParam("input") String input) {
+        String nameUtf8 = Util.Iso88591ToUtf8(input);
+        List<String> nameList = foodService.getNameFoodForSearch(nameUtf8);
+        return nameList;
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String searchFoods(
+            @RequestParam("name") String name,
+            ModelMap modelMap) {
+        List<Food> foodList = foodService.getFoodForSearch(name);
+        if (foodList.size() == 1) {
+            return "redirect:/showfood/" + foodList.get(0).getIdFood();
+        } else {
+            modelMap.addAttribute("foodList", foodList);
+            return "/showfoods";
+        }
     }
 }

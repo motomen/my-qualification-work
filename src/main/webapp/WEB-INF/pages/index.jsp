@@ -25,6 +25,7 @@
 
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/animate.css" rel="stylesheet">
 </head>
 
 <body>
@@ -155,7 +156,7 @@
         </div>
         <div class="row">
             <c:forEach items="${foods}" var="food">
-                <div class="col-lg-2 block-foods">
+                <div class="col-lg-2 block-foods post">
                     <a href="${pageContext.request.contextPath}/showfood/${food.idFood}">
                         <h3 class="title"><c:out value="${food.name}"/></h3>
 
@@ -191,5 +192,14 @@
 </div>
 <!-- /.container -->
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/viewportchecker.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.post').addClass("hiddens").viewportChecker({
+            classToAdd: 'visibles animated fadeIn', // Class to add to the elements when they are visible
+            offset: 100
+        });
+    });
+</script>
 </body>
 </html>

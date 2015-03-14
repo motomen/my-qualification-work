@@ -64,4 +64,13 @@ public class FoodServiceImpl implements FoodService {
     public List<Food> getAllFoodWithoutSubcategory() {
         return foodDAO.getAllFoodWithoutSubcategory();
     }
+
+    public List<String> getNameFoodForSearch(String name){
+        return foodDAO.getNameFoodForSearch(name);
+    }
+
+    @Override
+    public List<Food> getFoodForSearch(String name) {
+        return foodDAO.getFoodForSearch(name);
+    }
 }

@@ -18,6 +18,10 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <!-- Autocomplete -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -47,7 +51,7 @@
             </ul>
             <div class="col-lg-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="<spring:message code="menu.search"/>">
+                    <input id="autocomplete" type="text" class="form-control" placeholder="<spring:message code="menu.search"/>">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Go!</button>
                   </span>
@@ -58,5 +62,19 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
+<script>
+    jQuery("#autocomplete").autocomplete({
+        source: function (request, response) {
+            jQuery.get("/search?input=" + request.term, function (data) {
+                // assuming data is a JavaScript array such as
+                // ["one@abc.de", "onf@abc.de","ong@abc.de"]
+                // and not a string
+                response(data);
+                return data;
+            });
+        },
+        minLength: 3
+    });
+</script>
 </body>
 </html>

@@ -52,7 +52,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-2 col-md-2 well block-category">
+        <div class="col-lg-2 col-md-2 well block-category" >
             <h3 class="title" align="center">Категорії</h3>
             <c:forEach items="${listCategory}" var="item">
                 <div class="row">
