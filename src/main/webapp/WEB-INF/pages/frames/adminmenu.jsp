@@ -46,16 +46,19 @@
                 <li><a href="/control/foodtocategory"><spring:message code="admin.menu.foodtocategory"/> </a></li>
                 <li><a href="/control/addcategory"><spring:message code="admin.menu.addcategory"/> </a></li>
                 <li><a href="/control/addsubcategory"><spring:message code="admin.menu.addsubcategory"/> </a></li>
-                <li><a href="/j_spring_security_logout"><spring:message code="admin.menu.logout"/> </a> </li>
-                <li><a href="/calc"><spring:message code="menu.calc"/></a> </li>
+                <li><a href="/j_spring_security_logout"><spring:message code="admin.menu.logout"/> </a></li>
+                <li><a href="/calc"><spring:message code="menu.calc"/></a></li>
             </ul>
             <div class="col-lg-3">
-                <div class="input-group">
-                    <input id="autocomplete" type="text" class="form-control" placeholder="<spring:message code="menu.search"/>">
+                <form method="post" action="/search">
+                    <div class="input-group">
+                        <input id="autocomplete" type="text" name="name" class="form-control"
+                               placeholder="<spring:message code="menu.search"/>">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
+                    <input class="btn btn-default" type="submit" value="Go!">
                   </span>
-                </div><!-- /input-group -->
+                    </div>
+                </form>
             </div>
         </div>
         <!-- /.navbar-collapse -->

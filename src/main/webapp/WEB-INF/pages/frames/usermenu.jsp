@@ -46,13 +46,15 @@
                 <li><a href="/calc"><spring:message code="menu.calc"/></a></li>
             </ul>
             <div class="col-lg-3">
-                <div class="input-group">
-                    <input id="autocomplete" type="text" class="form-control"
-                           placeholder="<spring:message code="menu.search"/>">
+                <form method="post" action="/search">
+                    <div class="input-group">
+                        <input id="autocomplete" type="text" name="name" class="form-control"
+                               placeholder="<spring:message code="menu.search"/>">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
+                    <input class="btn btn-default" type="submit" value="Go!">
                   </span>
-                </div>
+                    </div>
+                </form>
                 <!-- /input-group -->
             </div>
         </div>
