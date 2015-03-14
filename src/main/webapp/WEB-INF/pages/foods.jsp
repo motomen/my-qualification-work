@@ -13,17 +13,16 @@
 <html>
 <head>
     <title></title>
+    <!-- jQuery -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.2.js"></script>
-
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
 
     <script src="${pageContext.request.contextPath}/resources/js/page_js/foods.js"></script>
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
 </head>
 <body>
 
@@ -76,14 +75,7 @@
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
-        </div>
-        <!-- /.row -->
-    </footer>
+    <jsp:include page="frames/foter.jsp"/>
 </div>
 
 </body>

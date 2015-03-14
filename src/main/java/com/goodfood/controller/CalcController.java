@@ -64,8 +64,10 @@ public class CalcController {
         User user = userService.getUser(userName);
         List<CalcFood> calcFoodList = calcService.getCalcByIdUser(user, Util.getDate(1), Util.getDate(0));
         Double calories = 0.0;
-        for (CalcFood calcs: calcFoodList) {
-            calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
+        if (calcFoodList != null) {
+            for (CalcFood calcs : calcFoodList) {
+                calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
+            }
         }
         modelMap.addAttribute("calories", calories);
         modelMap.addAttribute("calc", calcFoodList);

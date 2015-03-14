@@ -17,8 +17,10 @@
 <head>
     <title>Їжа для вас</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/liquid-slider.css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.liquid-slider.min.js"></script>
+    <!-- jQuery -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
+
     <script src="${pageContext.request.contextPath}/resources/js/jquery.touchSwipe.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
 </head>
@@ -87,12 +89,6 @@
     <jsp:include page="../frames/foter.jsp"/>
 </div>
 <!-- /.container -->
-
-<!-- jQuery -->
-<script src="/resources/bootstrap/js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="/resources/js/page_js/replacepicture.js"></script>
 </body>
 </html>

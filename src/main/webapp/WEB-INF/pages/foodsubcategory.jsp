@@ -15,13 +15,9 @@
 <head>
     <title><spring:message code="page.header"></spring:message></title>
     <!-- jQuery -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/liquid-slider.css"/>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.touchSwipe.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
 </head>
 <body>

@@ -16,11 +16,11 @@
     <title></title>
     <!-- Latest compiled and minified CSS -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
     <!-- Optional theme -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
+    <!-- jQuery -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
 </head>
 <body>
 

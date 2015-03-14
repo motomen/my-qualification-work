@@ -12,20 +12,13 @@
 <html>
 <head>
     <title></title>
-    <!-- Bootstrap Core JavaScript -->
+    <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/star-rating.min.css" media="all" rel="stylesheet"
-          type="text/css"/>
-    <script src="${pageContext.request.contextPath}/resources/js/star-rating.min.js">
-    </script>
-    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/scripts/bootstrap/css/bootstrap-responsive.min.css"
-          rel="stylesheet">
 
-    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
     <script src="https://cdn.auth0.com/js/lock-6.js"></script>
     <script src="//use.typekit.net/iws6ohy.js"></script>
     <script>try {
@@ -37,7 +30,9 @@
 
 </head>
 <body>
-<jsp:include page="frames/menu.jsp"/>
+<div class="container">
+    <jsp:include page="frames/menu.jsp"/>
+</div>
 <!-- Page Content -->
 <div class="container">
 

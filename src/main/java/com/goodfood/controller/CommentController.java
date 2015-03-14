@@ -39,14 +39,12 @@ public class CommentController {
     @RequestMapping(value = "/addcomment/{id}", method = RequestMethod.POST)
     public String addCommentToFood(@PathVariable("id") String idFood,
                                    @ModelAttribute("comment") Comments comments,
-                                   @RequestParam("textComment") String text,
-                                   ModelMap model) {
+                                   @RequestParam("textComment") String text) {
         String userName = authentication.getUserName();
         User user = userService.getUser(userName);
         comments.setUser(user);
         comments.setTextComment(text);
-        Date date = new Date();
-        comments.setDateComment(new Timestamp(date.getTime()));
+        comments.setDateComment(new Date());
         Food food = foodService.getFoodById(idFood);
         comments.setFood(food);
         commentService.save(comments);

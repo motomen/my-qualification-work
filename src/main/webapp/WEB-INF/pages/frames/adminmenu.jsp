@@ -16,8 +16,9 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
 
     <!-- Autocomplete -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
@@ -42,10 +43,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="/foods"><spring:message code="admin.menu.food"/> </a></li>
-                <li><a href="/control/addfood"><spring:message code="admin.menu.addfood"/> </a></li>
-                <li><a href="/control/foodtocategory"><spring:message code="admin.menu.foodtocategory"/> </a></li>
-                <li><a href="/control/addcategory"><spring:message code="admin.menu.addcategory"/> </a></li>
-                <li><a href="/control/addsubcategory"><spring:message code="admin.menu.addsubcategory"/> </a></li>
+                <li class="dropdown">
+                    <a onclick="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Дії<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/control/addfood"><spring:message code="admin.menu.addfood"/> </a></li>
+                        <li><a href="/control/foodtocategory"><spring:message code="admin.menu.foodtocategory"/> </a></li>
+                        <li><a href="/control/addcategory"><spring:message code="admin.menu.addcategory"/> </a></li>
+                        <li><a href="/control/addsubcategory"><spring:message code="admin.menu.addsubcategory"/> </a></li>
+                    </ul>
+                </li>
+
                 <li><a href="/j_spring_security_logout"><spring:message code="admin.menu.logout"/> </a></li>
                 <li><a href="/calc"><spring:message code="menu.calc"/></a></li>
             </ul>
