@@ -47,13 +47,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3 well">
-            <form class="form-signin" id="form" action="/j_spring_security_check" method="POST" onsubmit="function checkForm() {
-    var u_login = document.forms['form']['us_name'].value; var pass = document.forms['form']['us_pass'].value;
-      if (u_login == null || u_login == '') {document.forms['form']['us_name'].focus(); return false;}
-      if (pass == null || pass == '') {document.forms['form']['us_name'].focus(); return false;}
-      return true;
-    }
-    return checkForm()">
+            <form class="form-signin" id="form" action="/j_spring_security_check" method="POST">
                 <label for="us_name">Логін</label>
                 <input type="text" id="us_name" class="form-control" placeholder="" name="username" required
                        autofocus></br>
@@ -66,6 +60,9 @@
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Увійти</button>
             </form>
+            </br>
+            <span style="color:red">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</span>
+
             <h2 align="center">OR</h2>
             <!-- Auth0 login -->
             <input type="submit" class="btn-login btn btn-lg btn-primary btn-block"

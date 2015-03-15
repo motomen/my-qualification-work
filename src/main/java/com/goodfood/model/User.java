@@ -1,6 +1,11 @@
 package com.goodfood.model;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -12,17 +17,24 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idUser;
 
-
+	@Size(min = 5, max = 30)
+	@NotNull
 	private String login;
 
+	@Size(min = 5, max = 16)
+	@NotNull
 	private String password;
+
+	@NotEmpty @Email
 	private String mail;
 
 	@Column(name = "date_reg", nullable = false)
 	private Date dateReg;
 	private Date birthday;
-	@Lob
+
 	private String photo;
+
+	@NotNull @Size(min = 4, max = 20)
 	private String nicname;
 	private String name;
 	private String surname;

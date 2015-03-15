@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService {
 		userDAO.addUser(user);
 	}
 
+	@Override
+	public Boolean isLoginIdUnique(String login) {
+		return userDAO.isLoginIdUnique(login);
+	}
+
 }

@@ -7,4 +7,6 @@ public interface UserService {
 	public User getUser(String login);
 
 	public void addUser(User user);
+
+	public Boolean isLoginIdUnique(String login);
 }

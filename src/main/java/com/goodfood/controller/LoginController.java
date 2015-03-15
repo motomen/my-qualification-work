@@ -8,10 +8,9 @@ import com.goodfood.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,11 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.File;
-import java.io.IOException;
-import java.sql.Blob;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Created by Yaroslav on 31.01.2015.
@@ -33,7 +30,7 @@ import java.util.Date;
 @Controller
 public class LoginController {
 
-    final Logger logger = LoggerFactory.getLogger(IndexController.class);
+    final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private UserService userService;
@@ -47,41 +44,42 @@ public class LoginController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String register(HttpServletRequest request, ModelMap model) {
         model.addAttribute("user", new User());
-        logger.info("show page registration user");
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String addNewUser(@RequestParam("photo") MultipartFile file,
-                             @RequestParam("login") String login,
-                             @RequestParam("nicname") String nicname,
-                             @RequestParam("password") String password,
-                             @RequestParam("mail") String mail) {
-        User user = new User();
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setNicname(nicname);
-        user.setMail(mail);
+                             @Valid User user,
+                             BindingResult bindingResult) {
+        // Don't show error's customer about unique login
+        Boolean unique = userService.isLoginIdUnique(user.getLogin());
+        if (!unique) {
+            bindingResult.rejectValue("login", "user must be unique ", new Object[] { user.getLogin() }, null);
+        }
+        if (bindingResult.hasErrors()) {
+            logger.error("return in registation page");
+            return "registration";
+        }
+
         if (file.getSize() != 0) {
             user.setPhoto(Util.fileToString(file));
         } else {
             File resource = new File(servletContext.getRealPath("/") + "/resources/img/user.jpg");
-            if (resource.exists()) {
+            if (resource.exists()){
                 try {
                     user.setPhoto(Util.fileToString(resource));
                 } catch (Exception e) {
-                    logger.info("error convert user photo");
                     e.printStackTrace();
                 }
             }
         }
         addUser(user);
-        logger.info("add new user with nicname " + user.getNicname());
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     private void addUser(User user) {
-        user.setDateReg(new Date());
+        java.util.Date date = new java.util.Date();
+        user.setDateReg(new Timestamp(date.getTime()));
         //role id 2 = User
         Role role = roleService.getRole(2);
         user.setRole(role);
@@ -98,7 +96,8 @@ public class LoginController {
     @ResponseBody
     public String apicheck(
             @RequestParam("username") String name,
-            @RequestParam("password") String password) {
+            @RequestParam("password") String password
+    ){
         String username = name;
         String password2 = password;
         return "0k";

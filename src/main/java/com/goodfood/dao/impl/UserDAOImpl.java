@@ -38,4 +38,13 @@ public class UserDAOImpl implements UserDAO {
 		openSession().save(user);
 	}
 
+	@Override
+	public Boolean isLoginIdUnique(String login) {
+		if (getUser(login) == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
