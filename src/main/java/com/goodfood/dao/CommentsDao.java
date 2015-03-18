@@ -38,5 +38,5 @@ public interface CommentsDao {
      * get ten comment by last date
      * @return
      */
-    public List<Comments> getLastTenComment();
+    public List<Comments> getLastComment(int count);
 }

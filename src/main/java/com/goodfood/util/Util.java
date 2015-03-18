@@ -18,7 +18,7 @@ import java.util.Date;
  * Created by Yaroslav on 03.02.2015.
  */
 public class Util {
-    public static Date getDate(int day) {
+    public static Date getDate(int day) { // for calendar in Calc Controller
         // if day == 0 this means I have this day
         Date date = new Date();                      // timestamp now
         Calendar cal = Calendar.getInstance();       // get calendar instance

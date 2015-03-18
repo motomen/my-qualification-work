@@ -78,9 +78,9 @@ public class CommentDaoImpl implements CommentsDao {
      * @return
      */
     @Override
-    public List<Comments> getLastTenComment() {
+    public List<Comments> getLastComment(int count) {
         Criteria criteria = getCurrentSession().createCriteria(Comments.class)
-        .addOrder(Order.desc("dateComment")).setMaxResults(10);
+        .addOrder(Order.desc("dateComment")).setMaxResults(count);
         return criteria.list();
     }
 

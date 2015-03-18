@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface FoodDAO {
     public void addFood(Food food);
-    public List<Food> getTenFood();
+    public List<Food> getFood(int count);
     public Food getFoodById(String id);
     public List<Food> getAllFood();
     public Food getFoodByName(String name);

@@ -82,11 +82,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -292,10 +287,9 @@
                     <password>root</password>
                     <schemas>
                         <!-- change goods -> foods -->
-                        <schema>goods</schema>
+                        <schema>foods2</schema>
                     </schemas>
                     <table>shema_historyes</table>
-                    <baselineOnMigrate>true</baselineOnMigrate>
                     <locations>
                         <location>db/migration</location>
                     </locations>

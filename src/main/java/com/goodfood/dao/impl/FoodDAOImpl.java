@@ -33,11 +33,11 @@ public class FoodDAOImpl implements FoodDAO {
     }
 
     @Override
-    public List<Food> getTenFood() {
+    public List<Food> getFood(int count) {
         Set<Food> foodSet =
                 new HashSet<Food>(
                         getCurrentSession().createQuery(
-                                "select f FROM Food f order by f.rating").setMaxResults(3).list()
+                                "select f FROM Food f order by f.rating").setMaxResults(count).list()
                         );
         return new ArrayList<Food>(foodSet);
     }

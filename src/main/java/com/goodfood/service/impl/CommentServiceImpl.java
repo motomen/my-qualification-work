@@ -67,8 +67,8 @@ public class CommentServiceImpl implements CommentService {
      * @return
      */
     @Override
-    public List<Comments> getLastTenComment() {
-        return commentDao.getLastTenComment();
+    public List<Comments> getLastComment(int count) {
+        return commentDao.getLastComment(count);
     }
 
 

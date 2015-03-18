@@ -22,9 +22,8 @@ public class AccountController {
 
     @RequestMapping(value = "/showaccount", method = RequestMethod.GET)
     public ModelAndView sowInformation() {
-        User user = userService.getUser("vasil");
+        // soon...
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("myImage", user.getPhoto()); //MyImage (datatype 'byte[]') is the image retrieved from DB
         return new ModelAndView("account", model); //display is the name of jsp on which you want to display image
     }
 

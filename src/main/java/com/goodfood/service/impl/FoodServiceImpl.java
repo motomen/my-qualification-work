@@ -26,8 +26,8 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public List<Food> getTenFood() {
-        return foodDAO.getTenFood();
+    public List<Food> getFood(int count) {
+        return foodDAO.getFood(count);
     }
 
     @Override
