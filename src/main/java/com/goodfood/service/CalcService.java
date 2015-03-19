@@ -17,11 +17,11 @@ public interface CalcService {
     public void save(CalcFood calcFood);
 
     /**
-     * Get all calcFood by id user sor by date
+     * Get all calories by id user sor by date
      * @param user
      * @return list
      */
-    public List<CalcFood> getCalcByIdUser(User user, Date dateBefor, Date dateAfter);
+    public Double getCaloriesByIdUser(User user, Date dateBefore, Date dateAfter);
 
     /**
      * Delete calc Food from our database
@@ -30,4 +30,13 @@ public interface CalcService {
     public void delete(CalcFood calcFood);
 
     public CalcFood getCalcById(int id);
+
+    /**
+     * Get all CalcFood list what user eat
+     * @param user
+     * @param dateBefore
+     * @param dateAfter
+     * @return
+     */
+    public List<CalcFood> getListCalculateByIdUser(User user, Date dateBefore, Date dateAfter);
 }

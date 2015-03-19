@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface RatingService {
     public void saveOrUpdate(Rating rating);
-    public List<Rating> getRatingByIdFood(String id);
-    public Rating getRatingByIdUserFood(String idFood, int idUser);
+    public Double getRatingByIdFood(String id);
+    public Double getRatingByIdUserIdFood(String idFood, int idUser);
+    public int getIdRatingByIdUserIdFood(String idFood, int idUser);
 }

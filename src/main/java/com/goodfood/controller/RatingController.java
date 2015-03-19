@@ -49,26 +49,16 @@ public class RatingController {
             ModelMap model) {
         String userName = authentication.getUserName();
         User user = userService.getUser(userName);
+        int idRating = ratingService.getIdRatingByIdUserIdFood(id, user.getIdUser());
         Rating rating = new Rating();
-        try {
-            rating = ratingService.getRatingByIdUserFood(id, user.getIdUser());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (rating == null)
-        {
-            rating = new Rating();
-            rating.setUser(user);
-            rating.setFood(foodService.getFoodById(id));
+        rating.setUser(user);
+        rating.setFood(foodService.getFoodById(id));
+        if (idRating != -1) {
+            rating.setIdRating(idRating);
         }
         rating.setValue(value);
         ratingService.saveOrUpdate(rating);
-        List<Rating> ratingSet = ratingService.getRatingByIdFood(id);
-        double val=0.0;
-        for (Rating rSet: ratingSet) {
-            val += rSet.getValue();
-        }
-        val /= ratingSet.size();
+        double val = ratingService.getRatingByIdFood(id);
         logger.info("set rating = " + String.valueOf(rating.getValue()) + " for food id = (" + id + ") user = (" + userName + ")");
         return val;
     }

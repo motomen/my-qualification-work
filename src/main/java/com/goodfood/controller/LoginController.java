@@ -47,6 +47,7 @@ public class LoginController {
         return "registration";
     }
 
+    // @TODO: re-factor
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String addNewUser(@RequestParam("photo") MultipartFile file,
                              @Valid User user,

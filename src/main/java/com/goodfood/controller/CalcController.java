@@ -68,15 +68,8 @@ public class CalcController {
         String userName = authentication.getUserName();
         logger.info("User (" + userName + ") show own calculate food");
         User user = userService.getUser(userName);
-        List<CalcFood> calcFoodList = calcService.getCalcByIdUser(user, Util.getDate(1), Util.getDate(0));
-        Double calories = 0.0;
-        if (calcFoodList != null) {
-            for (CalcFood calcs : calcFoodList) {
-                calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
-            }
-        } else {
-            logger.error("calculate food list is empty");
-        }
+        Double calories = calcService.getCaloriesByIdUser(user, Util.getDate(1), Util.getDate(0));
+        List<CalcFood> calcFoodList = calcService.getListCalculateByIdUser(user, Util.getDate(1), Util.getDate(0));
         modelMap.addAttribute("calories", calories);
         modelMap.addAttribute("calc", calcFoodList);
         return "/mycalc";
@@ -105,15 +98,8 @@ public class CalcController {
         String userName = authentication.getUserName();
         User user = userService.getUser(userName);
         ModelAndView modelAndView = new ModelAndView("/frames/foodtable");
-        List<CalcFood> calcFoods = calcService.getCalcByIdUser(user, beginDate, endDate);
-        Double calories = 0.0;
-        if (calcFoods != null) {
-            for (CalcFood calcs : calcFoods) {
-                calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
-            }
-        } else {
-            logger.error("calculate food is empty for user = (" + userName + ") in date beetwen" + beginDate.toString() + " and " + endDate.toString());
-        }
+        List<CalcFood> calcFoods = calcService.getListCalculateByIdUser(user, beginDate, endDate);
+        Double calories = calcService.getCaloriesByIdUser(user, beginDate, endDate);
         modelAndView.addObject("calories", calories);
         modelAndView.addObject("calc", calcFoods);
         return modelAndView;

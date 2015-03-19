@@ -26,12 +26,35 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public List<Rating> getRatingByIdFood(String id) {
-        return ratingDao.getRatingByIdFood(id);
+    public Double getRatingByIdFood(String id) {
+        List<Rating> ratingSet = ratingDao.getRatingByIdFood(id);
+        double val=0.0;
+        if (ratingSet.size() > 0) {
+            for (Rating rSet : ratingSet) {
+                val += rSet.getValue();
+            }
+            val /= ratingSet.size();
+        }
+        return val;
     }
 
     @Override
-    public Rating getRatingByIdUserFood(String idFood, int idUser) {
-        return ratingDao.getRatingByIdUserFood(idFood, idUser);
+    public Double getRatingByIdUserIdFood(String idFood, int idUser) {
+        Rating rating = ratingDao.getRatingByIdUserFood(idFood, idUser);
+        if (rating != null) {
+            return rating.getValue();
+        } else {
+            return 0.0;
+        }
+    }
+
+    @Override
+    public int getIdRatingByIdUserIdFood(String idFood, int idUser) {
+        Rating rating = ratingDao.getRatingByIdUserFood(idFood, idUser);
+        if (rating != null) {
+            return rating.getIdRating();
+        } else {
+            return -1;
+        }
     }
 }

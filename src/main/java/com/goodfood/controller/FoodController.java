@@ -62,6 +62,7 @@ public class FoodController {
     }
 
     // add main information about food
+    // @TODO: re-factor
     @RequestMapping(value = "/control/addfood", method = RequestMethod.POST)
     public String addNewFood(
             @RequestParam("file") MultipartFile file,
@@ -115,12 +116,7 @@ public class FoodController {
         Food food = foodService.getFoodById(idFood);
         List<Comments> commentsList = food.getCommentsList();
         if (user != null) {
-            Rating rating = ratingService.getRatingByIdUserFood(idFood, user.getIdUser());
-            if (rating != null) {
-                model.addAttribute("ratingUser", rating.getValue());
-            } else {
-                model.addAttribute("ratingUser", 0);
-            }
+            model.addAttribute("ratingUser", ratingService.getRatingByIdUserIdFood(idFood, user.getIdUser()));
         }
         model.addAttribute("id", idFood);
         model.addAttribute("comment", new Comments());
@@ -128,14 +124,7 @@ public class FoodController {
         model.addAttribute("count", commentsList.size());
         model.addAttribute("food", food);
         model.addAttribute("calcFood", new CalcFood());
-        List<Rating> ratingSet = ratingService.getRatingByIdFood(idFood);
-        double val = 0.0;
-        if (ratingSet.size() > 0) {
-            for (Rating rSet : ratingSet) {
-                val += rSet.getValue();
-            }
-            val /= ratingSet.size();
-        }
+        Double val = ratingService.getRatingByIdFood(idFood);
         logger.info("show food information with id = (" + food.getIdFood() + ") for user = " + userName);
         model.addAttribute("ratginFood", val);
         return "showfood";

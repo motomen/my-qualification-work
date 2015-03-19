@@ -4,6 +4,8 @@ import com.goodfood.dao.CalcDao;
 import com.goodfood.model.CalcFood;
 import com.goodfood.model.User;
 import com.goodfood.service.CalcService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ import java.util.List;
 @Transactional
 public class CalcServiceImpl implements CalcService {
 
+    final Logger logger = LoggerFactory.getLogger(CalcServiceImpl.class);
     @Autowired
     private CalcDao calcDao;
 
@@ -39,8 +42,17 @@ public class CalcServiceImpl implements CalcService {
      * @return list
      */
     @Override
-    public List<CalcFood> getCalcByIdUser(User user, Date dateBefor, Date dateAfter) {
-        return calcDao.getCalcByIdUser(user, dateBefor, dateAfter);
+    public Double getCaloriesByIdUser(User user, Date dateBefore, Date dateAfter) {
+        List<CalcFood> calcFoodList = calcDao.getCalcByIdUser(user, dateBefore, dateAfter);
+        Double calories = 0.0;
+        if (calcFoodList != null) {
+            for (CalcFood calcs : calcFoodList) {
+                calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
+            }
+        } else {
+            logger.error("calculate food list is empty");
+        }
+        return calories;
     }
 
     /**
@@ -56,5 +68,18 @@ public class CalcServiceImpl implements CalcService {
     @Override
     public CalcFood getCalcById(int id) {
         return calcDao.getCalcById(id);
+    }
+
+    /**
+     * Get all CalcFood list what user eat
+     *
+     * @param user
+     * @param dateBefore
+     * @param dateAfter
+     * @return
+     */
+    @Override
+    public List<CalcFood> getListCalculateByIdUser(User user, Date dateBefore, Date dateAfter) {
+        return calcDao.getCalcByIdUser(user, dateBefore, dateAfter);
     }
 }
