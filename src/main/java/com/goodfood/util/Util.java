@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -18,22 +17,24 @@ import java.util.Date;
  * Created by Yaroslav on 03.02.2015.
  */
 public class Util {
-    public static Date getDate(int day) { // for calendar in Calc Controller
-        // if day == 0 this means I have this day
-        Date date = new Date();                      // timestamp now
-        Calendar cal = Calendar.getInstance();       // get calendar instance
-        cal.setTime(date);                           // set cal to date
-        if (day == 0) {
-            cal.add(Calendar.DAY_OF_MONTH, 1);
-        } else {
-            cal.add(Calendar.DAY_OF_MONTH,  -day);
-        }
-        cal.set(Calendar.HOUR_OF_DAY, 0);            // set hour to midnight
-        cal.set(Calendar.MINUTE, 0);                 // set minute in hour
-        cal.set(Calendar.SECOND, 0);                 // set second in minute
-        cal.set(Calendar.MILLISECOND, 0);            // set millis in second
-        Date zeroedDate = cal.getTime();
-        return zeroedDate;
+    public static Date getEndOfDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        return calendar.getTime();
+    }
+
+    public static Date getStartOfDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
     }
     public static String fileToString(MultipartFile file) {
         Blob blob;

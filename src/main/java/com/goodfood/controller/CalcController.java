@@ -68,8 +68,8 @@ public class CalcController {
         String userName = authentication.getUserName();
         logger.info("User (" + userName + ") show own calculate food");
         User user = userService.getUser(userName);
-        Double calories = calcService.getCaloriesByIdUser(user, Util.getDate(1), Util.getDate(0));
-        List<CalcFood> calcFoodList = calcService.getListCalculateByIdUser(user, Util.getDate(1), Util.getDate(0));
+        Double calories = calcService.getCaloriesByIdUser(user, Util.getStartOfDay(new Date()), Util.getEndOfDay(new Date()));
+        List<CalcFood> calcFoodList = calcService.getListCalculateByIdUser(user, Util.getStartOfDay(new Date()), Util.getEndOfDay(new Date()));
         modelMap.addAttribute("calories", calories);
         modelMap.addAttribute("calc", calcFoodList);
         return "/mycalc";
@@ -102,6 +102,7 @@ public class CalcController {
         Double calories = calcService.getCaloriesByIdUser(user, beginDate, endDate);
         modelAndView.addObject("calories", calories);
         modelAndView.addObject("calc", calcFoods);
+        logger.info("ajax get calc food");
         return modelAndView;
     }
 }
