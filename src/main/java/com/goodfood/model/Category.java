@@ -5,6 +5,7 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.List;
 
 /**
@@ -20,7 +21,9 @@ public class Category implements Serializable{
     private int idCategory;
     private String name;
     private String description;
-    private String photo;
+
+    @Lob
+    private Blob photo;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     @JsonManagedReference
@@ -50,11 +53,11 @@ public class Category implements Serializable{
         this.description = description;
     }
 
-    public String getPhoto() {
+    public Blob getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Blob photo) {
         this.photo = photo;
     }
 

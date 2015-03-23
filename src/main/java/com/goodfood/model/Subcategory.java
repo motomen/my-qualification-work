@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Set;
 
 /**
@@ -19,7 +20,8 @@ public class Subcategory implements Serializable {
     private int idSubCategory;
     private String name;
 
-    private String img;
+    @Lob
+    private Blob img;
 
     @ManyToOne
     @JoinColumn(name = "fk_category")
@@ -53,11 +55,11 @@ public class Subcategory implements Serializable {
         this.name = name;
     }
 
-    public String getImg() {
+    public Blob getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(Blob img) {
         this.img = img;
     }
 

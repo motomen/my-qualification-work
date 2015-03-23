@@ -89,12 +89,12 @@ public class FoodController {
         hashSet.add(subcategoryService.getCategoryByName(subcategory));
         food.setSubcategories(hashSet);
         if (file.getSize() != 0) {
-            food.setPhoto(Util.fileToString(file)); //convert file to string Base64
+            food.setPhoto(Util.fileToBlob(file)); //convert file to string Base64
         } else {
             File resource = new File(servletContext.getRealPath("/") + "/resources/img/food.jpg");
             if (resource.exists()) {
                 try {
-                    food.setPhoto(Util.fileToString(resource));
+                    food.setPhoto(Util.fileToBlob(resource));
                 } catch (Exception e) {
                     logger.error("error convert photo for food");
                     e.printStackTrace();

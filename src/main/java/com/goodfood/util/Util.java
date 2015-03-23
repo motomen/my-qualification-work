@@ -36,6 +36,7 @@ public class Util {
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
+
     public static String fileToString(MultipartFile file) {
         Blob blob;
         try {
@@ -76,6 +77,44 @@ public class Util {
         }
         return null;
     }
+
+    public static Blob fileToBlob(File file) {
+        Blob blob;
+        try {
+            FileInputStream fileInputStream=null;
+            byte[] bFile = new byte[(int) file.length()];
+            //convert file into array of bytes
+            fileInputStream = new FileInputStream(file);
+            fileInputStream.read(bFile);
+            fileInputStream.close();
+            blob = new javax.sql.rowset.serial.SerialBlob(bFile);
+            return blob;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SerialException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Blob fileToBlob(MultipartFile file) {
+        Blob blob;
+        try {
+            byte[] img = file.getBytes();
+            blob = new javax.sql.rowset.serial.SerialBlob(img);
+            return blob;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SerialException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String Iso88591ToUtf8(String value) {
         byte ptext[] = new byte[0];
         try {

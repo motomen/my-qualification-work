@@ -52,7 +52,7 @@ public class CategoryController {
                                  ModelMap model) {
         logger.info("try add new category");
         Category category = new Category();
-        category.setPhoto(Util.fileToString(file)); // convert file in String Base64
+        category.setPhoto(Util.fileToBlob(file)); // convert file in String Base64
         category.setDescription(description);
         category.setName(name);
         categoryService.addCategory(category);
@@ -76,7 +76,7 @@ public class CategoryController {
         logger.info("try add new subcategory page for category = (" + nameCategory + ")");
         Subcategory subcategory = new Subcategory();
         subcategory.setName(name);
-        subcategory.setImg(Util.fileToString(file));
+        subcategory.setImg(Util.fileToBlob(file));
         subcategory.setCategory(categoryService.getCategoryByName(nameCategory));
         subcategoryService.addSubcategory(subcategory);
         return "redirect:/control/addsubcategory";

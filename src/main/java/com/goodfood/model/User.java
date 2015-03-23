@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class User {
 	private Date dateReg;
 	private Date birthday;
 
-	private String photo;
+	@Lob
+	private Blob photo;
 
 	@NotNull @Size(min = 4, max = 20)
 	private String nicname;
@@ -121,11 +123,11 @@ public class User {
 		this.birthday = birthday;
 	}
 
-	public String getPhoto() {
+	public Blob getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
+	public void setPhoto(Blob photo) {
 		this.photo = photo;
 	}
 

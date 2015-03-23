@@ -1,6 +1,7 @@
 package com.goodfood.model;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.List;
 import java.util.Set;
 
@@ -16,7 +17,9 @@ public class Food{
     @Column(name = "id_food_tc")
     private String idFood;
     private String name;
-    private String photo;
+
+    @Lob
+    private Blob photo;
     private Double rating;
     private Double protein;
     private Double fats;
@@ -55,11 +58,11 @@ public class Food{
         this.name = name;
     }
 
-    public String getPhoto() {
+    public Blob getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Blob photo) {
         this.photo = photo;
     }
 

@@ -63,12 +63,12 @@ public class LoginController {
         }
 
         if (file.getSize() != 0) {
-            user.setPhoto(Util.fileToString(file));
+            user.setPhoto(Util.fileToBlob(file));
         } else {
             File resource = new File(servletContext.getRealPath("/") + "/resources/img/user.jpg");
             if (resource.exists()){
                 try {
-                    user.setPhoto(Util.fileToString(resource));
+                    user.setPhoto(Util.fileToBlob(resource));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
