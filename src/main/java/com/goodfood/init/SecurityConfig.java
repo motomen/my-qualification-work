@@ -2,6 +2,7 @@ package com.goodfood.init;
 
 import javax.sql.DataSource;
 
+import com.goodfood.social.service.SimpleSocialUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
 @Configuration
@@ -58,5 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public DelegatingFilterProxy springSecurityFileterChain() {
 		DelegatingFilterProxy filterProxy = new DelegatingFilterProxy();
 		return filterProxy;
+	}
+
+	@Bean
+	public SocialUserDetailsService socialUserDetailsService() {
+		return new SimpleSocialUserDetailsService(userDetailsService());
 	}
 }
