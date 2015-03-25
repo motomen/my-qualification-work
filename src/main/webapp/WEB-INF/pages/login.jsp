@@ -46,6 +46,7 @@
         </div>
     </div>
     <div class="row">
+
         <div class="col-lg-6 col-lg-offset-3 well">
             <form class="form-signin" id="form" action="/j_spring_security_check" method="POST">
                 <label for="us_name">Логін</label>

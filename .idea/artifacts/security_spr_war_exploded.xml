@@ -34,10 +34,10 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.1.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jms:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-messaging:4.1.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.1.4.RELEASE" />
@@ -79,7 +79,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="C:\Users\Ярослав\Desktop\security-spr-master-my\target/MANIFEST.MF" />
+        <element id="file-copy" path="C:\Users\Ярослав\Desktop\my-qualification-work\target/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="security-spr/web/Web" />
     </root>

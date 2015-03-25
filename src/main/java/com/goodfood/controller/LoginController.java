@@ -57,7 +57,7 @@ public class LoginController {
         if (!unique) {
             bindingResult.rejectValue("login", "user must be unique ", new Object[] { user.getLogin() }, null);
         }
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.getAllErrors().size() == 0) {
             logger.error("return in registation page");
             return "registration";
         }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.goodfood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +22,7 @@ import com.goodfood.dao.UserDAO;
 public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Autowired
-	private UserDAO userDAO;	
+	private UserService userDAO;
 
 	@Override
 	public UserDetails loadUserByUsername(String login)
