@@ -1,4 +1,4 @@
-package com.goodfood.social.model;
+package com.goodfood.social.service;
 
 /**
  * @author Petri Kainulainen

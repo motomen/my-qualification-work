@@ -4,21 +4,24 @@ import com.goodfood.model.Role;
 import com.goodfood.model.User;
 import com.goodfood.service.RoleService;
 import com.goodfood.service.UserService;
+import com.goodfood.social.service.SocialMediaService;
+import com.goodfood.util.SecurityUtil;
 import com.goodfood.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionKey;
+import org.springframework.social.connect.UserProfile;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.sql.Timestamp;
@@ -28,6 +31,7 @@ import java.sql.Timestamp;
  */
 
 @Controller
+@SessionAttributes("user")
 public class LoginController {
 
     final Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -42,16 +46,35 @@ public class LoginController {
     private ServletContext servletContext;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String register(HttpServletRequest request, ModelMap model) {
-        model.addAttribute("user", new User());
+    public String register(WebRequest request, ModelMap model) {
+        Connection<?> connection = ProviderSignInUtils.getConnection(request);
+        User user = createRegistrationDTO(connection);
+        model.addAttribute("user", user);
         return "registration";
+    }
+
+    private User createRegistrationDTO(Connection<?> connection) {
+        User dto = new User();
+
+        if (connection != null) {
+            UserProfile socialMediaProfile = connection.fetchUserProfile();
+            dto.setMail(socialMediaProfile.getEmail());
+            dto.setName(socialMediaProfile.getFirstName());
+            dto.setNicname(socialMediaProfile.getUsername());
+
+            ConnectionKey providerKey = connection.getKey();
+            dto.setSignInProvider(SocialMediaService.valueOf(providerKey.getProviderId().toUpperCase()));
+        }
+
+        return dto;
     }
 
     // @TODO: re-factor
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String addNewUser(@RequestParam("photo") MultipartFile file,
                              @Valid User user,
-                             BindingResult bindingResult) {
+                             BindingResult bindingResult,
+                             WebRequest request) {
         // Don't show error's customer about unique login
         Boolean unique = userService.isLoginIdUnique(user.getLogin());
         if (!unique) {
@@ -75,7 +98,14 @@ public class LoginController {
             }
         }
         addUser(user);
-        return "redirect:/login";
+        /**
+         * It is not a good idea to log in a user who has created a normal user account. Typically you want to send
+         * a confirmation email which is used to verify his email address.
+         * However, the example application works this way because it simplifies the registration process.
+         */
+        SecurityUtil.logInUser(user);
+        ProviderSignInUtils.handlePostSignUp(user.getMail(), request);
+        return "redirect:/";
     }
 
     private void addUser(User user) {
@@ -91,16 +121,5 @@ public class LoginController {
     public String login() {
         logger.info("Login page");
         return "login";
-    }
-
-    @RequestMapping(value = "/apicheck", method = RequestMethod.POST)
-    @ResponseBody
-    public String apicheck(
-            @RequestParam("username") String name,
-            @RequestParam("password") String password
-    ){
-        String username = name;
-        String password2 = password;
-        return "0k";
     }
 }

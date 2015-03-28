@@ -17,7 +17,7 @@
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-
+    <link href="${pageContext.request.contextPath}/resources/css/social-buttons-3.css" rel="stylesheet">
 
     <script src="https://cdn.auth0.com/js/lock-6.js"></script>
     <script src="//use.typekit.net/iws6ohy.js"></script>
@@ -66,8 +66,33 @@
 
             <h2 align="center">OR</h2>
             <!-- Auth0 login -->
-            <input type="submit" class="btn-login btn btn-lg btn-primary btn-block"
-                   value="<spring:message code="login.btn.social"/> "/>
+            <!-- <input type="submit" class="btn-login btn btn-lg btn-primary btn-block"
+                    value=" "/> -->
+            <!-- Social Sign In Buttons -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2><spring:message code="login.social.sign.in.title"/></h2>
+
+                    <div class="row social-button-row">
+                        <div class="col-lg-4">
+                            <!-- Add Facebook sign in button -->
+                            <a href="${pageContext.request.contextPath}/auth/facebook">
+                                <button class="btn btn-facebook"><i class="icon-facebook"></i> | <spring:message
+                                        code="label.facebook.sign.in.button"/></button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row social-button-row">
+                        <div class="col-lg-4">
+                            <!-- Add Facebook sign in button -->
+                            <a href="${pageContext.request.contextPath}/signup">
+                                <button class="btn btn-facebook"><i class="icon-facebook"></i> | <spring:message
+                                        code="label.facebook.sign.in.button"/></button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <hr>

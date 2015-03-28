@@ -2,7 +2,7 @@ package com.goodfood.social.dto.user;
 
 import com.goodfood.model.Role;
 import com.goodfood.service.RoleService;
-import com.goodfood.social.model.SocialMediaService;
+import com.goodfood.social.service.SocialMediaService;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

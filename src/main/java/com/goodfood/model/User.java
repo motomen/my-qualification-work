@@ -1,5 +1,6 @@
 package com.goodfood.model;
 
+import com.goodfood.social.service.SocialMediaService;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -56,6 +57,18 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<Comments> commentsList;
+
+	public SocialMediaService getSignInProvider() {
+		return signInProvider;
+	}
+
+	public void setSignInProvider(SocialMediaService signInProvider) {
+		this.signInProvider = signInProvider;
+	}
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "sign_in_provider", length = 20)
+	private SocialMediaService signInProvider;
 
 	public String getSex() {
 		return Sex;
