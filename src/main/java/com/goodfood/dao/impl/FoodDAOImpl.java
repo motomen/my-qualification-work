@@ -6,7 +6,7 @@ import com.goodfood.model.Subcategory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,5 +118,22 @@ public class FoodDAOImpl implements FoodDAO {
                 .addEntity(Food.class)
                 .list();
         return new ArrayList<>(new HashSet(foodList));
+    }
+
+    /**
+     * get some count list foods how eat is max
+     *
+     * @param count return list element
+     * @return list food
+     */
+    @Override
+    public List<Food> getBestFoodEats(int count) {
+
+        DetachedCriteria avgWeightForSex = DetachedCriteria.forClass(Food.class)
+                .add(Property.forName("calcFoodList.size").desc());
+        return getCurrentSession().createCriteria(Food.class)
+                .addOrder(Order.desc("calcFoodList.size"))
+                .setMaxResults(count)
+                .list();
     }
 }

@@ -20,4 +20,11 @@ public interface FoodDAO {
     public List<Food> getAllFoodWithoutSubcategory();
     public List<String> getNameFoodForSearch(String name);
     public List<Food> getFoodForSearch(String name);
+
+    /**
+     * get some count list foods how eat is max
+     * @param count return list element
+     * @return list food
+     */
+    public List<Food> getBestFoodEats(int count);
 }
