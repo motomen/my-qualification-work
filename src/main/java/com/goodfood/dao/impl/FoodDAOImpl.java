@@ -127,12 +127,8 @@ public class FoodDAOImpl implements FoodDAO {
      * @return list food
      */
     @Override
-    public List<Food> getBestFoodEats(int count) {
-
-        DetachedCriteria avgWeightForSex = DetachedCriteria.forClass(Food.class)
-                .add(Property.forName("calcFoodList.size").desc());
+    public List<Food> getBestFoodEats(int count) { // try work this code in index page
         return getCurrentSession().createCriteria(Food.class)
-                .addOrder(Order.desc("calcFoodList.size"))
                 .setMaxResults(count)
                 .list();
     }
