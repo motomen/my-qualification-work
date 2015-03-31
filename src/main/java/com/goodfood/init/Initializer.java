@@ -35,7 +35,7 @@ public class Initializer extends
 		encodingFilter.setForceEncoding(true);
 
 		DelegatingFilterProxy reconnectDelegate = new DelegatingFilterProxy("apiExceptionHandler");
-
-		return new Filter[] { reconnectDelegate, encodingFilter, new HiddenHttpMethodFilter() };
+		HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
+		return new Filter[] { reconnectDelegate, encodingFilter, hiddenHttpMethodFilter };
 	}
 }

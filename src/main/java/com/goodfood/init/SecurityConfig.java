@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.social.security.SpringSocialConfigurer;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
 @Configuration
@@ -37,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/").permitAll()
+				.antMatchers("/connect/**").permitAll()
 				.antMatchers("/control/**").hasRole("ADMIN")
 				.antMatchers("/acount/**").authenticated()
 				.antMatchers("/reviews/create").authenticated()
@@ -53,7 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutUrl("/j_spring_security_logout")
 				.logoutSuccessUrl("/")
 		.deleteCookies("JSESSIONID")
-		.invalidateHttpSession(true);
+		.invalidateHttpSession(true)
+		.and().rememberMe()
+		.and().apply(new SpringSocialConfigurer());
 	}
 
 	@Bean
