@@ -1,5 +1,8 @@
 package com.goodfood.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -39,12 +42,21 @@ public class Food{
             inverseJoinColumns = {@JoinColumn(name="fk_idcomment", referencedColumnName = "id_comment")})
     private List<Comments> commentsList;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
             name = "calc_to_food",
             joinColumns = {@JoinColumn(name="fk_food", referencedColumnName = "id_food_tc")},
             inverseJoinColumns = {@JoinColumn(name="fk_calc", referencedColumnName = "id_calc")})
     private List<CalcFood> calcFoodList;
+
+    public List<CalcFood> getCalcFoodList() {
+        return calcFoodList;
+    }
+
+    public void setCalcFoodList(List<CalcFood> calcFoodList) {
+        this.calcFoodList = calcFoodList;
+    }
 
     public String getIdFood() {
         return idFood;

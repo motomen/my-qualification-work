@@ -27,14 +27,14 @@ public class Initializer extends
 		return new String[] { "/" };
 	}
 
-	@Override
-	protected Filter[] getServletFilters() {
-		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
-		encodingFilter.setEncoding("UTF-8");
-		encodingFilter.setForceEncoding(true);
-
-		DelegatingFilterProxy reconnectDelegate = new DelegatingFilterProxy("apiExceptionHandler");
-
-		return new Filter[] { reconnectDelegate, encodingFilter, new HiddenHttpMethodFilter() };
-	}
+//	@Override
+//	protected Filter[] getServletFilters() {
+//		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
+//		encodingFilter.setEncoding("UTF-8");
+//		encodingFilter.setForceEncoding(true);
+//
+//		DelegatingFilterProxy reconnectDelegate = new DelegatingFilterProxy("apiExceptionHandler");
+//
+//		return new Filter[] { reconnectDelegate, encodingFilter, new HiddenHttpMethodFilter() };
+//	}
 }

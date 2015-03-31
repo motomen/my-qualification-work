@@ -9,6 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import us.monoid.json.JSONArray;
+import us.monoid.json.JSONException;
+import us.monoid.json.JSONObject;
+
+import java.util.Map;
 
 /**
  * Created by Yaroslav on 31.01.2015.
@@ -27,6 +32,8 @@ public class IndexController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
         model.addAttribute("foods", foodService.getFood(3));
+        String BestFood = foodService.getStringBestFood(10);
+        model.addAttribute("bestFood", BestFood);
         logger.info("index page");
         return "index";
     }

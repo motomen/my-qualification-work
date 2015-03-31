@@ -4,6 +4,7 @@ import com.goodfood.model.Food;
 import com.goodfood.model.Subcategory;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Yaroslav on 01.02.2015.
@@ -21,4 +22,12 @@ public interface FoodService {
     public List<String> getNameFoodForSearch(String name);
     public List<Food> getFoodForSearch(String name);
 
+    /**
+     * get pair name food and count eat food
+     * @param count elem map
+     * @return
+     */
+    public Map<String, Integer> getMapBestFood(int count);
+
+    public String getStringBestFood(int count);
 }

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Yaroslav on 01.02.2015.
@@ -72,5 +74,32 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public List<Food> getFoodForSearch(String name) {
         return foodDAO.getFoodForSearch(name);
+    }
+
+    /**
+     * get pair name food and count eat food
+     *
+     * @param count elem map
+     * @return
+     */
+    @Override
+    public Map<String, Integer> getMapBestFood(int count) {
+        Map<String, Integer> foodMap = new HashMap();
+        List<Food> foodList = foodDAO.getBestFoodEats(count);
+        for (Food food: foodList) {
+            foodMap.put(food.getName(), food.getCalcFoodList().size());
+        }
+        return foodMap;
+    }
+
+    @Override
+    public String getStringBestFood(int count) {
+        List<Food> foodList = foodDAO.getBestFoodEats(count);
+        String result = "";
+        for (Food food: foodList) {
+            result += "[\'" + food.getName() + "\', " + String.valueOf(food.getCalcFoodList().size()) + "], ";
+        }
+        result = result.substring(0, result.length()-2);
+        return result;
     }
 }
