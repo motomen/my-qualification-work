@@ -1,0 +1,16 @@
+package com.goodfood.social.security;
+
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.security.provider.OAuth2AuthenticationService;
+
+/**
+ * Created by Yaroslav on 31.03.2015.
+ */
+public class FacebookAuthenticationService extends OAuth2AuthenticationService<Facebook> {
+
+    public FacebookAuthenticationService(String apiKey, String appSecret) {
+        super(new FacebookConnectionFactory(apiKey, appSecret));
+    }
+
+}

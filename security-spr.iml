@@ -100,5 +100,6 @@
     <orderEntry type="library" name="Maven: org.springframework.social:spring-social-web:1.1.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.social:spring-social-facebook:1.1.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.social:spring-social-facebook-web:1.1.1.RELEASE" level="project" />
   </component>
 </module>

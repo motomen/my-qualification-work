@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.File;
@@ -35,6 +36,7 @@ import java.sql.Timestamp;
 public class LoginController {
 
     final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private final ProviderSignInUtils providerSignInUtils;
 
     @Autowired
     private UserService userService;
@@ -45,9 +47,13 @@ public class LoginController {
     @Autowired
     private ServletContext servletContext;
 
+    public LoginController() {
+        this.providerSignInUtils = new ProviderSignInUtils();
+    }
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String register(WebRequest request, ModelMap model) {
-        Connection<?> connection = ProviderSignInUtils.getConnection(request);
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
         User user = createRegistrationDTO(connection);
         model.addAttribute("user", user);
         return "registration";

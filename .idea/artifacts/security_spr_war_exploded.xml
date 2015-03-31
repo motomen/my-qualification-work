@@ -82,6 +82,7 @@
           <element id="library" level="project" name="Maven: org.springframework.social:spring-social-web:1.1.0.RELEASE" />
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: org.springframework.social:spring-social-facebook:1.1.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.social:spring-social-facebook-web:1.1.1.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">

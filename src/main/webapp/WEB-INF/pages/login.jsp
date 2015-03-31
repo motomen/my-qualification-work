@@ -9,6 +9,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/spring-social/facebook/tags" prefix="facebook" %>
 <html>
 <head>
     <title></title>
@@ -91,6 +92,14 @@
                             </a>
                         </div>
                     </div>
+
+                        <form id="fb_signin" action="<c:url value="/connect/facebook" />" method="post">
+                            <div class="formInfo">
+                            </div>
+                            <div id="fb-root"></div>
+                            <p><fb:login-button perms="email,publish_stream,offline_access" onlogin="$('#fb_signin').submit();" v="2" length="long">Connect to Facebook</fb:login-button></p>
+                        </form>
+                        <facebook:init appId="794929183878121"/>
                 </div>
             </div>
         </div>
