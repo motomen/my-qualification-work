@@ -80,7 +80,8 @@ public class CommentDaoImpl implements CommentsDao {
     @Override
     public List<Comments> getLastComment(int count) {
         Criteria criteria = getCurrentSession().createCriteria(Comments.class)
-        .addOrder(Order.desc("dateComment")).setMaxResults(count);
+        .addOrder(Order.desc("dateComment"))
+                .setMaxResults(count);
         return criteria.list();
     }
 
