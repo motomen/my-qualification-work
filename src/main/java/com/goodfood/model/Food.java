@@ -27,6 +27,9 @@ public class Food{
     private Double kcal;
     private String ingredients;
 
+    @Column(name = "count_calculate")
+    private int countCalculate;
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "food_to_category",
@@ -144,5 +147,13 @@ public class Food{
 
     public void setCommentsList(List<Comments> commentsList) {
         this.commentsList = commentsList;
+    }
+
+    public int getCountCalculate() {
+        return countCalculate;
+    }
+
+    public void setCountCalculate(int countCalculate) {
+        this.countCalculate = countCalculate;
     }
 }

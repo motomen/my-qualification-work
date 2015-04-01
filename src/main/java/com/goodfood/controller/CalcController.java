@@ -53,6 +53,7 @@ public class CalcController {
         calcFood.setValue(calcval);
         calcFood.setAddDate(new Date());
         Food food = foodService.getFoodById(id);
+        food.setCountCalculate(food.getCountCalculate() + 1);
         calcFood.setFood(food);
         String userName = authentication.getUserName();
         User user = userService.getUser(userName);
@@ -81,6 +82,7 @@ public class CalcController {
         String userName = authentication.getUserName();
         User user = userService.getUser(userName);
         CalcFood calcFood = calcService.getCalcById(id);
+        calcFood.getFood().setCountCalculate(calcFood.getFood().getCountCalculate() - 1);
         logger.info("user = (" + userName + ") delete calculate food with id = " + String.valueOf(id));
         if (calcFood.getUser().getIdUser() == user.getIdUser()) {
             calcService.delete(calcFood);

@@ -84,6 +84,7 @@ public class FoodController {
         food.setCarbs(carbs);
         food.setKcal(kcal);
         food.setRating(1.0);
+        food.setCountCalculate(0);
         food.setIngredients(ingredients);
         HashSet<Subcategory> hashSet = new HashSet<Subcategory>();
         hashSet.add(subcategoryService.getCategoryByName(subcategory));
