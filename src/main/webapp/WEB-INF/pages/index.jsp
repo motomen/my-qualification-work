@@ -52,7 +52,7 @@
             ]);
 
             // Set chart options
-            var options = {'title':'10 товарів які їдять найкраще',
+            var options = {'title':'товари які їдять найкраще',
                 'width':600,
                 'height':500};
 

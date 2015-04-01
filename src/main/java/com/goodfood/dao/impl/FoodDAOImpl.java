@@ -128,9 +128,9 @@ public class FoodDAOImpl implements FoodDAO {
      */
     @Override
     public List<Food> getBestFoodEats(int count) { // try work this code in index page
-        return getCurrentSession().createCriteria(Food.class)
+        return new ArrayList<>(new HashSet(getCurrentSession().createCriteria(Food.class)
                 .addOrder(Order.desc("countCalculate"))
                 .setMaxResults(count)
-                .list();
+                .list()));
     }
 }
