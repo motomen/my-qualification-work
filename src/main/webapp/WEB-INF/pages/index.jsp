@@ -11,6 +11,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <html>
 <head>
     <title><spring:message code="page.header"></spring:message></title>
@@ -188,6 +189,11 @@
             <img src="${pageContext.request.contextPath}/resources/images/scorebar_large.png" class="img-rounded">
         </div>
     </div>
+    <tiles:insertDefinition name="defaultTemplate">
+        <tiles:putAttribute name="menu">
+
+        </tiles:putAttribute>
+    </tiles:insertDefinition>
     <!-- end about Grading System -->
     <jsp:include page="frames/foter.jsp"/>
 
