@@ -20,9 +20,8 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.css">
     <!-- Latest compiled and minified JavaScript -->
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.2.js"></script>
-
     <script>
         function changecategory() {
             var name = $('#namecategory').val();

@@ -1,6 +1,5 @@
 package com.goodfood.controller;
 
-import com.goodfood.service.CommentService;
 import com.goodfood.service.FoodService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +24,6 @@ public class IndexController {
 
     @Autowired
     private FoodService foodService;
-
-    @Autowired
-    private CommentService commentService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {

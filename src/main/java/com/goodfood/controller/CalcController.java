@@ -73,7 +73,7 @@ public class CalcController {
         List<CalcFood> calcFoodList = calcService.getListCalculateByIdUser(user, Util.getStartOfDay(new Date()), Util.getEndOfDay(new Date()));
         modelMap.addAttribute("calories", calories);
         modelMap.addAttribute("calc", calcFoodList);
-        return "/mycalc";
+        return "mycalc";
     }
 
     @PreAuthorize("isAuthenticated()")

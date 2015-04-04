@@ -96,7 +96,7 @@ public class CategoryController {
         model.addAttribute("listCategory", categoryService.allCategory());
         model.addAttribute("listSubcategory", subcategoryService.getAllSubcategory());
         logger.info("initialize show category and subcategory page");
-        return "/foods";
+        return "foods";
     }
 
     @RequestMapping(value = "/foodsubcategory/{idsubcategory}", method = RequestMethod.GET)
@@ -117,6 +117,6 @@ public class CategoryController {
         Page<Food> foodPage = new Page<>(foodList, begin, current, size, maxPages, recPerPage, end);
         model.addAttribute("page", foodPage);
         model.addAttribute("idSubcategory", id);
-        return "/foodsubcategory";
+        return "foodsubcategory";
     }
 }
