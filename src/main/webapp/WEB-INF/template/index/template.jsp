@@ -17,6 +17,12 @@
     <!-- Autocomplete -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+
+    <!-- Calendar -->
+    <script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/daterangepicker-bs3.css"/>
 </head>
 
 <body>
@@ -65,5 +71,7 @@
         minLength: 3
     });
 </script>
+<script src="${pageContext.request.contextPath}/resources/js/page_js/replacepicture.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/page_js/foods.js"></script>
 </body>
 </html>

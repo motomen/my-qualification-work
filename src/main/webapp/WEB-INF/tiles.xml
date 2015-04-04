@@ -22,4 +22,48 @@
         <put-attribute name="body" value="/WEB-INF/template/login/body.jsp" />
         <put-attribute name="header" value="/WEB-INF/template/login/header.jsp" />
     </definition>
+
+    <definition name="registration" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/template/registration/body.jsp" />
+        <put-attribute name="header" value="/WEB-INF/template/registration/header.jsp" />
+    </definition>
+
+    <definition name="about" extends="DefaultTemplate" >
+        <put-attribute name="body" value="/WEB-INF/template/about/body.jsp" />
+        <put-attribute name="header" value="/WEB-INF/template/about/header.jsp" />
+    </definition>
+
+    <definition name="foods" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/template/foods/body.jsp" />
+        <put-attribute name="header" value="/WEB-INF/template/foods/header.jsp" />
+    </definition>
+
+    <definition name="foodsubcategory" extends="DefaultTemplate" >
+        <put-attribute name="body" value="/WEB-INF/template/foodsubcategory/body.jsp" />
+        <put-attribute name="header" value="/WEB-INF/template/foodsubcategory/header.jsp" />
+    </definition>
+
+    <definition name="mycalc" template="/WEB-INF/template/mycalc/template.jsp">
+        <put-attribute name="header" value="" />
+        <put-attribute name="menu" value="/WEB-INF/template/menu/menu.jsp" />
+        <put-attribute name="userMenu" value="/WEB-INF/template/menu/usermenu.jsp" />
+        <put-attribute name="adminMenu" value="/WEB-INF/template/menu/adminmenu.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/template/index/footer.jsp" />
+        <put-attribute name="body" value="/WEB-INF/template/mycalc/body.jsp" />
+    </definition>
+
+    <definition name="showfood" template="/WEB-INF/template/showfood/template.jsp">
+        <put-attribute name="header" value="/WEB-INF/template/showfood/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/template/menu/menu.jsp" />
+        <put-attribute name="userMenu" value="/WEB-INF/template/menu/usermenu.jsp" />
+        <put-attribute name="adminMenu" value="/WEB-INF/template/menu/adminmenu.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/template/index/footer.jsp" />
+        <put-attribute name="body" value="/WEB-INF/template/showfood/body.jsp" />
+    </definition>
+
+    <definition name="showfoods" extends="DefaultTemplate" >
+        <put-attribute name="body" value="/WEB-INF/template/searchfoods/body.jsp" />
+        <put-attribute name="header" value="/WEB-INF/template/searchfoods/header.jsp" />
+    </definition>
+
 </tiles-definitions>

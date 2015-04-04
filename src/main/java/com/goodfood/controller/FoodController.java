@@ -172,7 +172,7 @@ public class FoodController {
         } else {
             logger.info("show result for more one food with query = " + name);
             modelMap.addAttribute("foodList", foodList);
-            return "/showfoods";
+            return "showfoods";
         }
     }
 }
