@@ -29,8 +29,6 @@
           rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/jquery.rating.css" rel="stylesheet" type="text/css"/>
-    <script src="${pageContext.request.contextPath}/resources/js/page_js/showfood.js">
-    </script>
     <script>
         function addcalcvalue() {
             var calcvalue = $('#calcvalue').val();
