@@ -17,6 +17,7 @@
         <spring.security.version>3.2.3.RELEASE</spring.security.version> <!-- 4.0.0 don't work with spring social -->
         <jackson.version>1.9.13</jackson.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <org.springframework.social.google-version>1.0.0.RELEASE</org.springframework.social.google-version>
     </properties>
 
     <dependencies>
@@ -293,6 +294,11 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
             <version>3.2.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-google</artifactId>
+            <version>${org.springframework.social.google-version}</version>
         </dependency>
     </dependencies>
 
