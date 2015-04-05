@@ -8,6 +8,9 @@ import com.goodfood.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.UserProfile;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -31,6 +35,7 @@ import java.sql.Timestamp;
 public class LoginController {
 
     final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private final ProviderSignInUtils providerSignInUtils;
 
     @Autowired
     private UserService userService;
@@ -41,9 +46,20 @@ public class LoginController {
     @Autowired
     private ServletContext servletContext;
 
+    public LoginController() {
+        this.providerSignInUtils = new ProviderSignInUtils();
+    }
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String register(HttpServletRequest request, ModelMap model) {
-        model.addAttribute("user", new User());
+    public String register(WebRequest request, ModelMap model) {
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
+        User user = new User();
+        if (connection != null) {
+            UserProfile providerUser = connection.fetchUserProfile();
+            user.setName(providerUser.getFirstName());
+            user.setMail(providerUser.getEmail());
+        }
+        model.addAttribute("user", user);
         return "registration";
     }
 

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 well">
         <form class="form-signin" id="form" action="/j_spring_security_check" method="POST">
@@ -16,6 +17,13 @@
         </form>
         </br>
         <span style="color:red">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</span>
+
+        <form id="fb_signin" action="<c:url value="/auth/facebook"/>" method="POST">
+            <input type="hidden" name="scope" value="email, publish_actions, publish_stream, user_photos, offline_access">
+            <input type="submit" name="submitBtn" value="Connect">
+            <p><button type="submit"></button></p>
+            <label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /> Tell your friends about Spring Social Showcase on your Facebook wall</label>
+        </form>
     </div>
 </div>
 

@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
-	<!-- add this filter for use utf-8 encoding in my app -->
+	<!-- add this filter for use utf-8 encoding in my app
 	<filter>
 		<filter-name>charsetFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -22,7 +22,7 @@
 		<filter-name>charsetFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- end filter -->
+	 end filter -->
 	<!--<jsp-config>-->
 		<!--<jsp-property-group>-->
 			<!--<url-pattern>*.jsp</url-pattern>-->

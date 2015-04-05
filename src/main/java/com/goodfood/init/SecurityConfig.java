@@ -2,6 +2,7 @@ package com.goodfood.init;
 
 import javax.sql.DataSource;
 
+import com.goodfood.social.SimpleSocialUsersDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.social.UserIdSource;
+import org.springframework.social.security.AuthenticationNameUserIdSource;
+import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.social.security.SpringSocialConfigurer;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
 @Configuration
@@ -56,12 +61,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutUrl("/j_spring_security_logout")
 				.logoutSuccessUrl("/")
 		.deleteCookies("JSESSIONID")
-		.invalidateHttpSession(true);
+		.invalidateHttpSession(true)
+				.and()
+				.rememberMe()
+				.and()
+				.apply(
+						new SpringSocialConfigurer());
+	}
+
+//	@Bean
+//	public DelegatingFilterProxy springSecurityFileterChain() {
+//		DelegatingFilterProxy filterProxy = new DelegatingFilterProxy();
+//		return filterProxy;
+//	}
+
+	@Bean
+	public SocialUserDetailsService socialUsersDetailService() {
+		return new SimpleSocialUsersDetailService(userDetailsService());
 	}
 
 	@Bean
-	public DelegatingFilterProxy springSecurityFileterChain() {
-		DelegatingFilterProxy filterProxy = new DelegatingFilterProxy();
-		return filterProxy;
+	public UserIdSource userIdSource() {
+		return new AuthenticationNameUserIdSource();
 	}
 }
