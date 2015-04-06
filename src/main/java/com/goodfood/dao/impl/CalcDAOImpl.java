@@ -49,7 +49,9 @@ public class CalcDAOImpl implements CalcDao {
                 .add(Restrictions.eq("user", user))
                 .add(Restrictions.between("addDate", dateBefore, dateAfter))
                 .addOrder(Order.desc("addDate"));
-        return criteria.list();
+        return criteria
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     /**

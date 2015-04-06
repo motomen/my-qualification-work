@@ -2,6 +2,7 @@ package com.goodfood.dao.impl;
 
 import com.goodfood.dao.RatingDao;
 import com.goodfood.model.Rating;
+import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -36,7 +37,9 @@ public class RatingDaoImpl implements RatingDao {
         SQLQuery query = getCurrentSession().createSQLQuery(sql);
         query.setParameter("id", id);
         query.addEntity(Rating.class);
-        return query.list();
+        return query
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     @Override

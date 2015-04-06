@@ -46,7 +46,9 @@ public class CommentDaoImpl implements CommentsDao {
         SQLQuery query = getCurrentSession().createSQLQuery(sql);
         query.setParameter("id", id);
         query.addEntity(Comments.class);
-        commentsList = query.list();
+        commentsList = query
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
         return commentsList;
     }
 
@@ -81,7 +83,9 @@ public class CommentDaoImpl implements CommentsDao {
     public List<Comments> getLastComment(int count) {
         Criteria criteria = getCurrentSession().createCriteria(Comments.class)
         .addOrder(Order.desc("dateComment")).setMaxResults(count);
-        return criteria.list();
+        return criteria
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
 

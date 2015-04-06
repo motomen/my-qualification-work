@@ -34,7 +34,10 @@ public class FoodDAOImpl implements FoodDAO {
     @Override
     public List<Food> getFood(int count) {
         return getCurrentSession().createQuery(
-                "select f FROM Food f order by f.rating").setMaxResults(count).list();
+                "select f FROM Food f order by f.rating")
+                .setMaxResults(count)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     @Override
@@ -45,7 +48,10 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public List<Food> getAllFood() {
-        return getCurrentSession().createCriteria(Food.class).list();
+        return getCurrentSession()
+                .createCriteria(Food.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     @Override
@@ -71,6 +77,7 @@ public class FoodDAOImpl implements FoodDAO {
                 .setParameter("id", subcategory.getIdSubCategory())
                 .setFirstResult(page)
                 .setMaxResults(maxResults)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
@@ -82,6 +89,7 @@ public class FoodDAOImpl implements FoodDAO {
                 .createSQLQuery(sql)
                 .addEntity(Food.class)
                 .setParameter("id", subcategory.getIdSubCategory())
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
@@ -92,6 +100,7 @@ public class FoodDAOImpl implements FoodDAO {
         return getCurrentSession()
                 .createSQLQuery(sql)
                 .addEntity(Food.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
@@ -101,6 +110,7 @@ public class FoodDAOImpl implements FoodDAO {
                 "WHERE  f.name LIKE '%" + name + "%' ";
         return getCurrentSession()
                 .createSQLQuery(sql)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
@@ -111,6 +121,7 @@ public class FoodDAOImpl implements FoodDAO {
         List<Food> foodList = getCurrentSession()
                 .createSQLQuery(sql)
                 .addEntity(Food.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
         return foodList;
     }

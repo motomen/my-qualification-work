@@ -37,7 +37,10 @@ public class CategoryDaoImpl implements CategoryDao {
      */
     @Override
     public List<Category> allCategory() {
-        return getCurrentSession().createCriteria(Category.class).list();
+        return getCurrentSession()
+                .createCriteria(Category.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY) // Just put Criteria.DISTINCT_ROOT_ENTITY it will internally create a Set and duplicates are automatically removed.
+                .list();
     }
 
     /**
