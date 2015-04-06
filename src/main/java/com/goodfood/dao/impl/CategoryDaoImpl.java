@@ -18,7 +18,6 @@ import java.util.List;
  * Created by Yaroslav on 03.02.2015.
  */
 @Repository
-@Transactional
 public class CategoryDaoImpl implements CategoryDao {
 
     @Autowired
@@ -30,7 +29,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void addCategory(Category category) {
-       getCurrentSession().save(category);
+        getCurrentSession().save(category);
     }
 
     /**
@@ -38,8 +37,7 @@ public class CategoryDaoImpl implements CategoryDao {
      */
     @Override
     public List<Category> allCategory() {
-        HashSet<Category> setCategory = new HashSet<>(getCurrentSession().createCriteria(Category.class).list());
-        return new ArrayList<Category>(setCategory);
+        return getCurrentSession().createCriteria(Category.class).list();
     }
 
     /**

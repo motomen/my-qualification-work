@@ -49,7 +49,7 @@ public class CalcDAOImpl implements CalcDao {
                 .add(Restrictions.eq("user", user))
                 .add(Restrictions.between("addDate", dateBefore, dateAfter))
                 .addOrder(Order.desc("addDate"));
-        return new ArrayList<>(new TreeSet(criteria.list()));
+        return criteria.list();
     }
 
     /**
