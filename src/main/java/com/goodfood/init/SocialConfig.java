@@ -44,9 +44,6 @@ public class SocialConfig implements SocialConfigurer {
     @Inject
     private DataSource dataSource;
 
-    @Inject
-    private Environment environment;
-
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
         cfConfig.addConnectionFactory(new FacebookConnectionFactory(
@@ -111,40 +108,9 @@ public class SocialConfig implements SocialConfigurer {
      */
     @Bean
     @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)
-    public Google google() {
-        return connectionRepository().getPrimaryConnection(Google.class).getApi();
+    public Google google(ConnectionRepository repository) {
+        Connection<Google> connection = repository.getPrimaryConnection(Google.class);
+        return connection != null ? connection.getApi() : null;
     }
 
-    /**
-     * Request-scoped data access object providing access to the current user's connections.
-     */
-    @Bean
-    @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)
-    public ConnectionRepository connectionRepository() {
-        User user = SecurityContext.getCurrentUser();
-        return usersConnectionRepository().createConnectionRepository(user.getIdUserStr());
-    }
-
-    /**
-     * Singleton data access object providing access to connections across all users.
-     */
-    @Bean
-    public UsersConnectionRepository usersConnectionRepository() {
-        JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource,
-                connectionFactoryLocator(), Encryptors.noOpText());
-        repository.setConnectionSignUp(new SimpleConnectionSignUp());
-        return repository;
-    }
-
-    /**
-     * When a new provider is added to the app, register its {@link } here.
-     * @see GoogleConnectionFactory
-     */
-    @Bean
-    public ConnectionFactoryLocator connectionFactoryLocator() {
-        ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
-        registry.addConnectionFactory(new GoogleConnectionFactory(environment.getProperty("googlep.app.secret"),
-                environment.getProperty("googlep.app.secret")));
-        return registry;
-    }
 }
