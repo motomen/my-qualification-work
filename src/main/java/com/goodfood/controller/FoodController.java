@@ -58,7 +58,7 @@ public class FoodController {
         logger.info("show add food page");
         model.addAttribute("food", new Food());
         model.addAttribute("listCategory", categoryService.allCategory());
-        return "control/addfood";
+        return "/control/addfood";
     }
 
     // add main information about food
@@ -174,5 +174,24 @@ public class FoodController {
             modelMap.addAttribute("foodList", foodList);
             return "showfoods";
         }
+    }
+
+    @RequestMapping(value = "/control/editfood/{idFood}", method = RequestMethod.GET)
+    public String editFood(@RequestParam("idFood") String idFood,
+                           ModelMap modelMap) {
+        Food food = foodService.getFoodById(idFood);
+        modelMap.addAttribute("food", food);
+        logger.info("edit show page edit food with id = " + idFood);
+        return "/control/editfood";
+    }
+
+    @RequestMapping(value = "/control/savefood", method = RequestMethod.POST)
+    public String saveFood(@ModelAttribute("food") Food food,
+                           @RequestParam("file") MultipartFile file) {
+        if (file.getSize() != 0) {
+            food.setPhoto(Util.fileToString(file)); //convert file to string Base64
+        }
+        foodService.update(food);
+        return "/showfood/" + food.getIdFood();
     }
 }
