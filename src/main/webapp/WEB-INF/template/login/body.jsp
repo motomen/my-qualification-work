@@ -24,6 +24,19 @@
             <p><button type="submit"></button></p>
             <label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /> Tell your friends about Spring Social Showcase on your Facebook wall</label>
         </form>
+        <div class="container">
+            <div class="row">
+                <div class="span14 columns offset2">
+                    <h1>Spring Social Google Example Application</h1>
+                    <form action="signin/google" method="POST">
+                        <button type="submit" class="btn btn-large btn-primary">Sign in with Google</button>
+                        <input type="hidden" name="scope" value="email https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/latitude.all.best" />
+                        <input type="hidden" name="request_visible_actions" value="http://schemas.google.com/AddActivity http://schemas.google.com/BuyActivity http://schemas.google.com/CheckInActivity http://schemas.google.com/CommentActivity http://schemas.google.com/CreateActivity http://schemas.google.com/DiscoverActivity http://schemas.google.com/ListenActivity http://schemas.google.com/ReserveActivity http://schemas.google.com/ReviewActivity http://schemas.google.com/WantActivity"/>
+                        <input type="hidden" name="access_type" value="offline"/>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
