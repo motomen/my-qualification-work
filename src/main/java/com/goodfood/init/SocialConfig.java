@@ -1,9 +1,5 @@
 package com.goodfood.init;
 
-import com.goodfood.model.User;
-import com.goodfood.social.PostToWallAfterConnectInterceptor;
-import com.goodfood.social.user.SecurityContext;
-import com.goodfood.social.user.SimpleConnectionSignUp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -21,13 +17,14 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
-import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.ReconnectFilter;
 import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.facebook.web.DisconnectController;
 import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 
 import javax.inject.Inject;
@@ -81,7 +78,6 @@ public class SocialConfig implements SocialConfigurer {
     @Bean
     public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
         ConnectController connectController = new ConnectController(connectionFactoryLocator, connectionRepository);
-        connectController.addInterceptor(new PostToWallAfterConnectInterceptor());
         return connectController;
     }
 
@@ -99,7 +95,7 @@ public class SocialConfig implements SocialConfigurer {
     @Scope(value="request", proxyMode= ScopedProxyMode.INTERFACES)
     public Facebook facebook(ConnectionRepository repository) {
         Connection<Facebook> connection = repository.findPrimaryConnection(Facebook.class);
-        return connection != null ? connection.getApi() : null;
+        return connection != null ? connection.getApi() : new FacebookTemplate();
     }
 
     /**
@@ -110,7 +106,7 @@ public class SocialConfig implements SocialConfigurer {
     @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)
     public Google google(ConnectionRepository repository) {
         Connection<Google> connection = repository.getPrimaryConnection(Google.class);
-        return connection != null ? connection.getApi() : null;
+        return connection != null ? connection.getApi() : new GoogleTemplate();
     }
 
 }

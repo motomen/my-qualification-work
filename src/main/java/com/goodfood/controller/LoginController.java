@@ -17,12 +17,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.sql.Timestamp;
@@ -48,6 +46,36 @@ public class LoginController {
 
     public LoginController() {
         this.providerSignInUtils = new ProviderSignInUtils();
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public String signup() {
+        logger.info("signin page");
+        return "redirect:/signin";
+    }
+
+    // @TO-DO:refactor
+    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    public String signin(WebRequest request, ModelMap model) {
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
+        // get user by mail
+        if (connection != null) {
+            UserProfile providerUser = connection.fetchUserProfile();
+            if (userService.isUserMailUnique(providerUser.getEmail())) {
+                User user = userService.getUserByMail(providerUser.getEmail());
+                model.addAttribute("user", user);
+                return "login";
+            } else {
+                User user = new User();
+
+                user.setName(providerUser.getFirstName());
+                user.setMail(providerUser.getEmail());
+
+                model.addAttribute("user", user);
+                return "/registration";
+            }
+        }
+        return "login";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -107,16 +135,5 @@ public class LoginController {
     public String login() {
         logger.info("Login page");
         return "login";
-    }
-
-    @RequestMapping(value = "/apicheck", method = RequestMethod.POST)
-    @ResponseBody
-    public String apicheck(
-            @RequestParam("username") String name,
-            @RequestParam("password") String password
-    ){
-        String username = name;
-        String password2 = password;
-        return "0k";
     }
 }

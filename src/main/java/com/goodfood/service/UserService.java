@@ -9,4 +9,8 @@ public interface UserService {
 	public void addUser(User user);
 
 	public Boolean isLoginIdUnique(String login);
+
+	public Boolean isUserMailUnique(String mail);
+
+	public User getUserByMail(String mail);
 }

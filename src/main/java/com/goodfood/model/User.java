@@ -57,6 +57,13 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Comments> commentsList;
 
+	public User() {
+
+	}
+
+	public User(String id) {
+		idUserStr = id;
+	}
 	public String getSex() {
 		return Sex;
 	}

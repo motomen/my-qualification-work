@@ -28,6 +28,12 @@ public class UserDAOImpl implements UserDAO {
 		return (User) query.uniqueResult();
 	}
 
+	public User getUserByMail(String mail) {
+		Query query = openSession().createQuery("from User u where u.mail = :mail");
+		query.setParameter("mail", mail);
+		return (User) query.uniqueResult();
+	}
+
 	@Override
 	public void addUser(User user) {
 		openSession().save(user);

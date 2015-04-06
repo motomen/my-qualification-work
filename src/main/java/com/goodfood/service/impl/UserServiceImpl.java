@@ -31,4 +31,15 @@ public class UserServiceImpl implements UserService {
 		return userDAO.isLoginIdUnique(login);
 	}
 
+	@Override
+	public Boolean isUserMailUnique(String mail) {
+		User user = userDAO.getUserByMail(mail);
+		return user != null ? true : false ;
+	}
+
+	@Override
+	public User getUserByMail(String mail) {
+		return userDAO.getUserByMail(mail);
+	}
+
 }

@@ -9,4 +9,6 @@ public interface UserDAO {
 	public void addUser(User user);
 
 	public Boolean isLoginIdUnique(String login);
+
+	public User getUserByMail(String mail);
 }
