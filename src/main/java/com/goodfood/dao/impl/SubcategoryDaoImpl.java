@@ -56,7 +56,10 @@ public class SubcategoryDaoImpl implements SubcategoryDao {
      */
     @Override
     public List<Subcategory> getAllSubcategory() {
-        return new ArrayList<Subcategory>(new HashSet<Subcategory>(getCurrentSession().createCriteria(Subcategory.class).list()));
+        return getCurrentSession()
+                .createCriteria(Subcategory.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     @Override

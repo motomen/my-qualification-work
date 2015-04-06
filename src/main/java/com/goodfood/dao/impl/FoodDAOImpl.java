@@ -17,7 +17,6 @@ import java.util.*;
  * Created by Yaroslav on 01.02.2015.
  */
 @Repository
-@Transactional
 public class FoodDAOImpl implements FoodDAO {
 
     @Autowired
@@ -34,12 +33,11 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public List<Food> getFood(int count) {
-        Set<Food> foodSet =
-                new HashSet<Food>(
-                        getCurrentSession().createQuery(
-                                "select f FROM Food f order by f.rating").setMaxResults(count).list()
-                        );
-        return new ArrayList<Food>(foodSet);
+        return getCurrentSession().createQuery(
+                "select f FROM Food f order by f.rating")
+                .setMaxResults(count)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     @Override
@@ -50,7 +48,10 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public List<Food> getAllFood() {
-        return new ArrayList<Food>(new HashSet <Food> (getCurrentSession().createCriteria(Food.class).list()));
+        return getCurrentSession()
+                .createCriteria(Food.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     @Override
@@ -76,6 +77,7 @@ public class FoodDAOImpl implements FoodDAO {
                 .setParameter("id", subcategory.getIdSubCategory())
                 .setFirstResult(page)
                 .setMaxResults(maxResults)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
@@ -87,6 +89,7 @@ public class FoodDAOImpl implements FoodDAO {
                 .createSQLQuery(sql)
                 .addEntity(Food.class)
                 .setParameter("id", subcategory.getIdSubCategory())
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
@@ -97,27 +100,30 @@ public class FoodDAOImpl implements FoodDAO {
         return getCurrentSession()
                 .createSQLQuery(sql)
                 .addEntity(Food.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
     @Override
     public List<String> getNameFoodForSearch(String name) {
         String sql = "SELECT f.name FROM food f " +
-                "WHERE  f.name LIKE '%"+name+"%' ";
+                "WHERE  f.name LIKE '%" + name + "%' ";
         return getCurrentSession()
                 .createSQLQuery(sql)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
     @Override
     public List<Food> getFoodForSearch(String name) {
         String sql = "SELECT f.* FROM food f " +
-                "WHERE  f.name LIKE '%"+name+"%' ";
+                "WHERE  f.name LIKE '%" + name + "%' ";
         List<Food> foodList = getCurrentSession()
                 .createSQLQuery(sql)
                 .addEntity(Food.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
-        return new ArrayList<>(new HashSet(foodList));
+        return foodList;
     }
 
     /**

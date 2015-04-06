@@ -13,7 +13,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title></title>
+  <title></title>
   <!-- jQuery -->
   <script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery.js"></script>
 
