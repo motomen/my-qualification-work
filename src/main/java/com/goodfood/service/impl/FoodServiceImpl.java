@@ -73,4 +73,9 @@ public class FoodServiceImpl implements FoodService {
     public List<Food> getFoodForSearch(String name) {
         return foodDAO.getFoodForSearch(name);
     }
+
+    @Override
+    public void delete(Food food) {
+        foodDAO.delete(food);
+    }
 }

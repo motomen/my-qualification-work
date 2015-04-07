@@ -20,5 +20,5 @@ public interface FoodService {
     public List<Food> getAllFoodWithoutSubcategory();
     public List<String> getNameFoodForSearch(String name);
     public List<Food> getFoodForSearch(String name);
-
+    public void delete(Food food);
 }

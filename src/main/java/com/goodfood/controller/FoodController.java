@@ -176,22 +176,39 @@ public class FoodController {
         }
     }
 
-    @RequestMapping(value = "/control/editfood/{idFood}", method = RequestMethod.GET)
-    public String editFood(@RequestParam("idFood") String idFood,
+    @RequestMapping(value = "/control/editfood", method = RequestMethod.POST)
+    public String editFood(@RequestParam("id") String idFood,
                            ModelMap modelMap) {
         Food food = foodService.getFoodById(idFood);
         modelMap.addAttribute("food", food);
+        modelMap.addAttribute("listCategory", categoryService.allCategory());
         logger.info("edit show page edit food with id = " + idFood);
         return "/control/editfood";
     }
 
     @RequestMapping(value = "/control/savefood", method = RequestMethod.POST)
     public String saveFood(@ModelAttribute("food") Food food,
-                           @RequestParam("file") MultipartFile file) {
+                           @RequestParam("file") MultipartFile file,
+                           @RequestParam(value = "subcategory", required = false) String subcategory,
+                           @RequestParam("photo") String photo) {
+        if (subcategory == null) {
+            HashSet<Subcategory> hashSet = new HashSet<Subcategory>();
+            hashSet.add(subcategoryService.getCategoryByName(subcategory));
+            food.setSubcategories(hashSet);
+        }
+        food.setRating(1.0);
         if (file.getSize() != 0) {
             food.setPhoto(Util.fileToString(file)); //convert file to string Base64
+        } else {
+            food.setPhoto(photo);
         }
         foodService.update(food);
-        return "/showfood/" + food.getIdFood();
+        return "redirect:/showfood/" + food.getIdFood();
+    }
+
+    @RequestMapping(value = "/control/delete", method = RequestMethod.POST)
+    public String delete(@RequestParam("id") String idFood) {
+        foodService.delete(foodService.getFoodById(idFood));
+        return "redirect:/";
     }
 }

@@ -125,4 +125,9 @@ public class FoodDAOImpl implements FoodDAO {
                 .list();
         return foodList;
     }
+
+    @Override
+    public void delete(Food food) {
+        getCurrentSession().delete(food);
+    }
 }
