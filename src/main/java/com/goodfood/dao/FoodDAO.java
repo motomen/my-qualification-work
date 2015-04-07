@@ -27,4 +27,5 @@ public interface FoodDAO {
      * @return list food
      */
     public List<Food> getBestFoodEats(int count);
+    public void delete(Food food);
 }

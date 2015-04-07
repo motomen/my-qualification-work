@@ -139,4 +139,9 @@ public class FoodDAOImpl implements FoodDAO {
                 .setMaxResults(count)
                 .list()));
     }
+
+    @Override
+    public void delete(Food food) {
+        getCurrentSession().delete(food);
+    }
 }

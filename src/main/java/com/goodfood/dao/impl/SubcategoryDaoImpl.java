@@ -46,7 +46,9 @@ public class SubcategoryDaoImpl implements SubcategoryDao {
     public Subcategory getSubcategoryByName(String name) {
         Criteria criteria = getCurrentSession().createCriteria(Subcategory.class);
         criteria.add(Restrictions.eq("name", name));
-        return (Subcategory) criteria.uniqueResult();
+        return (Subcategory) criteria
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .uniqueResult();
     }
 
     /**
@@ -66,6 +68,8 @@ public class SubcategoryDaoImpl implements SubcategoryDao {
     public Subcategory getCategoryById(int id) {
         Criteria criteria = getCurrentSession().createCriteria(Subcategory.class);
         criteria.add(Restrictions.eq("idSubCategory", id));
-        return (Subcategory) criteria.uniqueResult();
+        return (Subcategory) criteria
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .uniqueResult();
     }
 }

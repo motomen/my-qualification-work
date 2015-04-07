@@ -10,7 +10,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <div class="row">
-    <form:form action="/control/savefood/${food.idFood}" method="POST" id="form" commandName="food" class="form-horizontal"
+    <form:form action="/control/savefood" method="POST" id="form" commandName="food" class="form-horizontal"
                enctype="multipart/form-data">
         <div class="col-lg-6 col-lg-offset-3 well">
             <!--   <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span></strong></div> -->
@@ -64,6 +64,7 @@
                 <label for="kcal"><spring:message text="Кіло калорій в 100 гр."/></label>
                 <form:input type="text" class="form-control" id="kcal" path="kcal" name="kcal" placeholder=""/>
             </div>
+            <input type="hidden" name="photo" value="${food.photo}"/>
 
             <div class="form-group">
                 <input type="file" id="files" name="file"/>
@@ -80,7 +81,7 @@
                                name="ingredients" placeholder=""/>
             </div>
 
-            <input type="submit" name="submit" id="submit" value="Створити" class="btn btn-info pull-right">
+            <input type="submit" name="submit" id="submit" value="Редагувати" class="btn btn-info pull-right">
         </div>
     </form:form>
     <script>

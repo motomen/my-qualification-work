@@ -9,11 +9,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- Page Header -->
 <div class="row">
-  <div class="col-lg-12">
-    <h1 class="page-header">
-      <small><c:out value="${food.name}"/>
-      </small>
-    </h1>
-  </div>
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            <small><c:out value="${food.name}"/>
+            </small>
+        </h1>
+    </div>
 </div>
 <!-- /.row -->

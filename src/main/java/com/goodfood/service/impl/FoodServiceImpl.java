@@ -102,4 +102,9 @@ public class FoodServiceImpl implements FoodService {
         result = result.substring(0, result.length()-2);
         return result;
     }
+
+    @Override
+    public void delete(Food food) {
+        foodDAO.delete(food);
+    }
 }

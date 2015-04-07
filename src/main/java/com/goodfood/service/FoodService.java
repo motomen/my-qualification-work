@@ -30,4 +30,5 @@ public interface FoodService {
     public Map<String, Integer> getMapBestFood(int count);
 
     public String getStringBestFood(int count);
+    public void delete(Food food);
 }
