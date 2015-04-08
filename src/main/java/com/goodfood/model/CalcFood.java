@@ -1,5 +1,8 @@
 package com.goodfood.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -21,11 +24,11 @@ public class CalcFood implements Comparable{
 
     private double value;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_user")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private User user;
 
-    // Remember to remove the fetchType attribute from the @*ToMany annotation.
     @OneToOne(fetch = FetchType.EAGER)
     @JoinTable(
             name = "calc_to_food",

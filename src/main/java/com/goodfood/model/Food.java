@@ -30,27 +30,27 @@ public class Food{
     @Column(name = "count_calculate")
     private int countCalculate;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "food_to_category",
             joinColumns = {@JoinColumn(name="id_fk_food", referencedColumnName = "id_food_tc")},
-            inverseJoinColumns = {@JoinColumn(name="id_fk_fcategory", referencedColumnName = "id_sub_category")}
-    )
-//    @LazyCollection(LazyCollectionOption.FALSE)
+            inverseJoinColumns = {@JoinColumn(name="id_fk_fcategory", referencedColumnName = "id_sub_category")})
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Subcategory> subcategories;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "comment_to_food",
             joinColumns = {@JoinColumn(name="fk_food", referencedColumnName = "id_food_tc")},
             inverseJoinColumns = {@JoinColumn(name="fk_idcomment", referencedColumnName = "id_comment")})
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Comments> commentsList;
 
-    @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "calc_to_food",
             joinColumns = {@JoinColumn(name="fk_food", referencedColumnName = "id_food_tc")},
             inverseJoinColumns = {@JoinColumn(name="fk_calc", referencedColumnName = "id_calc")})
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<CalcFood> calcFoodList;
 
     public List<CalcFood> getCalcFoodList() {

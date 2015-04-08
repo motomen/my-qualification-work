@@ -294,7 +294,7 @@
                     <password>root</password>
                     <schemas>
                         <!-- change goods -> foods -->
-                        <schema>foods2</schema>
+                        <schema>foods</schema>
                     </schemas>
                     <table>shema_historyes</table>
                     <locations>

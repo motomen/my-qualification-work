@@ -115,6 +115,15 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public List<Food> getFoodForSearch(String name) {
+        Criteria cr = getCurrentSession().createCriteria(Food.class);
+        // To get records having fistName starting with zara
+        cr.add(Restrictions.like("name", "%"+name+"%")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        return cr.list();
+    }
+
+/*
+    @Override
+    public List<Food> getFoodForSearch(String name) {
         String sql = "SELECT f.* FROM food f " +
                 "WHERE  f.name LIKE '%" + name + "%' ";
         List<Food> foodList = getCurrentSession()
@@ -124,6 +133,7 @@ public class FoodDAOImpl implements FoodDAO {
                 .list();
         return foodList;
     }
+*/
 
     /**
      * get some count list foods how eat is max

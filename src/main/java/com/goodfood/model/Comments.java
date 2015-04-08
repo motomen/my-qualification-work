@@ -1,5 +1,8 @@
 package com.goodfood.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -28,10 +31,11 @@ public class Comments {
 
     // Exception
     // Why don't work this relations?
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "comment_to_food",
             joinColumns = {@JoinColumn(name = "fk_idcomment", referencedColumnName = "id_comment")},
             inverseJoinColumns = {@JoinColumn(name = "fk_food", referencedColumnName = "id_food_tc")})
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Food food;
 
     public int getIdComment() {

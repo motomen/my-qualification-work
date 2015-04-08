@@ -1,5 +1,7 @@
 package com.goodfood.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -52,9 +54,11 @@ public class User {
 	@JoinTable(name="user_role",
 			joinColumns = {@JoinColumn(name = "id_fk_user", referencedColumnName = "id_user")},
 			inverseJoinColumns = {@JoinColumn(name = "id_fk_role", referencedColumnName = "id_role")})
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Role role;
 
 	@OneToMany(mappedBy = "user")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Comments> commentsList;
 
 	public String getSex() {
