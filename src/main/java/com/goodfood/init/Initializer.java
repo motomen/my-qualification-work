@@ -6,7 +6,6 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-//@Order(1)
 public class Initializer extends
 		AbstractAnnotationConfigDispatcherServletInitializer {
 

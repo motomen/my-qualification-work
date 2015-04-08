@@ -2,11 +2,8 @@ package com.goodfood.service.impl;
 
 import com.goodfood.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.goodfood.dao.UserDAO;
 import com.goodfood.model.User;
 
