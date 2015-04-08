@@ -4,7 +4,6 @@ package com.goodfood.social.user;
  * Created by Yaroslav on 06.04.2015.
  */
 
-import com.goodfood.model.User;
 
 /**
  * Simple SecurityContext that stores the currently signed-in connection in a thread local.

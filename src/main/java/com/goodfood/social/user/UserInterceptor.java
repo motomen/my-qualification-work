@@ -1,6 +1,5 @@
 package com.goodfood.social.user;
 
-import com.goodfood.model.User;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.google.api.Google;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -52,7 +51,7 @@ public final class UserInterceptor extends HandlerInterceptorAdapter {
 
     private void handleSignOut(HttpServletRequest request, HttpServletResponse response) {
         if (SecurityContext.userSignedIn() && request.getServletPath().startsWith("/signout")) {
-            connectionRepository.createConnectionRepository(SecurityContext.getCurrentUser().getIdUserStr()).removeConnections("facebook");
+            connectionRepository.createConnectionRepository(SecurityContext.getCurrentUser().getId()).removeConnections("facebook");
             userCookieGenerator.removeCookie(response);
             SecurityContext.remove();
         }

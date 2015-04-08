@@ -1,9 +1,9 @@
 package com.goodfood.init;
 
-import com.goodfood.model.User;
 import com.goodfood.social.user.SecurityContext;
 import com.goodfood.social.user.SimpleConnectionSignUp;
 import com.goodfood.social.user.SimpleSignInAdapter;
+import com.goodfood.social.user.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -129,8 +129,8 @@ public class SocialConfig {
 
     @Bean
     @Scope(value="request", proxyMode= ScopedProxyMode.INTERFACES)
-    public Facebook facebook(ConnectionRepository repository) {
-        Connection<Facebook> connection = repository.findPrimaryConnection(Facebook.class);
+    public Facebook facebook() {
+        Connection<Facebook> connection = connectionRepository().findPrimaryConnection(Facebook.class);
         return connection != null ? connection.getApi() : new FacebookTemplate();
     }
 
@@ -140,8 +140,8 @@ public class SocialConfig {
      */
     @Bean
     @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)
-    public Google google(ConnectionRepository repository) {
-        Connection<Google> connection = repository.getPrimaryConnection(Google.class);
+    public Google google() {
+        Connection<Google> connection = connectionRepository().getPrimaryConnection(Google.class);
         return connection != null ? connection.getApi() : new GoogleTemplate();
     }
 
@@ -152,7 +152,7 @@ public class SocialConfig {
     @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)
     public ConnectionRepository connectionRepository() {
         User user = SecurityContext.getCurrentUser();
-        return usersConnectionRepository().createConnectionRepository(user.getIdUserStr());
+        return usersConnectionRepository().createConnectionRepository(user.getId());
     }
 
     /**

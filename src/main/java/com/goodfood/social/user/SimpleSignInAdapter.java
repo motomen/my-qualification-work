@@ -1,6 +1,5 @@
 package com.goodfood.social.user;
 
-import com.goodfood.model.User;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.web.context.request.NativeWebRequest;
