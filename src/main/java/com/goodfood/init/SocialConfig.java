@@ -1,23 +1,25 @@
 package com.goodfood.init;
 
+import com.goodfood.model.User;
+import com.goodfood.social.user.SecurityContext;
+import com.goodfood.social.user.SimpleConnectionSignUp;
+import com.goodfood.social.user.SimpleSignInAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.UserIdSource;
-import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
-import org.springframework.social.config.annotation.SocialConfigurer;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import org.springframework.social.connect.web.ConnectController;
+import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.connect.web.ReconnectFilter;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
@@ -36,43 +38,77 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableSocial
-public class SocialConfig implements SocialConfigurer {
+public class SocialConfig {
 
     @Inject
     private DataSource dataSource;
 
-    @Override
-    public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
-        cfConfig.addConnectionFactory(new FacebookConnectionFactory(
-                env.getProperty("facebook.app.id"),
-                env.getProperty("facebook.app.secret")));
-        cfConfig.addConnectionFactory(new GoogleConnectionFactory(
-                env.getProperty("googlep.app.id"),
-                env.getProperty("googlep.app.secret")));
+    @Inject
+    private Environment environment;
+
+//    @Override
+//    public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
+//        cfConfig.addConnectionFactory(new FacebookConnectionFactory(
+//                env.getProperty("facebook.app.id"),
+//                env.getProperty("facebook.app.secret")));
+//        cfConfig.addConnectionFactory(new GoogleConnectionFactory(
+//                env.getProperty("googlep.app.id"),
+//                env.getProperty("googlep.app.secret")));
+//    }
+//
+//    /**
+//     * Callback method to enable creation of a {@link org.springframework.social.UserIdSource} that uniquely identifies the current user.
+//     *
+//     * @return the {@link org.springframework.social.UserIdSource}.
+//     */
+//    @Override
+//    public UserIdSource getUserIdSource() {
+//        return new UserIdSource() {
+//            @Override
+//            public String getUserId() {
+//                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//                if (authentication == null) {
+//                    throw new IllegalStateException("Unable to get a ConnectionRepository: no user signed in");
+//                }
+//                return authentication.getName();
+//            }
+//        };
+//    }
+//
+//    @Override
+//    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+//        JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource,
+//                connectionFactoryLocator, Encryptors.noOpText());
+//        repository.setConnectionSignUp(new SimpleConnectionSignUp());
+//        return repository;
+//    }
+    /**
+     * When a new provider is added to the app, register its {@link } here.
+     * @see GoogleConnectionFactory
+     */
+    @Bean
+    public ConnectionFactoryLocator connectionFactoryLocator() {
+        ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
+        registry.addConnectionFactory(new GoogleConnectionFactory(
+                environment.getProperty("googlep.app.id"),
+                environment.getProperty("googlep.app.secret")));
+        registry.addConnectionFactory(
+                new FacebookConnectionFactory(
+                environment.getProperty("facebook.app.id"),
+                environment.getProperty("facebook.app.secret"))
+        );
+        return registry;
     }
 
     /**
-     * Callback method to enable creation of a {@link org.springframework.social.UserIdSource} that uniquely identifies the current user.
-     *
-     * @return the {@link org.springframework.social.UserIdSource}.
+     * Singleton data access object providing access to connections across all users.
      */
-    @Override
-    public UserIdSource getUserIdSource() {
-        return new UserIdSource() {
-            @Override
-            public String getUserId() {
-                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-                if (authentication == null) {
-                    throw new IllegalStateException("Unable to get a ConnectionRepository: no user signed in");
-                }
-                return authentication.getName();
-            }
-        };
-    }
-
-    @Override
-    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+    @Bean
+    public UsersConnectionRepository usersConnectionRepository() {
+        JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource,
+                connectionFactoryLocator(), Encryptors.noOpText());
+        repository.setConnectionSignUp(new SimpleConnectionSignUp());
+        return repository;
     }
 
     @Bean
@@ -109,4 +145,22 @@ public class SocialConfig implements SocialConfigurer {
         return connection != null ? connection.getApi() : new GoogleTemplate();
     }
 
+    /**
+     * Request-scoped data access object providing access to the current user's connections.
+     */
+    @Bean
+    @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)
+    public ConnectionRepository connectionRepository() {
+        User user = SecurityContext.getCurrentUser();
+        return usersConnectionRepository().createConnectionRepository(user.getIdUserStr());
+    }
+
+    /**
+     * The Spring MVC Controller that allows users to sign-in with their provider accounts.
+     */
+    @Bean
+    public ProviderSignInController providerSignInController() {
+        return new ProviderSignInController(connectionFactoryLocator(), usersConnectionRepository(),
+                new SimpleSignInAdapter());
+    }
 }

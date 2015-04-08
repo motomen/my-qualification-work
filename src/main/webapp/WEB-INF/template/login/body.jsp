@@ -17,17 +17,16 @@
         </form>
         </br>
         <span style="color:red">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</span>
-
+        <h4>Увійти через соціальні мережі</h4>
         <form id="fb_signin" action="<c:url value="/auth/facebook"/>" method="POST">
             <input type="hidden" name="scope" value="email, publish_actions, publish_stream, user_photos, offline_access">
-            <input type="submit" name="submitBtn" value="Connect">
+            <input type="submit" name="submitBtn" value="Connect to Facebook">
         </form>
         <div class="container">
             <div class="row">
                 <div class="span14 columns offset2">
-                    <h4>Spring Social Google Example Application</h4>
                     <form action="<c:url value="/auth/google"/>" method="POST">
-                        <button type="submit" class="btn btn-large btn-primary">Sign in with Google</button>
+                        <button type="submit">Connect to Google</button>
                         <%--<input type="hidden" name="scope" value="email https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/latitude.all.best" />--%>
                         <%--<input type="hidden" name="request_visible_actions" value="http://schemas.google.com/AddActivity http://schemas.google.com/BuyActivity http://schemas.google.com/CheckInActivity http://schemas.google.com/CommentActivity http://schemas.google.com/CreateActivity http://schemas.google.com/DiscoverActivity http://schemas.google.com/ListenActivity http://schemas.google.com/ReserveActivity http://schemas.google.com/ReviewActivity http://schemas.google.com/WantActivity"/>--%>
                         <input type="hidden" name="access_type" value="offline"/>
