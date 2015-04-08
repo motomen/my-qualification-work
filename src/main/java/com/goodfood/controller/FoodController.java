@@ -134,7 +134,7 @@ public class FoodController {
     public String addFoodToCategory(ModelMap model) {
         logger.info("show add food to category page");
         model.addAttribute("subcategory", subcategoryService.getAllSubcategory());
-        return "control/foodtocategory";
+        return "/control/foodtocategory";
     }
 
     @RequestMapping(value = "/control/foodtocategory", method = RequestMethod.POST)

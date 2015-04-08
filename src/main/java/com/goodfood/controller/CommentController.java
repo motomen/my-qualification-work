@@ -54,7 +54,7 @@ public class CommentController {
         return "redirect:/showfood/" + idFood;
     }
 
-    @PreAuthorize("hasRole('Admin') or hasRole('User')")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/comments/{idFood}/delete/{idComment}", method = RequestMethod.POST)
     public String deleteComment(
             @PathVariable("idComment") int id,

@@ -17,13 +17,15 @@
         <div class="col-lg-1">
             <form class="form-signin" action="/control/editfood" method="POST">
                 <input type="hidden" name="id" value="${food.idFood}"/>
-                <button class="btn btn-sm btn-default button-edit" type="submit">Редагувати <span class="glyphicon glyphicon-pencil"></span></button>
+                <button class="btn btn-sm btn-default button-edit" type="submit">Редагувати <span
+                        class="glyphicon glyphicon-pencil"></span></button>
             </form>
         </div>
         <div class="col-lg-1 col-lg-offset-1">
             <form class="form-signin" action="/control/delete" method="POST">
                 <input type="hidden" name="id" value="${food.idFood}"/>
-                <button class="btn btn-sm btn-default button-delete" type="submit">Видалити <span class="glyphicon glyphicon-trash"></span></button>
+                <button class="btn btn-sm btn-default button-delete" type="submit">Видалити <span
+                        class="glyphicon glyphicon-trash"></span></button>
             </form>
         </div>
 
@@ -63,7 +65,8 @@
         <h5>Калорії: ${food.kcal}</h5>
 
         <div id="rating">
-            <h4>rating: ${ratginFood}</h4>
+            <h4>rating: <fmt:formatNumber type="number"
+                                          maxFractionDigits="2" value="${ratginFood}"/></h4>
         </div>
         <sec:authorize access="isAuthenticated()">
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -143,64 +146,74 @@
 <!-- End block alternative product -->
 
 <!-- Start place comments -->
-<div class="row">
-    <div class="col-lg-8 well">
-        ${count} Коментарів
+<c:if test="${count == 0}">
+    <div class="row">
+        <div class="col-lg-8 well">
+            Немає коментарів
+        </div>
     </div>
-    <div class="col-lg-8 well">
-        <div class="tab-content">
-            <div class="tab-pane active" id="comments-logout">
-                <ul class="media-list">
-                    <c:forEach items="${listComment}" var="com">
-                        <li class="media block-comment">
-                            <a class="pull-left" href="#">
-                                <img class="media-object img-circle usercomment"
-                                     src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
-                            </a>
+</c:if>
 
-                            <div class="media-body">
-                                <h4 class="media-heading text-uppercase">
-                                        ${com.user.nicname}
-                                </h4>
-                                <ul class="media-date text-uppercase list-inline">
-                                    <li class="dd">
-                                        <small><fmt:formatDate value="${com.dateComment}"
-                                                               pattern="dd/MM/yyyy HH:mm:ss"/></small>
-                                    </li>
-                                </ul>
+<c:if test="${count > 0}">
+    <div class="row">
+        <div class="col-lg-8 well">
+                ${count} Коментарів
+        </div>
+        <div class="col-lg-8 well">
+            <div class="tab-content">
+                <div class="tab-pane active" id="comments-logout">
+                    <ul class="media-list">
+                        <c:forEach items="${listComment}" var="com">
+                            <li class="media block-comment">
+                                <a class="pull-left" href="/showuser/${com.user.idUser}">
+                                    <img class="media-object img-circle usercomment"
+                                         src="data:image/jpg;base64,<c:out value='${com.user.photo}'/>">
+                                </a>
 
-                                <p class="media-body">
-                                        ${com.textComment}
-                                </p>
+                                <div class="media-body">
+                                    <h4 class="media-heading text-uppercase">
+                                            ${com.user.nicname}
+                                    </h4>
+                                    <ul class="media-date text-uppercase list-inline">
+                                        <li class="dd">
+                                            <small><fmt:formatDate value="${com.dateComment}"
+                                                                   pattern="dd/MM/yyyy HH:mm:ss"/></small>
+                                        </li>
+                                    </ul>
 
-                                <!-- DELETE COMENT ONLY FOR ADMIN AND COMMENT OWNER-->
-                                <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                    <form id="del-f" method="post"
-                                          action="/comments/${id}/delete/${com.idComment}">
-                                        <a class="btn btn-danger btn-circle text-uppercase"
-                                           onclick="document.forms['del-f'].submit()"><spring:message
-                                                code="function.delete"/></a>
-                                    </form>
-                                </sec:authorize>
+                                    <p class="media-body">
+                                            ${com.textComment}
+                                    </p>
 
-                                <sec:authorize access="hasRole('ROLE_USER')">
-                                    <c:if test="${com.user.login.toLowerCase() == pageContext.request.userPrincipal.name.toLowerCase()}">
-                                        <form id="df" method="post"
+                                    <!-- DELETE COMENT ONLY FOR ADMIN AND COMMENT OWNER-->
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                        <form id="del-f" method="post"
                                               action="/comments/${id}/delete/${com.idComment}">
                                             <a class="btn btn-danger btn-circle text-uppercase"
-                                               onclick="document.forms['df'].submit()"><spring:message
+                                               onclick="document.forms['del-f'].submit()"><spring:message
                                                     code="function.delete"/></a>
                                         </form>
-                                    </c:if>
-                                </sec:authorize>
-                            </div>
-                        </li>
-                    </c:forEach>
-                </ul>
+                                    </sec:authorize>
+
+                                    <sec:authorize access="hasRole('ROLE_USER')">
+                                        <c:if test="${com.user.login.toLowerCase() == pageContext.request.userPrincipal.name.toLowerCase()}">
+                                            <form id="df" method="post"
+                                                  action="/comments/${id}/delete/${com.idComment}">
+                                                <a class="btn btn-danger btn-circle text-uppercase"
+                                                   onclick="document.forms['df'].submit()"><spring:message
+                                                        code="function.delete"/></a>
+                                            </form>
+                                        </c:if>
+                                    </sec:authorize>
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</c:if>
 
 <div class="row">
     <sec:authorize access="isAuthenticated()">

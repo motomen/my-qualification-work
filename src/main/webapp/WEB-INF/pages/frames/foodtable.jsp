@@ -29,7 +29,9 @@
 </head>
 <body>
 <table class="table table-striped">
-  <h4>Всього вжито калорій: <b> ${calories} </b></h4>
+  <h4>Всього вжито калорій: <b>
+    <fmt:formatNumber type="number"
+                      maxFractionDigits="2" value="${calories}" /> </b></h4>
   <caption>Спожита їжа</caption>
   <tr>
     <th>Назва їжі</th>
@@ -44,11 +46,16 @@
   <c:forEach items="${calc}" var="item">
     <tr>
       <td>${item.food.name}</td>
-      <td>${item.food.protein / 100.0 * item.value}</td>
-      <td>${item.food.fats / 100.0 * item.value}</td>
-      <td>${item.food.carbs / 100.0 * item.value}</td>
-      <td>${item.food.kcal / 100.0 * item.value}</td>
-      <td>${item.value}</td>
+      <td><fmt:formatNumber type="number"
+                            maxFractionDigits="2" value="${item.food.protein / 100.0 * item.value}" /></td>
+      <td><fmt:formatNumber type="number"
+                            maxFractionDigits="2" value="${item.food.fats / 100.0 * item.value}" /></td>
+      <td><fmt:formatNumber type="number"
+                            maxFractionDigits="2" value="${item.food.carbs / 100.0 * item.value}" /></td>
+      <td><fmt:formatNumber type="number"
+                            maxFractionDigits="2" value="${item.food.kcal / 100.0 * item.value}" /></td>
+      <td><fmt:formatNumber type="number"
+                            maxFractionDigits="2" value="${item.value}" /></td>
       <td>
         <a href="${pageContext.request.contextPath}/showfood/${item.food.idFood}">
           <img class="img-thumbnail smalls" name="myImg"

@@ -27,6 +27,13 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public User getUser(int id) {
+		Query query = openSession().createQuery("from User u where u.idUser = :id");
+		query.setParameter("id", id);
+		return (User) query.uniqueResult();
+	}
+
+	@Override
 	public void addUser(User user) {
 		openSession().save(user);
 	}

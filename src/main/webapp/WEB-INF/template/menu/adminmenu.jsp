@@ -18,7 +18,7 @@
       <ul class="nav navbar-nav">
         <li><a href="/foods"><spring:message code="admin.menu.food"/> </a></li>
         <li class="dropdown">
-          <a onclick="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Дії<span class="caret"></span></a>
+          <a onclick="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><spring:message code="admin.menu.trogle"/><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="/control/addfood"><spring:message code="admin.menu.addfood"/> </a></li>
             <li><a href="/control/foodtocategory"><spring:message code="admin.menu.foodtocategory"/> </a></li>

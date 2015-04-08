@@ -94,4 +94,14 @@
         <put-attribute name="body" value="/WEB-INF/template/control/editfood/body.jsp"/>
         <put-attribute name="header" value="/WEB-INF/template/control/editfood/header.jsp"/>
     </definition>
+
+    <definition name="showuser" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/template/showuser/body.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/template/showuser/header.jsp"/>
+    </definition>
+
+    <definition name="/error" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/template/error/body.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/template/error/header.jsp"/>
+    </definition>
 </tiles-definitions>

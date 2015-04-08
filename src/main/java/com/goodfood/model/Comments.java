@@ -31,11 +31,11 @@ public class Comments {
 
     // Exception
     // Why don't work this relations?
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "comment_to_food",
             joinColumns = {@JoinColumn(name = "fk_idcomment", referencedColumnName = "id_comment")},
             inverseJoinColumns = {@JoinColumn(name = "fk_food", referencedColumnName = "id_food_tc")})
-    @LazyCollection(LazyCollectionOption.FALSE)
+ //   @LazyCollection(LazyCollectionOption.FALSE)
     private Food food;
 
     public int getIdComment() {
