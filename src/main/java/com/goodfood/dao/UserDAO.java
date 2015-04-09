@@ -8,6 +8,8 @@ public interface UserDAO {
 
 	public User getUser(int id);
 
+	public User getUserByEmail(String email);
+
 	public void addUser(User user);
 
 	public Boolean isLoginIdUnique(String login);

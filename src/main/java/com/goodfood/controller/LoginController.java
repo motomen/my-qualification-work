@@ -4,17 +4,23 @@ import com.goodfood.model.Role;
 import com.goodfood.model.User;
 import com.goodfood.service.RoleService;
 import com.goodfood.service.UserService;
+import com.goodfood.service.impl.CustomUserDetailsService;
 import com.goodfood.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.UserProfile;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -31,7 +37,11 @@ import java.sql.Timestamp;
 public class LoginController {
 
     final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private final ProviderSignInUtils providerSignInUtils;
 
+    LoginController() {
+        this.providerSignInUtils = new ProviderSignInUtils();
+    }
     @Autowired
     private UserService userService;
 
@@ -93,14 +103,25 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/apicheck", method = RequestMethod.POST)
-    @ResponseBody
-    public String apicheck(
-            @RequestParam("username") String name,
-            @RequestParam("password") String password
-    ){
-        String username = name;
-        String password2 = password;
-        return "0k";
+    @RequestMapping(value="/signup", method=RequestMethod.GET)
+    public String signupForm(WebRequest request, ModelMap modelMap) {
+        CustomUserDetailsService userDetailsService = new CustomUserDetailsService();
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
+        if (connection != null) {
+            UserProfile providerUser = connection.fetchUserProfile();
+            User userAuth = userService.getUserByEmail(providerUser.getEmail());
+         //   SecurityContextHolder.getContext().setAuthentication(Authentication userDetailsService.loadUserByUsername(userAuth.getLogin()));
+
+            User user = new User();
+            user.setMail(providerUser.getEmail());
+            user.setName(providerUser.getName());
+            user.setNicname(providerUser.getUsername());
+            modelMap.addAttribute("user", user);
+            return "registration";
+           // return SignupForm.fromProviderUser(connection.fetchUserProfile());
+        } else {
+            modelMap.addAttribute("user", new User());
+            return "registration";
+        }
     }
 }

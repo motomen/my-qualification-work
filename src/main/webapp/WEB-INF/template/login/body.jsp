@@ -16,6 +16,8 @@
         </form>
         </br>
         <span style="color:red">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</span>
+        <!-- FACEBOOK SIGNIN -->
+        <p><a href="/auth/facebook"><img src="/resources/social/facebook/sign-in-with-facebook.png" border="0"/></a></p>
     </div>
 </div>
 

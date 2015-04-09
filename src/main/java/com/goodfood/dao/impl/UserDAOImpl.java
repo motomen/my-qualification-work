@@ -34,6 +34,13 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public User getUserByEmail(String email) {
+		Query query = openSession().createQuery("from User u where u.mail = :mail");
+		query.setParameter("mail", email);
+		return (User) query.uniqueResult();
+	}
+
+	@Override
 	public void addUser(User user) {
 		openSession().save(user);
 	}
