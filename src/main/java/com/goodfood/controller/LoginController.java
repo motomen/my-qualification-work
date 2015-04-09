@@ -9,8 +9,6 @@ import com.goodfood.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -108,7 +106,9 @@ public class LoginController {
         CustomUserDetailsService userDetailsService = new CustomUserDetailsService();
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
         if (connection != null) {
+
             UserProfile providerUser = connection.fetchUserProfile();
+       //     connection.updateStatus("Hi i there");
             User userAuth = userService.getUserByEmail(providerUser.getEmail());
          //   SecurityContextHolder.getContext().setAuthentication(Authentication userDetailsService.loadUserByUsername(userAuth.getLogin()));
 
