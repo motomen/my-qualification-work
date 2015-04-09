@@ -23,9 +23,15 @@ public class FoodRestController {
     private FoodService foodService;
 
     @RequestMapping(value = "/get/{idFood}", method = RequestMethod.GET)
-    public @ResponseBody
+    public
+    @ResponseBody
     ResponseEntity<Food> getFoodById(@PathVariable("idFood") String idFood) {
-        logger.info("rest controller food get food by id" + idFood);
-        return new ResponseEntity<Food>(foodService.getFoodById(idFood), HttpStatus.OK);
+        Food food = foodService.getFoodById(idFood);
+        if (null == food || null == idFood || idFood.trim().length() == 0) {
+            logger.info("Problem with getting food by id" + idFood);
+            return new ResponseEntity<Food>(new Food(), HttpStatus.BAD_REQUEST);
+        }
+        logger.info("Get food by id" + idFood);
+        return new ResponseEntity<Food>(food, HttpStatus.OK);
     }
 }
