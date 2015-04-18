@@ -12,7 +12,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- place main food information -->
-<sec:authorize access="isAuthenticated()">
+<sec:authorize access="hasRole('ROLE_ADMIN')">
     <div class="row">
         <div class="col-lg-1">
             <form class="form-signin" action="/control/editfood" method="POST">
