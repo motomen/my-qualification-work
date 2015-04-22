@@ -134,9 +134,10 @@
     <div class="col-lg-6">
         <h4>Інгредієнти</h4>
 
-        <p>
+        <p class="highlight">
             ${food.ingredients}
         </p>
+
     </div>
 </div>
 <!-- End main information -->

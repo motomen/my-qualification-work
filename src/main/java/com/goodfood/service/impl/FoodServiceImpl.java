@@ -24,6 +24,14 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public void addFood(Food food) {
+        String Ingredients = food.getIngredients();
+        StringBuffer NewIngredients = new StringBuffer();
+        for (String ingredient: Ingredients.split(",")) {
+            NewIngredients.append("<span> ");
+            NewIngredients.append(ingredient);
+            NewIngredients.append("</span> ");
+        }
+        food.setIngredients(NewIngredients.toString());
         foodDAO.addFood(food);
     }
 

@@ -102,6 +102,50 @@
         minLength: 3
     });
 </script>
+<script>
+    jQuery(document).ready(function () {
+//        // wrap words in spans
+//        $('p.highlight').each(function () {
+//            var $this = $(this);
+//            $this.html($this.text().replace(/\b(\w+)\b/g, "<span>$1</span>"));
+//        });
+
+        // bind to each span
+        $('p.highlight span').hover(
+                function () {
+                    $(this).parent().find('span').css('background-color', '');
+                    $(this).css('background-color', '#ffff66');
+                });
+
+        // this place for ajax request
+        $('p.highlight span').click(
+                function () {
+                    showInfIngredient($(this).text());
+                });
+
+        function showInfIngredient(value) {
+            alert(value);
+            <%--$.ajax({--%>
+                <%--url: "/calc/save/${food.idFood}/" + calcvalue,--%>
+                <%--type: "POST",--%>
+                <%--beforeSend: function (xhr) {--%>
+                    <%--xhr.setRequestHeader("Accept", "application/json");--%>
+                    <%--xhr.setRequestHeader("Content-Type", "application/json");--%>
+                <%--},--%>
+                <%--success: function (suc) {--%>
+                    <%--if (suc) {--%>
+                        <%--var resp = '<p style="color: #398439">Ви успішно зїли товар</p>';--%>
+                        <%--$("#calcinformation").html(resp);--%>
+                    <%--} else {--%>
+                        <%--var resp = '<p style="color: red">Сталася помилка</p>';--%>
+                        <%--$("#calcinformation").html(resp);--%>
+                    <%--}--%>
+                <%--}--%>
+            <%--});--%>
+        }
+    });
+
+</script>
 </body>
 </html>
 
