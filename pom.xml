@@ -289,9 +289,9 @@
                 </executions>
                 <configuration>
                     <driver>com.mysql.jdbc.Driver</driver>
-                    <url>jdbc:mysql://localhost:3306</url>
-                    <user>root</user>
-                    <password>root</password>
+                    <url>jdbc:mysql://db4free.net:3306</url>
+                    <user>motomen123</user>
+                    <password>Motomen123</password>
                     <schemas>
                         <!-- change goods -> foods -->
                         <schema>foods</schema>

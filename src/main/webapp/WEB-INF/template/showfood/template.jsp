@@ -125,6 +125,10 @@
 
         function showInfIngredient(value) {
             alert(value);
+/*            var notif = new Notification(value, {
+                body: value
+            });*/
+   //         notif.
             <%--$.ajax({--%>
                 <%--url: "/calc/save/${food.idFood}/" + calcvalue,--%>
                 <%--type: "POST",--%>
