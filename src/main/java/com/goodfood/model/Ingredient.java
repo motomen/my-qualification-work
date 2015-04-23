@@ -30,6 +30,14 @@ public class Ingredient {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<TypeIngredients> typeIngredientsList;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "ingredient_to_link",
+            joinColumns = {@JoinColumn(name="fk_name_ingr", referencedColumnName = "name_ingredients")},
+            inverseJoinColumns = {@JoinColumn(name="fk_address", referencedColumnName = "address")})
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Link> linkList;
+
     public String getNameIngredient() {
         return nameIngredient;
     }
@@ -52,5 +60,21 @@ public class Ingredient {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<TypeIngredients> getTypeIngredientsList() {
+        return typeIngredientsList;
+    }
+
+    public void setTypeIngredientsList(List<TypeIngredients> typeIngredientsList) {
+        this.typeIngredientsList = typeIngredientsList;
+    }
+
+    public List<Link> getLinkList() {
+        return linkList;
+    }
+
+    public void setLinkList(List<Link> linkList) {
+        this.linkList = linkList;
     }
 }
