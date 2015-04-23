@@ -104,4 +104,22 @@
         <put-attribute name="body" value="/WEB-INF/template/error/body.jsp"/>
         <put-attribute name="header" value="/WEB-INF/template/error/header.jsp"/>
     </definition>
+
+    <definition name="/control/addingredient" template="/WEB-INF/template/control/template.jsp">
+        <put-attribute name="body" value="/WEB-INF/template/control/addingredient/body.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/template/control/addingredient/header.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/template/menu/menu.jsp"/>
+        <put-attribute name="userMenu" value="/WEB-INF/template/menu/usermenu.jsp"/>
+        <put-attribute name="adminMenu" value="/WEB-INF/template/menu/adminmenu.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/template/index/footer.jsp"/>
+    </definition>
+
+    <definition name="/control/addtypeingredient" template="/WEB-INF/template/control/template.jsp">
+        <put-attribute name="body" value="/WEB-INF/template/control/addtypeingredient/body.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/template/control/addtypeingredient/header.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/template/menu/menu.jsp"/>
+        <put-attribute name="userMenu" value="/WEB-INF/template/menu/usermenu.jsp"/>
+        <put-attribute name="adminMenu" value="/WEB-INF/template/menu/adminmenu.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/template/index/footer.jsp"/>
+    </definition>
 </tiles-definitions>
