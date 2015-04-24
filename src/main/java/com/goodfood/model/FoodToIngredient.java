@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * Created by Yaroslav on 23.04.2015.
  */
-
+// TODO refactor
 @Entity
 @Table(name = "food_to_ingredients")
 public class FoodToIngredient implements Serializable {

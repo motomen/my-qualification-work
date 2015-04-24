@@ -1,8 +1,11 @@
 package com.goodfood.service.impl;
 
 import com.goodfood.dao.FoodDAO;
+import com.goodfood.dao.IngredientDao;
 import com.goodfood.model.Food;
+import com.goodfood.model.Ingredient;
 import com.goodfood.model.Subcategory;
+import com.goodfood.model.TypeIngredients;
 import com.goodfood.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,9 @@ public class FoodServiceImpl implements FoodService {
 
     @Autowired
     private FoodDAO foodDAO;
+
+    @Autowired
+    private IngredientDao ingredientDao;
 
     @Override
     public void addFood(Food food) {
@@ -80,7 +86,61 @@ public class FoodServiceImpl implements FoodService {
             ingredientsForFormula += ingredient + ","; // make string ingredients for formula
         }
         food.setIngredients(NewIngredients.toString());
+        try {
+            food.setRating(getRatingInString(ingredientsForFormula));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         foodDAO.addFood(food);
+    }
+
+    /**
+     * Get rating 1.0 .. 10.0 in parse ingredient string
+     * @param strIngredients String example "water,bread,sugar"
+     * @return count Rating
+     */
+    private Double getRatingInString(String strIngredients) throws Exception {
+        if (strIngredients.length() == 0) {
+            throw new Exception("string ingredients must be not empty");
+        }
+        if (!strIngredients.contains(",")) { // if list ingredients consist one ingredient
+            return 1.0;
+        }
+        Double Rating = 0.0;
+        int count = 0;
+        for (String ingredient: strIngredients.split(",")) {
+            count++;
+            Ingredient ingredients = ingredientDao.getIngredientByName(ingredient);
+            if (ingredients != null) {
+                List<TypeIngredients> typeIngredientsList = ingredients.getTypeIngredientsList();
+                if (typeIngredientsList != null) {
+                    if (typeIngredientsList.size() > 2 && typeIngredientsList.size() != 1) {
+                        Rating += 1.0;
+                    } else {
+                        if (typeIngredientsList.size() == 1) {
+                            if (typeIngredientsList.get(0).isBad()) {
+                                Rating += 1.0;
+                            } else {
+                                Rating += 0.25;
+                            }
+                        }
+                    }
+                } else {
+                    Rating += 0.25;
+                }
+            }
+            if (count >= 6) {
+                Rating += 1.0;
+            }
+        }
+
+        if (Rating == 0.0) {
+            Rating = 1.0;
+        }
+        if (Rating > 10.0) {
+            Rating = 10.0;
+        }
+        return Math.floor(Rating);
     }
 
     @Override
