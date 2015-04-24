@@ -30,12 +30,14 @@ public class RestController {
     public ModelAndView getInformationIngredient(@PathVariable("name") String name) {
         logger.info("get rest information about ingredient");
         name = Util.Iso88591ToUtf8(name);
-        if (name.lastIndexOf(",") > 0){
-           name = name.replace(",", "");
-        }
+        name = Util.replaceSpecialSymbolOn0(name);
         Ingredient ingredient = ingredientsService.getIngredientByName(name.toLowerCase());
         ModelAndView modelAndView = new ModelAndView("/frames/ingredientmodal");
-        modelAndView.addObject("ingredient", ingredient);
+        if (ingredient != null) {
+            modelAndView.addObject("ingredient", ingredient);
+        } else {
+            modelAndView = new ModelAndView("/frames/notfound");
+        }
         return modelAndView;
     }
 }

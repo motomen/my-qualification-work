@@ -91,19 +91,15 @@ public class Util {
         }
         return newValue;
     }
-    public static String Utf8ToIso88591(String value) {
-        byte ptext[] = new byte[0];
-        try {
-            ptext = value.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+    // 0 = ""
+    // special symbol is ", ."
+    public static String replaceSpecialSymbolOn0(String text) {
+        if (text.lastIndexOf(",") > 0){
+            text = text.replace(",", "");
         }
-        String newValue = null;
-        try {
-            newValue = new String(ptext, "ISO-8859-1");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (text.lastIndexOf(".") > 0) {
+            text = text.replace(".", "");
         }
-        return newValue;
+        return text;
     }
 }
