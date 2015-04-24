@@ -49,7 +49,8 @@ public class IngredientController {
     @RequestMapping(value = "/addingredient", method = RequestMethod.POST)
     public String addIngredient(@ModelAttribute("ingredient") Ingredient ingredient,
                                 @RequestParam("file") MultipartFile file,
-                                @RequestParam("typeingredient") String typeIngredient) {
+                                @RequestParam("typeingredient") String typeIngredient
+    ,ModelMap modelMap) {
         logger.info("add ingredient " + ingredient.getNameIngredient());
         TypeIngredients typeIngredients = typeIngredientService.getTypeIngredientByName(typeIngredient);
         List<TypeIngredients> typeIngredientsList = new ArrayList<>();
@@ -68,8 +69,10 @@ public class IngredientController {
                 }
             }
         }
+        modelMap.addAttribute("link", new Link());
+        String name = "/control/linktoingredient";
         ingredientsService.addIngredient(ingredient);
-        return "redirect:/control/linktoingredient/" + ingredient.getNameIngredient();
+        return name; // this error
     }
 
     @RequestMapping(value = "/addtypeingredient", method = RequestMethod.GET)
@@ -100,31 +103,21 @@ public class IngredientController {
         return "redirect:/control/addtypeingredient";
     }
 
-    @RequestMapping(value = "/linktoingredient/{nameIngredient}", method = RequestMethod.GET)
-    public String showAddLinkToIngredient(ModelMap modelMap,
-                                          @PathVariable("nameIngredient") String name) {
-        logger.info("show add link to ingredient = " + name);
+    @RequestMapping(value = "/linktoingredient", method = RequestMethod.GET)
+    public String showAddLinkToIngredient(ModelMap modelMap) {
+        logger.info("show add link to ingredient");
         modelMap.addAttribute("link", new Link());
-        modelMap.addAttribute("nameIngredient", name);
-        Ingredient ingredient = ingredientsService.getIngredientByName(name);
-        List<Link> linkArrayList = ingredient.getLinkList();
-        modelMap.addAttribute("linkList", linkArrayList);
-        modelMap.addAttribute("ingredient", ingredient);
         return "/control/linktoingredient";
     }
 
-    @RequestMapping(value = "/linktoingredient/{nameIngredient}", method = RequestMethod.POST)
+    @RequestMapping(value = "/linktoingredient", method = RequestMethod.POST)
     public String addLinkToIngredient(ModelMap modelMap,
-                                      @PathVariable("nameIngredient") String name,
-                                      @ModelAttribute("link") Link link) {
-        modelMap.addAttribute("link", new Link());
-        modelMap.addAttribute("nameIngredient", name);
+                                      @ModelAttribute("link") Link link,
+                                      @RequestParam("ingredient_name") String name) {
         Ingredient ingredient = ingredientsService.getIngredientByName(name);
         List<Link> linkArrayList = ingredient.getLinkList();
         linkArrayList.add(link);
-        modelMap.addAttribute("linkList", linkArrayList);
         ingredient.setLinkList(linkArrayList);
-        modelMap.addAttribute("ingredient", ingredient);
-        return "redirect:/control/linktoingredient/" + name;
+        return "redirect:/control/linktoingredient";
     }
 }

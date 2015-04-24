@@ -91,4 +91,19 @@ public class Util {
         }
         return newValue;
     }
+    public static String Utf8ToIso88591(String value) {
+        byte ptext[] = new byte[0];
+        try {
+            ptext = value.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String newValue = null;
+        try {
+            newValue = new String(ptext, "ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return newValue;
+    }
 }

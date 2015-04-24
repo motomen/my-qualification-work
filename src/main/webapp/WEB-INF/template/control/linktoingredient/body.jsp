@@ -11,11 +11,13 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 well">
-        <form:form action="/control/linktoingredient/${nameIngredient}" method="POST" id="form" commandName="link"
+        <form:form action="/control/linktoingredient" method="POST" id="form" commandName="link"
                    class="form-horizontal"
                    enctype="multipart/form-data">
 
             <div class="col-lg-6 col-lg-offset-3">
+                <label for="ing_name"><c:out value="Ім’я інгредієнту"/> </label>
+                <input type="text" id="ing_name" class="form-control" placeholder="" name="ingredient_name">
                 <!--   <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span></strong></div> -->
                 <div class="form-group">
                     <label for="name"><spring:message text="Введіть назву посилання"/> </label>
@@ -41,32 +43,32 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-3 well">
-        <h2><c:out value='${ingredient.nameIngredient}'/></h2>
-        <div class="row">
-            <img class="img-thumbnail resize"
-                 src="data:image/jpg;base64,<c:out value='${ingredient.photo}'/>">
-        </div>
-        <div class="row">
-            <c:out value='${ingredient.description}'/>
-        </div>
-    </div>
-    <c:if test="${linkList.size() > 0}">
-        <div class="row">
-            <h2>Список посиланнь</h2>
+<%--<div class="row">--%>
+    <%--<div class="col-lg-3 well">--%>
+        <%--<h2><c:out value='${ingredient.nameIngredient}'/></h2>--%>
+        <%--<div class="row">--%>
+            <%--<img class="img-thumbnail resize"--%>
+                 <%--src="data:image/jpg;base64,<c:out value='${ingredient.photo}'/>">--%>
+        <%--</div>--%>
+        <%--<div class="row">--%>
+            <%--<c:out value='${ingredient.description}'/>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+    <%--<c:if test="${linkList.size() > 0}">--%>
+        <%--<div class="row">--%>
+            <%--<h2>Список посиланнь</h2>--%>
 
-            <div class="col-lg-6 col-lg-offset-3 well">
-                <c:forEach items="${linkList}" var="item">
-                    <a href="<c:out value="${item.address}"/>"> <c:out value="${item.name}"/> </a>
-                    <br>
-                </c:forEach>
-            </div>
-        </div>
-    </c:if>
-    <c:if test="${linkList.size() == 0}">
-        <h2>Немає посиланнь</h2>
-    </c:if>
-</div>
+            <%--<div class="col-lg-6 col-lg-offset-3 well">--%>
+                <%--<c:forEach items="${linkList}" var="item">--%>
+                    <%--<a href="<c:out value="${item.address}"/>"> <c:out value="${item.name}"/> </a>--%>
+                    <%--<br>--%>
+                <%--</c:forEach>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</c:if>--%>
+    <%--<c:if test="${linkList.size() == 0}">--%>
+        <%--<h2>Немає посиланнь</h2>--%>
+    <%--</c:if>--%>
+<%--</div>--%>
 
 

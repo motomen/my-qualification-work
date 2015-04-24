@@ -138,6 +138,18 @@
             ${food.ingredients}
         </p>
 
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ingredientModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" id="modalContent">
+                    // complete this section
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- End main information -->

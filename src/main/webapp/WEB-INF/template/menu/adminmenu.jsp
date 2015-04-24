@@ -31,6 +31,8 @@
                         </li>
                         <li><a href="/control/addtypeingredient"><spring:message code="admin.menu.addtypeingredients"/> </a>
                         </li>
+                        <li><a href="/control/linktoingredient"><spring:message code="admin.menu.linktoingredient"/> </a>
+                        </li>
                     </ul>
                 </li>
 
