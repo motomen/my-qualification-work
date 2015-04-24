@@ -137,23 +137,22 @@
         <p class="highlight">
             ${food.ingredients}
         </p>
-
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ingredientModal">
+        <button type="button" style="display: none;" id="ingredientModal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ingModal">
             Launch demo modal
         </button>
+    </div>
+</div>
+<!-- End main information -->
+<!-- Modal -->
+<div class="modal fade" id="ingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div id="modalContent">
 
-        <!-- Modal -->
-        <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content" id="modalContent">
-                    // complete this section
-                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- End main information -->
-
 <!-- Alternative product -->
 
 <!-- End block alternative product -->

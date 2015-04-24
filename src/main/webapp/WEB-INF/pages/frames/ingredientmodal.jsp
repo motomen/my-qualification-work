@@ -17,19 +17,19 @@
   <p>
     <c:out value='${ingredient.description}'/>
   </p>
-  <c:if test="${linkList.size() > 0}">
+  <c:if test="${ingredient.linkList.size() > 0}">
     <div class="row">
-      <h2>Список посиланнь</h2>
+      <h3 align="center">Список посиланнь</h3>
 
-      <div class="col-lg-6 col-lg-offset-3 well">
-        <c:forEach items="${linkList}" var="item">
+      <div class="col-lg-10 col-lg-offset-1 well">
+        <c:forEach items="${ingredient.linkList}" var="item">
           <a href="<c:out value="${item.address}"/>"> <c:out value="${item.name}"/> </a>
           <br>
         </c:forEach>
       </div>
     </div>
   </c:if>
-  <c:if test="${linkList.size() == 0}">
+  <c:if test="${ingredient.linkList.size() == 0}">
     <h2>Немає посиланнь</h2>
   </c:if>
 </div>

@@ -124,28 +124,19 @@
                 });
 
         function showInfIngredient(value) {
-            alert(value);
-/*            var notif = new Notification(value, {
-                body: value
-            });*/
-   //         notif.
-            <%--$.ajax({--%>
-                <%--url: "/calc/save/${food.idFood}/" + calcvalue,--%>
-                <%--type: "POST",--%>
-                <%--beforeSend: function (xhr) {--%>
-                    <%--xhr.setRequestHeader("Accept", "application/json");--%>
-                    <%--xhr.setRequestHeader("Content-Type", "application/json");--%>
-                <%--},--%>
-                <%--success: function (suc) {--%>
-                    <%--if (suc) {--%>
-                        <%--var resp = '<p style="color: #398439">Ви успішно зїли товар</p>';--%>
-                        <%--$("#calcinformation").html(resp);--%>
-                    <%--} else {--%>
-                        <%--var resp = '<p style="color: red">Сталася помилка</p>';--%>
-                        <%--$("#calcinformation").html(resp);--%>
-                    <%--}--%>
-                <%--}--%>
-            <%--});--%>
+            $.ajax({
+                url: "/get/information/" + value,
+                type: "POST",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                },
+                success: function (suc) {
+            //        alert(suc);
+                    $("#modalContent").html(suc);
+                    $("#ingredientModal").click();
+                }
+            });
         }
     });
 
