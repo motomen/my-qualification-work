@@ -8,4 +8,5 @@ import com.goodfood.model.Ingredient;
 public interface IngredientsService {
     public void addIngredient(Ingredient ingredient);
     public Ingredient getIngredientByName(String name);
+    public void updateIngredient(Ingredient ingredient);
 }

@@ -26,4 +26,9 @@ public class IngredientsServiceImpl implements IngredientsService {
     public Ingredient getIngredientByName(String name) {
         return ingredientDao.getIngredientByName(name);
     }
+
+    @Override
+    public void updateIngredient(Ingredient ingredient) {
+        ingredientDao.updateIngredient(ingredient);
+    }
 }

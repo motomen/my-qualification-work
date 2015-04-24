@@ -4,6 +4,7 @@ import com.goodfood.model.Ingredient;
 import com.goodfood.model.Link;
 import com.goodfood.model.TypeIngredients;
 import com.goodfood.service.IngredientsService;
+import com.goodfood.service.LinkService;
 import com.goodfood.service.TypeIngredientService;
 import com.goodfood.util.Util;
 import org.slf4j.Logger;
@@ -38,6 +39,9 @@ public class IngredientController {
     @Autowired
     private ServletContext servletContext;
 
+    @Autowired
+    private LinkService linkService;
+
     @RequestMapping(value = "/addingredient", method = RequestMethod.GET)
     public String showAddIngredient(ModelMap modelMap) {
         logger.info("show add ingredient");
@@ -50,7 +54,7 @@ public class IngredientController {
     public String addIngredient(@ModelAttribute("ingredient") Ingredient ingredient,
                                 @RequestParam("file") MultipartFile file,
                                 @RequestParam("typeingredient") String typeIngredient
-    ,ModelMap modelMap) {
+            , ModelMap modelMap) {
         logger.info("add ingredient " + ingredient.getNameIngredient());
         TypeIngredients typeIngredients = typeIngredientService.getTypeIngredientByName(typeIngredient);
         List<TypeIngredients> typeIngredientsList = new ArrayList<>();
@@ -111,13 +115,14 @@ public class IngredientController {
     }
 
     @RequestMapping(value = "/linktoingredient", method = RequestMethod.POST)
-    public String addLinkToIngredient(ModelMap modelMap,
-                                      @ModelAttribute("link") Link link,
+    public String addLinkToIngredient(@ModelAttribute("link") Link link,
                                       @RequestParam("ingredient_name") String name) {
+        linkService.addLink(link);
         Ingredient ingredient = ingredientsService.getIngredientByName(name);
         List<Link> linkArrayList = ingredient.getLinkList();
         linkArrayList.add(link);
         ingredient.setLinkList(linkArrayList);
+        ingredientsService.updateIngredient(ingredient);
         return "redirect:/control/linktoingredient";
     }
 }

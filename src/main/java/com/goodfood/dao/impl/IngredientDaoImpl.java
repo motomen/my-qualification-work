@@ -34,4 +34,9 @@ public class IngredientDaoImpl implements IngredientDao {
         criteria.add(Restrictions.eq("nameIngredient", name));
         return (Ingredient) criteria.uniqueResult();
     }
+
+    @Override
+    public void updateIngredient(Ingredient ingredient) {
+        getCurrentSession().update(ingredient);
+    }
 }
