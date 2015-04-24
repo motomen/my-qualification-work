@@ -25,11 +25,59 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public void addFood(Food food) {
         String Ingredients = food.getIngredients();
+        String notUsedString = "";
         StringBuffer NewIngredients = new StringBuffer();
+        String ingredientsForFormula = "";
+        String ingredientBefore = "";
+        String ingredientAfter = "";
+        // get all ingredient for String Ingredients
+        // maybe symbol ", . :"
         for (String ingredient: Ingredients.split(",")) {
-            NewIngredients.append("<span> ");
+            // if ingredient contains :
+            // example chocolate: cacao
+            if (ingredient.contains(":") && !ingredient.contains(".")) {
+                notUsedString = ingredient.substring(0, ingredient.lastIndexOf(": ") + 2);
+                ingredient = ingredient.replace(notUsedString, "");
+                NewIngredients.append(notUsedString);
+                NewIngredients.append("<span>");
+                NewIngredients.append(ingredient);
+                NewIngredients.append(",</span> ");
+                ingredientsForFormula += ingredient.toLowerCase() + ","; // make string ingredients for formula
+                continue;
+            }
+            if (ingredient.contains(".") && ingredient.contains(":")) {
+                ingredientBefore = ingredient.substring(0, ingredient.lastIndexOf(".") + 1);
+                ingredient = ingredient.replace(ingredientBefore, "");
+                notUsedString = ingredient.substring(0, ingredient.lastIndexOf(": ") + 1);
+                ingredient = ingredient.replace(notUsedString, "");
+                ingredientAfter = ingredient.replace(notUsedString, "");
+                NewIngredients.append("<span>");
+                NewIngredients.append(ingredientBefore);
+                NewIngredients.append("</span> ");
+                ingredientBefore = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length()-1));
+                ingredientsForFormula += ingredientBefore + ","; // make string ingredients for formula
+                NewIngredients.append(notUsedString);
+                NewIngredients.append("<span>");
+                NewIngredients.append(ingredientAfter);
+                NewIngredients.append(",</span> ");
+                ingredientAfter = ingredientAfter.replace(ingredientAfter, ingredientAfter.substring(1, ingredientAfter.length()));
+                ingredientsForFormula += ingredientAfter + ","; // make string ingredients for formula
+                continue;
+            }
+            if (ingredient.contains(".") && !ingredient.contains(":")) {
+                ingredientBefore = ingredient.substring(0, ingredient.lastIndexOf("."));
+                ingredientBefore = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length()));
+                ingredientsForFormula += ingredientBefore; // make string ingredients for formula
+                NewIngredients.append("<span>");
+                NewIngredients.append(ingredient);
+                NewIngredients.append("</span> ");
+                break;
+            }
+            NewIngredients.append("<span>");
             NewIngredients.append(ingredient);
-            NewIngredients.append("</span> ");
+            NewIngredients.append(",</span> ");
+            ingredient = ingredient.replace(ingredient, ingredient.substring(1, ingredient.length()));
+            ingredientsForFormula += ingredient + ","; // make string ingredients for formula
         }
         food.setIngredients(NewIngredients.toString());
         foodDAO.addFood(food);
