@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
 import java.io.File;
@@ -117,6 +118,7 @@ public class IngredientController {
     @RequestMapping(value = "/linktoingredient", method = RequestMethod.POST)
     public String addLinkToIngredient(@ModelAttribute("link") Link link,
                                       @RequestParam("ingredient_name") String name) {
+        logger.info("add link = " + link.getAddress() + " to ingredient");
         linkService.addLink(link);
         Ingredient ingredient = ingredientsService.getIngredientByName(name);
         List<Link> linkArrayList = ingredient.getLinkList();
@@ -124,5 +126,18 @@ public class IngredientController {
         ingredient.setLinkList(linkArrayList);
         ingredientsService.updateIngredient(ingredient);
         return "redirect:/control/linktoingredient";
+    }
+
+    @RequestMapping(value = "/showallingredient", method = RequestMethod.GET)
+    public String showAllIngredient(ModelMap modelMap) {
+        logger.info("show all ingredient");
+        modelMap.addAttribute("listIngredient", ingredientsService.getListIngredient());
+        return "/control/showallingredient";
+    }
+
+    @RequestMapping(value = "/ingredient/delete/{name}", method = RequestMethod.GET)
+    public String deleteIngredient(@PathVariable("name") String name) {
+        ingredientsService.delete(Util.Iso88591ToUtf8(name));
+        return "redirect:/control/showallingredient";
     }
 }

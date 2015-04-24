@@ -62,7 +62,7 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public void update(Food food) {
-        getCurrentSession().merge(food);
+        getCurrentSession().update(food);
     }
 
     @Override

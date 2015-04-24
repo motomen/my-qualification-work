@@ -189,8 +189,9 @@ public class FoodController {
     public String saveFood(@ModelAttribute("food") Food food,
                            @RequestParam("file") MultipartFile file,
                            @RequestParam(value = "subcategory", required = false) String subcategory,
-                           @RequestParam("photo") String photo) {
-        if (subcategory == null) {
+                           @RequestParam("photo") String photo,
+                           ModelMap modelMap) {
+        if (subcategory != null) {
             HashSet<Subcategory> hashSet = new HashSet<Subcategory>();
             hashSet.add(subcategoryService.getCategoryByName(subcategory));
             food.setSubcategories(hashSet);

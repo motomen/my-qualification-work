@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by Yaroslav on 23.04.2015.
  */
@@ -30,5 +32,15 @@ public class IngredientsServiceImpl implements IngredientsService {
     @Override
     public void updateIngredient(Ingredient ingredient) {
         ingredientDao.updateIngredient(ingredient);
+    }
+
+    @Override
+    public List<Ingredient> getListIngredient() {
+        return ingredientDao.getListIngredient();
+    }
+
+    @Override
+    public void delete(String name) {
+        ingredientDao.delete(name);
     }
 }

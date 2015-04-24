@@ -38,7 +38,7 @@ public class FoodServiceImpl implements FoodService {
         String ingredientAfter = "";
         // get all ingredient for String Ingredients
         // maybe symbol ", . :"
-        for (String ingredient: Ingredients.split(",")) {
+        for (String ingredient : Ingredients.split(",")) {
             // if ingredient contains :
             // example chocolate: cacao
             if (ingredient.contains(":") && !ingredient.contains(".")) {
@@ -60,7 +60,7 @@ public class FoodServiceImpl implements FoodService {
                 NewIngredients.append("<span>");
                 NewIngredients.append(ingredientBefore);
                 NewIngredients.append("</span> ");
-                ingredientBefore = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length()-1));
+                ingredientBefore = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length() - 1));
                 ingredientsForFormula += ingredientBefore + ","; // make string ingredients for formula
                 NewIngredients.append(notUsedString);
                 NewIngredients.append("<span>");
@@ -82,7 +82,8 @@ public class FoodServiceImpl implements FoodService {
             NewIngredients.append("<span>");
             NewIngredients.append(ingredient);
             NewIngredients.append(",</span> ");
-            ingredient = ingredient.replace(ingredient, ingredient.substring(1, ingredient.length()));
+            if (ingredient.charAt(0) == ' ')
+                ingredient = ingredient.replace(ingredient, ingredient.substring(1, ingredient.length()));
             ingredientsForFormula += ingredient + ","; // make string ingredients for formula
         }
         food.setIngredients(NewIngredients.toString());
@@ -96,6 +97,7 @@ public class FoodServiceImpl implements FoodService {
 
     /**
      * Get rating 1.0 .. 10.0 in parse ingredient string
+     *
      * @param strIngredients String example "water,bread,sugar"
      * @return count Rating
      */
@@ -108,7 +110,7 @@ public class FoodServiceImpl implements FoodService {
         }
         Double Rating = 0.0;
         int count = 0;
-        for (String ingredient: strIngredients.split(",")) {
+        for (String ingredient : strIngredients.split(",")) {
             count++;
             Ingredient ingredients = ingredientDao.getIngredientByName(ingredient);
             if (ingredients != null) {
@@ -128,6 +130,9 @@ public class FoodServiceImpl implements FoodService {
                 } else {
                     Rating += 0.25;
                 }
+            }
+            {
+                Rating += 0.5;
             }
             if (count >= 6) {
                 Rating += 1.0;
@@ -165,6 +170,74 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public void update(Food food) {
+        String Ingredients = food.getIngredients();
+        String notUsedString = "";
+        StringBuffer NewIngredients = new StringBuffer();
+        String ingredientsForFormula = "";
+        String ingredientBefore = "";
+        String ingredientAfter = "";
+        if (Ingredients.contains("<span>")) {
+            Ingredients = Ingredients.replace("<span>", "");
+        }
+        if (Ingredients.contains("</span> ")) {
+            Ingredients = Ingredients.replace("</span> ", "");
+        }
+        // get all ingredient for String Ingredients
+        // maybe symbol ", . :"
+        for (String ingredient : Ingredients.split(",")) {
+            // if ingredient contains :
+            // example chocolate: cacao
+            if (ingredient.contains(":") && !ingredient.contains(".")) {
+                notUsedString = ingredient.substring(0, ingredient.lastIndexOf(": ") + 2);
+                ingredient = ingredient.replace(notUsedString, "");
+                NewIngredients.append(notUsedString);
+                NewIngredients.append("<span>");
+                NewIngredients.append(ingredient);
+                NewIngredients.append(",</span> ");
+                ingredientsForFormula += ingredient.toLowerCase() + ","; // make string ingredients for formula
+                continue;
+            }
+            if (ingredient.contains(".") && ingredient.contains(":")) {
+                ingredientBefore = ingredient.substring(0, ingredient.lastIndexOf(".") + 1);
+                ingredient = ingredient.replace(ingredientBefore, "");
+                notUsedString = ingredient.substring(0, ingredient.lastIndexOf(": ") + 1);
+                ingredient = ingredient.replace(notUsedString, "");
+                ingredientAfter = ingredient.replace(notUsedString, "");
+                NewIngredients.append("<span>");
+                NewIngredients.append(ingredientBefore);
+                NewIngredients.append("</span> ");
+                ingredientBefore = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length() - 1));
+                ingredientsForFormula += ingredientBefore + ","; // make string ingredients for formula
+                NewIngredients.append(notUsedString);
+                NewIngredients.append("<span>");
+                NewIngredients.append(ingredientAfter);
+                NewIngredients.append(",</span> ");
+                ingredientAfter = ingredientAfter.replace(ingredientAfter, ingredientAfter.substring(1, ingredientAfter.length()));
+                ingredientsForFormula += ingredientAfter + ","; // make string ingredients for formula
+                continue;
+            }
+            if (ingredient.contains(".") && !ingredient.contains(":")) {
+                ingredientBefore = ingredient.substring(0, ingredient.lastIndexOf("."));
+                ingredientBefore = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length()));
+                ingredientsForFormula += ingredientBefore; // make string ingredients for formula
+                NewIngredients.append("<span>");
+                NewIngredients.append(ingredient);
+                NewIngredients.append("</span> ");
+                break;
+            }
+            NewIngredients.append("<span>");
+            NewIngredients.append(ingredient);
+            NewIngredients.append(",</span> ");
+            if (ingredient.charAt(0) == ' ')
+                ingredient = ingredient.replace(ingredient, ingredient.substring(1, ingredient.length()));
+            ingredientsForFormula += ingredient + ","; // make string ingredients for formula
+        }
+        food.setIngredients(NewIngredients.toString());
+        try {
+            food.setRating(getRatingInString(ingredientsForFormula));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         foodDAO.update(food);
     }
 
@@ -183,7 +256,7 @@ public class FoodServiceImpl implements FoodService {
         return foodDAO.getAllFoodWithoutSubcategory();
     }
 
-    public List<String> getNameFoodForSearch(String name){
+    public List<String> getNameFoodForSearch(String name) {
         return foodDAO.getNameFoodForSearch(name);
     }
 
@@ -202,7 +275,7 @@ public class FoodServiceImpl implements FoodService {
     public Map<String, Integer> getMapBestFood(int count) {
         Map<String, Integer> foodMap = new HashMap();
         List<Food> foodList = foodDAO.getBestFoodEats(count);
-        for (Food food: foodList) {
+        for (Food food : foodList) {
             foodMap.put(food.getName(), food.getCalcFoodList().size());
         }
         return foodMap;
@@ -212,10 +285,10 @@ public class FoodServiceImpl implements FoodService {
     public String getStringBestFood(int count) {
         List<Food> foodList = foodDAO.getBestFoodEats(count);
         String result = "";
-        for (Food food: foodList) {
+        for (Food food : foodList) {
             result += "[\'" + food.getName() + "\', " + String.valueOf(food.getCalcFoodList().size()) + "], ";
         }
-        result = result.substring(0, result.length()-2);
+        result = result.substring(0, result.length() - 2);
         return result;
     }
 

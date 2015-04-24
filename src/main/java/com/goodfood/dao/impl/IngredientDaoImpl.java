@@ -9,6 +9,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by Yaroslav on 23.04.2015.
  */
@@ -38,5 +40,18 @@ public class IngredientDaoImpl implements IngredientDao {
     @Override
     public void updateIngredient(Ingredient ingredient) {
         getCurrentSession().update(ingredient);
+    }
+
+    @Override
+    public List<Ingredient> getListIngredient() {
+        return getCurrentSession()
+                .createCriteria(Ingredient.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+
+    @Override
+    public void delete(String name) {
+        getCurrentSession().delete(getIngredientByName(name));
     }
 }

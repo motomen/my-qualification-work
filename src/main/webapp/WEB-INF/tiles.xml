@@ -131,4 +131,13 @@
         <put-attribute name="adminMenu" value="/WEB-INF/template/menu/adminmenu.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/template/index/footer.jsp"/>
     </definition>
+
+    <definition name="/control/showallingredient" template="/WEB-INF/template/control/template.jsp">
+        <put-attribute name="body" value="/WEB-INF/template/control/showallingredient/body.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/template/control/showallingredient/header.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/template/menu/menu.jsp"/>
+        <put-attribute name="userMenu" value="/WEB-INF/template/menu/usermenu.jsp"/>
+        <put-attribute name="adminMenu" value="/WEB-INF/template/menu/adminmenu.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/template/index/footer.jsp"/>
+    </definition>
 </tiles-definitions>

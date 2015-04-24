@@ -36,6 +36,7 @@
                     </ul>
                 </li>
 
+                <li><a href="/control/showallingredient"><spring:message code="admin.menu.showallingredient"/> </a></li>
                 <li><a href="/j_spring_security_logout"><spring:message code="admin.menu.logout"/> </a></li>
                 <li><a href="/calc"><spring:message code="menu.calc"/></a></li>
             </ul>
