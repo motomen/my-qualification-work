@@ -17,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import java.util.Date;
 import java.util.List;
 
@@ -99,9 +100,9 @@ public class CalcController {
         Date endDate = new Date(end);
         String userName = authentication.getUserName();
         User user = userService.getUser(userName);
-        ModelAndView modelAndView = new ModelAndView("/frames/foodtable");
         List<CalcFood> calcFoods = calcService.getListCalculateByIdUser(user, beginDate, endDate);
         Double calories = calcService.getCaloriesByIdUser(user, beginDate, endDate);
+        ModelAndView modelAndView = new ModelAndView("/frames/foodtable");
         modelAndView.addObject("calories", calories);
         modelAndView.addObject("calc", calcFoods);
         logger.info("ajax get calc food");

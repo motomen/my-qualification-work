@@ -47,7 +47,9 @@ public class CalcServiceImpl implements CalcService {
         Double calories = 0.0;
         if (calcFoodList != null) {
             for (CalcFood calcs : calcFoodList) {
-                calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
+                if (calcs.getFood() != null) {
+                    calories += calcs.getFood().getKcal() * calcs.getValue() / 100.0;
+                }
             }
         } else {
             logger.error("calculate food list is empty");
