@@ -176,17 +176,21 @@ public class FoodServiceImpl implements FoodService {
         String ingredientsForFormula = "";
         String ingredientBefore = "";
         String ingredientAfter = "";
+
         if (Ingredients.contains("<span>")) {
             Ingredients = Ingredients.replace("<span>", "");
         }
+
         if (Ingredients.contains("</span> ")) {
             Ingredients = Ingredients.replace("</span> ", "");
         }
+
         // get all ingredient for String Ingredients
         // maybe symbol ", . :"
         for (String ingredient : Ingredients.split(",")) {
             // if ingredient contains :
             // example chocolate: cacao
+
             if (ingredient.contains(":") && !ingredient.contains(".")) {
                 notUsedString = ingredient.substring(0, ingredient.lastIndexOf(": ") + 2);
                 ingredient = ingredient.replace(notUsedString, "");
@@ -197,6 +201,7 @@ public class FoodServiceImpl implements FoodService {
                 ingredientsForFormula += ingredient.toLowerCase() + ","; // make string ingredients for formula
                 continue;
             }
+
             if (ingredient.contains(".") && ingredient.contains(":")) {
                 ingredientBefore = ingredient.substring(0, ingredient.lastIndexOf(".") + 1);
                 ingredient = ingredient.replace(ingredientBefore, "");
@@ -216,6 +221,7 @@ public class FoodServiceImpl implements FoodService {
                 ingredientsForFormula += ingredientAfter + ","; // make string ingredients for formula
                 continue;
             }
+
             if (ingredient.contains(".") && !ingredient.contains(":")) {
                 ingredientBefore = ingredient.substring(0, ingredient.lastIndexOf("."));
                 ingredientBefore = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length()));
@@ -225,19 +231,25 @@ public class FoodServiceImpl implements FoodService {
                 NewIngredients.append("</span> ");
                 break;
             }
+
             NewIngredients.append("<span>");
             NewIngredients.append(ingredient);
             NewIngredients.append(",</span> ");
-            if (ingredient.charAt(0) == ' ')
+
+            if (ingredient.charAt(0) == ' ') {
                 ingredient = ingredient.replace(ingredient, ingredient.substring(1, ingredient.length()));
+            }
             ingredientsForFormula += ingredient + ","; // make string ingredients for formula
         }
+
         food.setIngredients(NewIngredients.toString());
+
         try {
             food.setRating(getRatingInString(ingredientsForFormula));
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         foodDAO.update(food);
     }
 
