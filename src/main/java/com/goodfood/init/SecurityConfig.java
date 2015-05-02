@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.userDetailsService(customUserDetailsService)
-				.csrf().disable()
+			//	.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/").permitAll()
 				.antMatchers("/control/**").hasRole("ADMIN")
