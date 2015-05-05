@@ -1,5 +1,6 @@
 package com.goodfood.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -36,6 +37,7 @@ public class Food{
             joinColumns = {@JoinColumn(name="id_fk_food", referencedColumnName = "id_food_tc")},
             inverseJoinColumns = {@JoinColumn(name="id_fk_fcategory", referencedColumnName = "id_sub_category")})
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private Set<Subcategory> subcategories;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -43,6 +45,7 @@ public class Food{
             joinColumns = {@JoinColumn(name="fk_food", referencedColumnName = "id_food_tc")},
             inverseJoinColumns = {@JoinColumn(name="fk_idcomment", referencedColumnName = "id_comment")})
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<Comments> commentsList;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -51,8 +54,10 @@ public class Food{
             joinColumns = {@JoinColumn(name="fk_food", referencedColumnName = "id_food_tc")},
             inverseJoinColumns = {@JoinColumn(name="fk_calc", referencedColumnName = "id_calc")})
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<CalcFood> calcFoodList;
 
+    @JsonIgnore
     public List<CalcFood> getCalcFoodList() {
         return calcFoodList;
     }
@@ -133,6 +138,7 @@ public class Food{
         this.ingredients = ingredients;
     }
 
+    @JsonIgnore
     public Set<Subcategory> getSubcategories() {
         return subcategories;
     }
