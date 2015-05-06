@@ -72,8 +72,8 @@ public class FoodServiceImpl implements FoodService {
             }
             if (ingredient.contains(".") && !ingredient.contains(":")) {
                 ingredientBefore = ingredient.substring(0, ingredient.lastIndexOf("."));
-                ingredientBefore = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length()));
-                ingredientsForFormula += ingredientBefore; // make string ingredients for formula
+                ingredient = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length()));
+                ingredientsForFormula += ingredient; // make string ingredients for formula
                 NewIngredients.append("<span>");
                 NewIngredients.append(ingredient);
                 NewIngredients.append("</span> ");
@@ -224,8 +224,8 @@ public class FoodServiceImpl implements FoodService {
 
             if (ingredient.contains(".") && !ingredient.contains(":")) {
                 ingredientBefore = ingredient.substring(0, ingredient.lastIndexOf("."));
-                ingredientBefore = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length()));
-                ingredientsForFormula += ingredientBefore; // make string ingredients for formula
+                ingredient = ingredientBefore.replace(ingredientBefore, ingredientBefore.substring(1, ingredientBefore.length()));
+                ingredientsForFormula += ingredient; // make string ingredients for formula
                 NewIngredients.append("<span>");
                 NewIngredients.append(ingredient);
                 NewIngredients.append("</span> ");
