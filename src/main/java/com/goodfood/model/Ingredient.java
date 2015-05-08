@@ -1,5 +1,6 @@
 package com.goodfood.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -28,6 +29,7 @@ public class Ingredient {
             joinColumns = {@JoinColumn(name="fk_name_ingr", referencedColumnName = "name_ingredients")},
             inverseJoinColumns = {@JoinColumn(name="fk_type_ingr", referencedColumnName = "name_type")})
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<TypeIngredients> typeIngredientsList;
 
     @ManyToMany(fetch = FetchType.LAZY)

@@ -2,6 +2,7 @@ package com.goodfood.api;
 
 import com.goodfood.model.Ingredient;
 import com.goodfood.service.IngredientsService;
+import com.goodfood.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,10 @@ public class IngredientRestController {
     @Autowired
     private IngredientsService ingredientsService;
 
-    @RequestMapping(value = "/get/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
     public @ResponseBody
-    ResponseEntity<Ingredient> getIngredientByName(@PathVariable("name") String name) {
+    ResponseEntity<Ingredient> getIngredientByName(@RequestParam("name") String name) {
+        name = Util.Iso88591ToUtf8(name);
         Ingredient ingredient = ingredientsService.getIngredientByName(name);
         if (null == ingredient || null == name || name.trim().length() == 0) {
             logger.info("Problem with getting ingredient by name " + name);
