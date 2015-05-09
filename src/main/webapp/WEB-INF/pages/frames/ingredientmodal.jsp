@@ -21,11 +21,11 @@
         <c:out value='${ingredient.description}'/>
     </p>
 
-    <c:if test="${ingredient.bad == 0}">
+    <c:if test="${ingredient.bad == false}">
         <h3 style="color: green">Інгредієнт не шкідливий</h3>
     </c:if>
 
-    <c:if test="${ingredient.bad != 0}">
+    <c:if test="${ingredient.bad == true}">
         <h3 style="color: red">Інгредієнт шкідливий</h3>
     </c:if>
 
