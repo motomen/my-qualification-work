@@ -27,6 +27,8 @@ public class Food{
     private Double carbs;
     private Double kcal;
     private String ingredients;
+    private Boolean gmo;
+    private Boolean conservant;
 
     @Column(name = "count_calculate")
     private int countCalculate;
@@ -161,5 +163,21 @@ public class Food{
 
     public void setCountCalculate(int countCalculate) {
         this.countCalculate = countCalculate;
+    }
+
+    public Boolean getGmo() {
+        return gmo;
+    }
+
+    public void setGmo(Boolean gmo) {
+        this.gmo = gmo;
+    }
+
+    public Boolean getConservant() {
+        return conservant;
+    }
+
+    public void setConservant(Boolean conservant) {
+        this.conservant = conservant;
     }
 }
