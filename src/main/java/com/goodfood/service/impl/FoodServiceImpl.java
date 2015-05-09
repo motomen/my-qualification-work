@@ -125,7 +125,7 @@ public class FoodServiceImpl implements FoodService {
             Ingredient ingredients = ingredientDao.getIngredientByName(ingredient);
 
             if (ingredients != null) {
-                rating += 0.35;
+                rating += 0.45;
                 if (ingredients.isBad()) {
                     rating += 1.5;
                     count++;
