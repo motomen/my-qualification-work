@@ -11,6 +11,13 @@
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
     </button>
     <h4 class="modal-title" id="ingredientModalLabel"><c:out value='${ingredient.nameIngredient}'/></h4>
+    <c:if test="${ingredient.bad == false}">
+        <h3 style="color: green"> Інгредієнт не шкідливий</h3>
+    </c:if>
+
+    <c:if test="${ingredient.bad == true}">
+        <h3 style="color: red"> Інгредієнт шкідливий</h3>
+    </c:if>
 </div>
 
 <div class="modal-body">
@@ -20,14 +27,6 @@
     <p>
         <c:out value='${ingredient.description}'/>
     </p>
-
-    <c:if test="${ingredient.bad == false}">
-        <h3 style="color: green">Інгредієнт не шкідливий</h3>
-    </c:if>
-
-    <c:if test="${ingredient.bad == true}">
-        <h3 style="color: red">Інгредієнт шкідливий</h3>
-    </c:if>
 
     <c:if test="${ingredient.linkList.size() > 0}">
         <div class="row">

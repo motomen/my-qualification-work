@@ -114,16 +114,18 @@ public class FoodServiceImpl implements FoodService {
         Double rating = 0.0;
 
         int count = 0;
+        int countGood = 0; // count good ingredient
 
         for (String ingredient : strIngredients.split(",")) {
             if (ingredient.charAt(0) == ' ') {
                 ingredient = ingredient.replace(ingredient, ingredient.substring(1, ingredient.length()));
             }
 
+            countGood++;
             Ingredient ingredients = ingredientDao.getIngredientByName(ingredient);
 
             if (ingredients != null) {
-                rating += 0.25;
+                rating += 0.35;
                 if (ingredients.isBad()) {
                     rating += 1.5;
                     count++;
@@ -133,6 +135,10 @@ public class FoodServiceImpl implements FoodService {
             }
 
             if (count >= 3) {
+                rating += 1.0;
+            }
+
+            if (countGood >= 12) {
                 rating += 1.0;
             }
         }
