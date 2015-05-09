@@ -24,8 +24,7 @@ public class IngredientRestController {
     private IngredientsService ingredientsService;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public @ResponseBody
-    ResponseEntity<Ingredient> getIngredientByName(@RequestParam("name") String name) {
+    public ResponseEntity<Ingredient> getIngredientByName(@RequestParam("name") String name) {
         name = Util.Iso88591ToUtf8(name);
         Ingredient ingredient = ingredientsService.getIngredientByName(name);
         if (null == ingredient || null == name || name.trim().length() == 0) {

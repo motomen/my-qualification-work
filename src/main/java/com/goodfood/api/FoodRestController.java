@@ -23,9 +23,7 @@ public class FoodRestController {
     private FoodService foodService;
 
     @RequestMapping(value = "/get/{idFood}", method = RequestMethod.GET)
-    public
-  //  @ResponseBody
-    ResponseEntity<Food> getFoodById(@PathVariable("idFood") String idFood) {
+    public ResponseEntity<Food> getFoodById(@PathVariable("idFood") String idFood) {
         Food food = foodService.getFoodById(idFood);
         if (null == food || null == idFood || idFood.trim().length() == 0) {
             logger.info("Problem with getting food by id" + idFood);

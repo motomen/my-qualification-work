@@ -16,34 +16,25 @@
                    enctype="multipart/form-data">
             <div class="form-group">
                 <label for="namecategory"><spring:message text="Виберіть тип інгредієнтів"/> </label>
-
-                <div class="input-group">
-                    <select name="typeingredient" id="namecategory">
-                        <c:forEach items="${listTypeIngredinets}" var="item">
-                            <option><c:out value="${item.name}"/></option>
-                        </c:forEach>
-                    </select>
-                </div>
+                <select name="typeingredient" id="namecategory">
+                    <c:forEach items="${listTypeIngredinets}" var="item">
+                        <option><c:out value="${item.name}"/></option>
+                    </c:forEach>
+                </select>
             </div>
 
             <div class="col-lg-6 col-lg-offset-3">
                 <!--   <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span></strong></div> -->
                 <div class="form-group">
                     <label for="name"><spring:message text="Введіть назву інгредієнта"/> </label>
-
-                    <div class="input-group">
-                        <form:input type="text" class="form-control" id="name" path="nameIngredient"
-                                    name="nameIngredient" placeholder=""/>
-                    </div>
+                    <form:input type="text" class="form-control" id="name" path="nameIngredient"
+                                name="nameIngredient" placeholder=""/>
                 </div>
 
                 <div class="form-group">
                     <label for="description"><spring:message text="Введіть короткий опис інгредієнта "/> </label>
-
-                    <div class="input-group">
-                        <form:textarea type="text" rows="5" class="form-control" id="description" path="description"
-                                       name="description" placeholder=""/>
-                    </div>
+                    <form:textarea type="text" rows="5" class="form-control" id="description" path="description"
+                                   name="description" placeholder=""/>
                 </div>
 
                 <div class="form-group">
