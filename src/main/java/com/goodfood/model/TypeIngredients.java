@@ -23,9 +23,6 @@ public class TypeIngredients {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "bad")
-    private boolean bad;
-
     public String getName() {
         return name;
     }
@@ -50,11 +47,4 @@ public class TypeIngredients {
         this.description = description;
     }
 
-    public boolean isBad() {
-        return bad;
-    }
-
-    public void setBad(boolean bad) {
-        this.bad = bad;
-    }
 }

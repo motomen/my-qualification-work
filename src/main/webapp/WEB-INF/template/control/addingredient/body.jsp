@@ -38,6 +38,13 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="bad"><spring:message text="0-корисний, 1-не корисний "/> </label>
+                    <div class="input-group">
+                        <form:checkbox id="bad" path="bad" name="bad"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <div class="input-group">
                         <form:input path="" type="file" id="files" name="file"/>
                         <div id="imgreplace">

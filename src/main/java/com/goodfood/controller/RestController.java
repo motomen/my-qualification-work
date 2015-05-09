@@ -31,13 +31,20 @@ public class RestController {
         logger.info("get rest information about ingredient");
         name = Util.Iso88591ToUtf8(name);
         name = Util.replaceSpecialSymbolOn0(name);
+
+        if (name.charAt(0) == ' ') {
+            name = name.replace(name, name.substring(1, name.length()-1));
+        }
+
         Ingredient ingredient = ingredientsService.getIngredientByName(name.toLowerCase());
         ModelAndView modelAndView = new ModelAndView("/frames/ingredientmodal");
+
         if (ingredient != null) {
             modelAndView.addObject("ingredient", ingredient);
         } else {
             modelAndView = new ModelAndView("/frames/notfound");
         }
+
         return modelAndView;
     }
 }

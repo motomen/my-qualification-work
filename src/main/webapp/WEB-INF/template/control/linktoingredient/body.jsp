@@ -37,32 +37,4 @@
     </div>
 </div>
 
-<%--<div class="row">--%>
-<%--<div class="col-lg-3 well">--%>
-<%--<h2><c:out value='${ingredient.nameIngredient}'/></h2>--%>
-<%--<div class="row">--%>
-<%--<img class="img-thumbnail resize"--%>
-<%--src="data:image/jpg;base64,<c:out value='${ingredient.photo}'/>">--%>
-<%--</div>--%>
-<%--<div class="row">--%>
-<%--<c:out value='${ingredient.description}'/>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--<c:if test="${linkList.size() > 0}">--%>
-<%--<div class="row">--%>
-<%--<h2>Список посиланнь</h2>--%>
-
-<%--<div class="col-lg-6 col-lg-offset-3 well">--%>
-<%--<c:forEach items="${linkList}" var="item">--%>
-<%--<a href="<c:out value="${item.address}"/>"> <c:out value="${item.name}"/> </a>--%>
-<%--<br>--%>
-<%--</c:forEach>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</c:if>--%>
-<%--<c:if test="${linkList.size() == 0}">--%>
-<%--<h2>Немає посиланнь</h2>--%>
-<%--</c:if>--%>
-<%--</div>--%>
-
 

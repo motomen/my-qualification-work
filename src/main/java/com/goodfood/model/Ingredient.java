@@ -23,6 +23,9 @@ public class Ingredient {
 
     private String description;
 
+    @Column(name = "bad")
+    private boolean bad;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "type_ingr_to_ingredient",
@@ -78,5 +81,13 @@ public class Ingredient {
 
     public void setLinkList(List<Link> linkList) {
         this.linkList = linkList;
+    }
+
+    public boolean isBad() {
+        return bad;
+    }
+
+    public void setBad(boolean bad) {
+        this.bad = bad;
     }
 }

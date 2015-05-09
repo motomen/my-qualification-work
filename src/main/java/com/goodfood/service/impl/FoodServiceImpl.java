@@ -102,50 +102,50 @@ public class FoodServiceImpl implements FoodService {
      * @return count Rating
      */
     private Double getRatingInString(String strIngredients) throws Exception {
+
         if (strIngredients.length() == 0) {
             throw new Exception("string ingredients must be not empty");
         }
+
         if (!strIngredients.contains(",")) { // if list ingredients consist one ingredient
             return 1.0;
         }
-        Double Rating = 0.0;
+
+        Double rating = 0.0;
+
         int count = 0;
+
         for (String ingredient : strIngredients.split(",")) {
-            count++;
+            if (ingredient.charAt(0) == ' ') {
+                ingredient = ingredient.replace(ingredient, ingredient.substring(1, ingredient.length()));
+            }
+
             Ingredient ingredients = ingredientDao.getIngredientByName(ingredient);
+
             if (ingredients != null) {
-                List<TypeIngredients> typeIngredientsList = ingredients.getTypeIngredientsList();
-                if (typeIngredientsList != null) {
-                    if (typeIngredientsList.size() > 2 && typeIngredientsList.size() != 1) {
-                        Rating += 1.0;
-                    } else {
-                        if (typeIngredientsList.size() == 1) {
-                            if (typeIngredientsList.get(0).isBad()) {
-                                Rating += 1.0;
-                            } else {
-                                Rating += 0.25;
-                            }
-                        }
-                    }
-                } else {
-                    Rating += 0.25;
+                rating += 0.25;
+                if (ingredients.isBad()) {
+                    rating += 1.5;
+                    count++;
                 }
+            } else {
+                rating += 0.35;
             }
-            {
-                Rating += 0.5;
-            }
-            if (count >= 6) {
-                Rating += 1.0;
+
+            if (count >= 3) {
+                rating += 1.0;
             }
         }
 
-        if (Rating == 0.0) {
-            Rating = 1.0;
+        if (rating < 1.0) {
+            rating = 1.0;
         }
-        if (Rating > 10.0) {
-            Rating = 10.0;
+
+        if (rating > 10.0) {
+            rating = 10.0;
         }
-        return Math.floor(Rating);
+
+        return Math.floor(rating);
     }
 
     @Override
