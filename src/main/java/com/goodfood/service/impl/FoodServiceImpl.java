@@ -134,7 +134,7 @@ public class FoodServiceImpl implements FoodService {
                 rating += 0.45;
             }
 
-            if (count >= 3) {
+            if (count >= 4) {
                 rating += 1.0;
             }
 
