@@ -61,7 +61,7 @@
             </script>
         </sec:authorize>
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-2">
         <h5>Калорії: ${food.kcal}</h5>
 
         <div id="rating">
@@ -112,10 +112,16 @@
             </div>
         </sec:authorize>
     </div>
-</div>
+    <div class="col-lg-3">
+        <h4>Інгредієнти</h4>
 
-<!-- Main information fbout food -->
-<div class="row  well">
+        <p class="highlight">
+            ${food.ingredients}
+        </p>
+        <button type="button" style="display: none;" id="ingredientModal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ingModal">
+            Launch demo modal
+        </button>
+    </div>
     <div class="col-lg-4 block-table">
         <table class="table table-hover">
             <caption>Харчова цінність</caption>
@@ -131,18 +137,11 @@
             </tr>
         </table>
     </div>
-    <div class="col-lg-6">
-        <h4>Інгредієнти</h4>
-
-        <p class="highlight">
-            ${food.ingredients}
-        </p>
-        <button type="button" style="display: none;" id="ingredientModal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ingModal">
-            Launch demo modal
-        </button>
-    </div>
+    <%--<div>--%>
+        <%--<h4>Добавки</h4>--%>
+    <%--</div>--%>
 </div>
-<!-- End main information -->
+
 <!-- Modal -->
 <div class="modal fade" id="ingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
