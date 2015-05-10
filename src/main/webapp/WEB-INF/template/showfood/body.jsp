@@ -223,6 +223,30 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-3 col-lg-offset-1">
+            <c:if test="${subcategory.food.size() > 1}">
+                <h3>Схожі продукти з підкатегорії "${subcategory.name}"</h3>
+                <c:forEach items="${subcategory.food}" var="item">
+                    <c:if test="${(item.idFood.compareTo(food.idFood) != 0) && (item.rating == food.rating)}">
+                        <div class="block-foods post">
+                            <a href="${pageContext.request.contextPath}/showfood/${item.idFood}">
+                                <h3 class="title"><c:out value="${item.name}"/></h3>
+
+                                <div class="con">
+                                    <img class="img-thumbnail resize" name="myImg"
+                                         src="data:image/jpg;base64,<c:out value='${item.photo}'/>">
+                                    <img src="${pageContext.request.contextPath}/resources/images/<c:out value="${item.rating}"/>.jpg"
+                                         class="tops">
+                                </div>
+                            </a>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </c:if>
+            <c:if test="${subcategory.food.size() == 1}">
+                <h3>Схожих продуктів немає</h3>
+            </c:if>
+        </div>
     </div>
 </c:if>
 

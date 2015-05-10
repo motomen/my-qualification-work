@@ -1,9 +1,12 @@
 package com.goodfood.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,7 +30,7 @@ public class Subcategory implements Serializable {
     @JsonIgnore
     private Category category;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "food_to_category",
             joinColumns = {@JoinColumn(name="id_fk_fcategory", referencedColumnName = "id_sub_category")},
@@ -35,7 +38,8 @@ public class Subcategory implements Serializable {
 
     )
     @JsonIgnore
-    private Set<Food> food;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Food> food;
 
     public int getIdSubCategory() {
         return idSubCategory;
@@ -69,11 +73,11 @@ public class Subcategory implements Serializable {
         this.category = category;
     }
 
-    public Set<Food> getFood() {
+    public List<Food> getFood() {
         return food;
     }
 
-    public void setFood(Set<Food> food) {
+    public void setFood(List<Food> food) {
         this.food = food;
     }
 }

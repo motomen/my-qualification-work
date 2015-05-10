@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -123,6 +124,8 @@ public class FoodController {
         model.addAttribute("count", commentsList.size());
         model.addAttribute("food", food);
         model.addAttribute("calcFood", new CalcFood());
+        Subcategory subcategory = food.getSubcategories().iterator().next();
+        model.addAttribute("subcategory", subcategory);
         Double val = ratingService.getRatingByIdFood(idFood);
         logger.info("show food information with id = (" + food.getIdFood() + ") for user = " + userName);
         model.addAttribute("ratginFood", val);
