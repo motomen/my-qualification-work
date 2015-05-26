@@ -1,6 +1,7 @@
 package com.goodfood.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -27,6 +28,7 @@ public class Category implements Serializable{
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @JsonManagedReference
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<Subcategory> subCategories;
 
     public int getIdCategory() {
